@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt 
-from models import *
+from lib.models import *
 #chemical potentials are imported in models
 #numpy imported chemical potentials
 

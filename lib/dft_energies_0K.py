@@ -40,3 +40,6 @@ E_LSCF_bulk_SrO_vac = E_LSCF_bulk_SrO_vac * ev2J_p_mol #J/mol
 
 E_LSCF_bulk = -9.01712962373595E+04 #eV
 E_LSCF_bulk = E_LSCF_bulk * ev2J_p_mol #J/mol
+
+E_LSCF_hydroxilated = -9.63495122688081E+04 #eV
+E_LSCF_hydroxilated *= ev2J_p_mol

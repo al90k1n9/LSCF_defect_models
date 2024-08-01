@@ -1,6 +1,6 @@
-from chemical_potentials import *
-from dft_energies_0K import * #importing all the values of dft energies
-from auxilliary_functions import *
+from lib.chemical_potentials import *
+from lib.dft_energies_0K import * #importing all the values of dft energies
+from lib.auxilliary_functions import *
 
 
 

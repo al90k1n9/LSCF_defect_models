@@ -1,6 +1,7 @@
 N_avagadro = 6.0223*10**23
 ev2J = 1.60219*10**(-19)
 ev2J_p_mol = ev2J*N_avagadro
+Ha2eV = 27.2114
 
 E_LSCF_slab_Sr_vac_surf = -9.37015381643914E+04 #in eV
 E_LSCF_slab_Sr_vac_surf = E_LSCF_slab_Sr_vac_surf * ev2J_p_mol #in J/mol
@@ -43,3 +44,11 @@ E_LSCF_bulk = E_LSCF_bulk * ev2J_p_mol #J/mol
 
 E_LSCF_hydroxilated = -9.63495122688081E+04 #eV
 E_LSCF_hydroxilated *= ev2J_p_mol
+
+E_LSCF_bulk_hydrogenated = -9.45693723052703E+04 #eV
+E_LSCF_bulk_hydrogenated *= ev2J_p_mol #J/mol
+
+E_LSCF_double_hydrogenated = -3446.0591197928 * Ha2eV #NOT CONVERGED YET
+E_LSCF_double_hydrogenated *= ev2J_p_mol
+
+E_LSCF_single_hydrogenated = -9.37371603918622E+04 * ev2J_p_mol #NOT CONVERGED YET

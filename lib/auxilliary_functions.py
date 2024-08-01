@@ -1,4 +1,54 @@
 import numpy as np
+R = 8.314 #J.K.mol-1
+
+def pH2_giver(T,p_H2O, p_O2):
+    #delta mu calculation
+    T_0 = 298 #K
+    p_0 = 1 #bar
+
+
+    cp_O2 = 29.4 #K J/mol
+    delta_hf298_O2 = 0 #kJ.mol-1
+    s0_O2 = 205.2 #J.mol-1.K
+
+
+    cp_H2 = 28.8 #K J/mol
+    delta_hf298_H2 = 0 #kJ.mol-1
+    s0_H2O = 130.680 #J.mol-1.K
+
+    cp_H2O = 33.6 #K J/mol
+    delta_hf298_H2O = -241.826 #kJ.mol-1
+    s0_H2O = 188.835 #J.mol-1.K-1
+
+    t=T/1000
+    h_mat = np.array([t,  t**2/2, t**3/3, t**4/4, -1/t, 1, 0, -1])
+    s_mat = np.array([np.log(t), t,  t**2/2.0,  t**3/3, -1./(2 * t**2), 0, 1, 0])
+    if T<1000 and T>=700:
+        shomate_coeffs = [[30.09200, 6.832514, 6.793435, -2.534480,0.082139, -250.8810, 223.3967, -241.8264],
+                            [33.066178, -11.363417, 11.432816, -2.772874, -0.158558, -9.980797, 172.707974, 0.0],
+                            [30.03235, 8.772972, -3.988133, 0.788313, -0.741599, -11.32468, 236.1663, 0.0]]
+        shomate_coeffs = np.asarray(shomate_coeffs)
+
+    elif T>=1000 and T<1700:
+        shomate_coeffs = [[30.09200, 6.832514, 6.793435, -2.534480,0.082139, -250.8810, 223.3967, -241.8264],
+                            [18.563083, 12.257357, -2.859786, 0.268238, 1.977990, -1.147438, 156.288133, 0.0],
+                            [30.03235, 8.772972, -3.988133, 0.788313, -0.741599, -11.32468, 236.1663, 0.0]]
+        shomate_coeffs = np.asarray(shomate_coeffs)
+    else:
+        return "temperature out of range"
+    h = np.dot(shomate_coeffs, h_mat * 1000) #J/mol
+    s = np.dot(shomate_coeffs, s_mat) #J K /mol
+
+    stoichiometry = np.asarray([1,-1,-1/2])
+    h = h * stoichiometry
+    s = s * stoichiometry
+    
+
+    hf = np.sum(h) + delta_hf298_H2O * 1000
+    gf = hf - T * np.sum(s)
+
+    ph2=p_H2O/np.sqrt(p_O2)*np.exp(gf/(R*T))
+    return ph2
 
 def cube_root_complex(z):
     #python has problems taking powers of complex functions. so the necessary function, here

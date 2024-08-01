@@ -33,6 +33,7 @@ plt_element_case5 = ax.plot(T_range, ylist, label ="case 5")
 ylist = case6(T_range, x=0.4)
 plt_element_case6 = ax.plot(T_range, ylist, label ="case 6")
 
+ax.set_title("Dry air conditions")
 ax.set_xlabel("T[K]")
 ax.set_ylabel("[V\'\'\'$_{La}$]")
 

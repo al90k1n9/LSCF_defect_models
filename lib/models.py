@@ -59,10 +59,8 @@ def case3(T_range, x=0.4):
         a = (1-(1/K))
         b = -3-x
         c = 3*x
-        delta = b**2 - 4*c*a
-        solution1 = (-b + np.sqrt(delta))/(2*a)
-        solution2 = (-b - np.sqrt(delta))/(2*a)
-        V_Sr.append(solution2)
+
+        V_Sr.append(quadratic_model(a,b,c,x))
     return V_Sr
 
 def case4(T_range, x=0.4):
@@ -75,10 +73,8 @@ def case4(T_range, x=0.4):
         a = (1-(1/K))
         b = -3-x
         c = 3*x
-        delta = b**2 - 4*c*a
-        solution1 = (-b + np.sqrt(delta))/(2*a)
-        solution2 = (-b - np.sqrt(delta))/(2*a)
-        V_Sr.append(solution2)
+
+        V_Sr.append(quadratic_model(a,b,c,x))
     return V_Sr
 
 def case5(T_range, x=0.4, p_O2 = 0.21, P=1):
@@ -112,13 +108,5 @@ def case6(T_range, x= 0.4):
         a = (1-(1/K))
         b = -3-x
         c = 3*x
-        delta = b**2 - 4*c*a
-        solution1 = (-b + np.sqrt(delta))/(2*a)
-        solution2 = (-b - np.sqrt(delta))/(2*a)
-        if solution1<=x and solution1>=0:
-            V_Sr.append(solution1)
-        elif solution2 <=x and solution2>=0:
-            V_Sr.append(solution2)
-        else:
-            V_Sr.append(2)
+        V_Sr.append(quadratic_model(a,b,c,x))
     return V_Sr

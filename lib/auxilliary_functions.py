@@ -84,3 +84,14 @@ def cubic_model(a,b,c,d):
     solutions_minus = np.dot(xi_powers, terms_minus)
     #print(solutions_minus[0] -solutions_plus[0], "difference in solutions ", solutions_minus[0])
     return solutions_plus
+
+def quadratic_model(a,b,c,x=0.4):
+    delta = b**2 - 4*c*a
+    solution1 = (-b + np.sqrt(delta))/(2*a)
+    solution2 = (-b - np.sqrt(delta))/(2*a)
+    if solution1<=x and solution1>=0:
+        return solution1
+    elif solution2 <=x and solution2>=0:
+        return solution2
+    else:
+        return 2

@@ -1,4 +1,5 @@
 import numpy as np
+N_avagadro = 6.0223*10**23
 R = 8.314 #J.K.mol-1
 
 def pH2_giver(T,p_H2O, p_O2):
@@ -95,3 +96,11 @@ def quadratic_model(a,b,c,x=0.4):
         return solution2
     else:
         return 2
+    
+kb = 1.380649 * 10**(-23) #J/K
+m_H2O = 18.01528 / (N_avagadro*1000) #in kg
+hbar = 1.054571817*10**(-34) #reduced planck's constant in J.s
+def surface_coverage_H2O(T, x_H2O, E_ads, P):
+    P0 = kb*T*(m_H2O*kb*T/(2*np.pi*hbar**2))**(3./2)*np.exp(E_ads/(N_avagadro * kb*T))
+    theta = x_H2O * P * 101325/(x_H2O * P * 101325 + P0)
+    return theta

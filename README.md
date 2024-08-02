@@ -16,6 +16,17 @@ Thermodynamic defect models to extrapolate amount of SrO formed at operating con
 
 ### Defect model types
 
+$`\Delta _{r} G(T,p) = 0 = \Delta _r G^{ref}(T,p) + RT ln (K)`$ for case 1 and 3.
+$` \Delta _r G^{ref}(T,p)`$ is calcualted from formation energies (`dft_energies_OK.py` file in `./lib/`), by essentially replacing energies of gases by their respective chemical potentials at a given temperature $`T`$. 
+For case 1
+
+$`
+\begin{align*}
+K = \frac{\left[V^{'''}_{La}\right] \cdot \left[ B^{\bullet}_{B} \right ]^{2} }{\left[Sr^{'}_{La}\right] \cdot \left[B^{X}_{B}\right]^{2} \cdot \sqrt{\frac{p_{O_2}}{p}}} $= exp\left(\frac{-\Delta _r  G^{ref}}{RT}\right)
+\end{align*}
+`$
+
+  
 ## Humid air conditions
 ### Different cases
 

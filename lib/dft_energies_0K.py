@@ -21,6 +21,8 @@ E_DFT_H2O *= ev2J_p_mol #J/mol
 E_DFT_H2 = -3.17817399567036E+01  #in ev without zero point energy corrention at T=0K
 E_DFT_H2 = E_DFT_H2 * ev2J_p_mol #in J/mol
 
+E_SrOH2_bulk = -7.03942962521693E+03 * ev2J_p_mol/4 #the system has four molecules and therefore the factor 1/4
+
 E_LSCF_slab_Sr_vac_bulk = -94551.83065 #eV
 E_LSCF_slab_Sr_vac_bulk = E_LSCF_slab_Sr_vac_bulk * ev2J_p_mol #J/mol
 

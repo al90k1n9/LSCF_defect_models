@@ -43,3 +43,9 @@ def case4(T, p_O2 = 0.21, p_H2O = 0.08, P=1):
     mu_H2O = cp_H2O(T, E_DFT_H2O)
     delta_G = ((E_LSCF_single_hydrogenated + 2* E_SrOH2_bulk + mu_H2) - (E_LSCF_slab + 4*mu_H2O))/2
     return (delta_E/ev2J_p_mol, delta_G/ev2J_p_mol)
+
+def case5(T, p_O2 = 0.21, p_H2O = 0.08, P=1):
+    delta_E = ((E_LSCF_slab_Sr_surf_O_sub_surf + 2*E_SrOH2_bulk) - (E_LSCF_slab + 2*E_DFT_H2O))/2
+    mu_H2O = cp_H2O(T, E_DFT_H2O)
+    delta_G = ((E_LSCF_slab_Sr_surf_O_sub_surf + 2*E_SrOH2_bulk) - (E_LSCF_slab + 2*mu_H2O))/2
+    return (delta_E/ev2J_p_mol, delta_G/ev2J_p_mol)

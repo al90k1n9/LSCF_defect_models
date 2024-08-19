@@ -27,6 +27,9 @@ V_Sr = case3(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1)
 ax.plot(T_range, V_Sr, label="$\\frac{1}{2}$H$_{2(g)}$+[H]$_{La}^{''}$")
 
 
+V_Sr = case4(T_range, x, p_O2, p_H2O, P=1)
+ax.plot(T_range, V_Sr, label="H$_{2(g)}$, Sr$_{bulk}$")
+
 #===================================================
 #PLOTTING OPTIONS
 ax.set_title("Humid conditions")
@@ -56,3 +59,5 @@ secyax.set_ylabel("blocked active surface area / total active surface area")
 
 
 plt.show()
+
+print(case4(1000))

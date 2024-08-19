@@ -36,6 +36,7 @@ K = \frac{\left[V^{'''}_{La}\right] \cdot \left[ B^{\bullet}_{B} \right ]^{2} }{
 | 2            | Slab        | H<sub>2</sub>O<sub>(g)</sub>   |Surf            | $` Sr^{'}_{La} + \frac{1}{2} H_{2}O_{(g)} = SrO_{(s)} + (2H^+)^{'}_{La} `$                                             |
 | 3            | Slab        | H<sub>2</sub>O<sub>(g)</sub>   | Surf           |  $` Sr^{'}_{La} + \frac{1}{2} H_{2}O_{(g)} + B^{X}_{B} = SrO_{(s)} + (H^+)^{''}_{La} +  \frac{1}{2} H_{2(g)} + B^{\bullet}_{B} `$ |
 
+| 4         | Slab        | H<sub>2</sub>O<sub>(g)</sub>   | Bulk           |  $` Sr^{'}_{La} + \frac{1}{2} H_{2}O_{(g)} + B^{X}_{B} = SrO_{(s)} + (H^+)^{''}_{La} +  \frac{1}{2} H_{2(g)} + B^{\bullet}_{B} `$ |
 ### Defect model types
 
 

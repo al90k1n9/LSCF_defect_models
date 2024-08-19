@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from lib.humid_models import *
+from lib.SrO_humid_models import *
 
 x = 0.4 #molar fraction of Sr
 x_O2 = 0.21

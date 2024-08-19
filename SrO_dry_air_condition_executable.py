@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt 
-from lib.models import *
+from lib.SrO_dry_air_models import *
 #chemical potentials are imported in models
 #numpy imported chemical potentials
 

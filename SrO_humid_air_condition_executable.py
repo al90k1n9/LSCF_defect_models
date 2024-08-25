@@ -59,5 +59,3 @@ secyax.set_ylabel("blocked active surface area / total active surface area")
 
 
 plt.show()
-
-print(case4(1000))

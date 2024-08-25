@@ -1,6 +1,7 @@
 from lib.chemical_potentials import *
 from lib.dft_energies_0K import * #importing all the values of dft energies
 from lib.auxilliary_functions import *
+from H_vibration import vibrational_correction_term
 
 def case1(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
     V_Sr= []
@@ -11,7 +12,7 @@ def case1(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
         p_H2 = pH2_giver(T, p_H2O, p_O2)
         mu_H2 = cp_H2(T, E_DFT_H2)
 
-        delta_G = (E_LSCF_slab_Sr_vac_surf + 2*E_SrO + 2*mu_H2- (E_LSCF_slab + 2*mu_H2O))/2
+        delta_G = (E_LSCF_slab_Sr_vac_surf + 2*E_SrO + 2*mu_H2- (E_LSCF_slab + 2*mu_H2O))/2 - vibrational_correction_term(T)
         if T == 1000: print("delta G at T = 1000", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T))
 

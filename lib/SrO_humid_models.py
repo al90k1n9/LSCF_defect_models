@@ -12,7 +12,7 @@ def case1(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
         p_H2 = pH2_giver(T, p_H2O, p_O2)
         mu_H2 = cp_H2(T, E_DFT_H2)
 
-        delta_G = (E_LSCF_slab_Sr_vac_surf + 2*E_SrO + 2*mu_H2- (E_LSCF_slab + 2*mu_H2O))/2 - vibrational_correction_term(T)
+        delta_G = (E_LSCF_slab_Sr_vac_surf + 2*E_SrO + 2*mu_H2- (E_LSCF_slab + 2*mu_H2O))/2
         if T == 1000: print("delta G at T = 1000", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T))
 
@@ -35,7 +35,7 @@ def case2(T_range, x=0.4, p_H2O = 0.08, P=1):
     delta_E = (2*E_SrO + E_LSCF_double_hydrogenated - (E_LSCF_slab+ 2 * E_DFT_H2O)) / 2
     for T in T_range:
         mu_H2O = cp_H2O(T, E_DFT_H2O)
-        delta_G = (2*E_SrO + E_LSCF_double_hydrogenated - (E_LSCF_slab+ 2 * mu_H2O)) / 2
+        delta_G = (2*E_SrO + E_LSCF_double_hydrogenated - (E_LSCF_slab+ 2 * mu_H2O)) / 2 - vibrational_correction_term(T)
         K = np.exp(-delta_G/(R*T)) 
         N = K * p_H2O/P 
         V_Sr.append(N/(1+N)*x)

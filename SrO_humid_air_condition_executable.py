@@ -20,8 +20,8 @@ V_Sr = case1(T_range, x, p_O2, p_H2O, P=1)
 #keep in mind that the pH2 is determined inside the case1 function by pO2 and pH2O by considering the equilibrium between these three gases.
 ax.plot(T_range, V_Sr, label="H$_{2(g)}$")
 
-V_Sr = case2(np.arange(400,1400), x, p_H2O, P=1)
-ax.plot(np.arange(400,1400), V_Sr, label="[2H]$_{La}^{'}$")
+V_Sr = case2(T_range, x, p_H2O, P=1)
+ax.plot(T_range, V_Sr, label="[2H]$_{La}^{'}$")
 
 V_Sr = case3(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1)
 ax.plot(T_range, V_Sr, label="$\\frac{1}{2}$H$_{2(g)}$+[H]$_{La}^{''}$")
@@ -37,7 +37,7 @@ ax.set_xlabel("T[K]")
 ax.set_ylabel("[V\'\'\'$_{La}$]")
 
 
-ax.set_xlim(left=400,right=T_upper_bound)
+ax.set_xlim(left=T_lower_bound,right=T_upper_bound)
 ax.set_ylim(0,)
 ax.legend(loc="upper right")
 

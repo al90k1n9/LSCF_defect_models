@@ -57,10 +57,11 @@ wave_number = f/299792458
 def vibrational_correction_term(T):
     Z= 0
     beta = 1/(kB*T)
+    #print("order n\t\t Z \t\t\t nth term \t\t F")
     for n in range(0,4):
         Z += np.exp(-hbar * beta*omega * (n+0.5))
         #F_vib = -kB * T * np.log(Z)
-        #print(n,"\t\t", Z,"\t\t", np.exp(-hbar * beta*omega * (n+0.5)),"\t", F/ev2J)
+        #print(n,"\t\t", Z,"\t\t", np.exp(-hbar * beta*omega * (n+0.5)),"\t", F_vib/ev2J)
 
     F_vib = -kB * T * np.log(Z)*N_avagadro #for the sake of consistency keeping every quantity in Joules per mol units
     return F_vib

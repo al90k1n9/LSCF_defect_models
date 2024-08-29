@@ -58,8 +58,7 @@ E_LSCF_bulk_hydrogenated *= ev2J_p_mol #J/mol
 E_LSCF_double_hydrogenated = -3446.0591197928 * Ha2eV #NOT CONVERGED YET
 E_LSCF_double_hydrogenated *= ev2J_p_mol
 
-E_LSCF_single_hydrogenated = -9.37371603918622E+04 * ev2J_p_mol #NOT CONVERGED YET
-
+E_LSCF_single_hydrogenated = -9.37371667638564E+04 * ev2J_p_mol 
 #=========================================================================================================================
 #Vibrational properties of hydrogen bonds in single hydrogenated LSCF slab
 #=========================================================================================================================

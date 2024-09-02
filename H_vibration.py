@@ -70,11 +70,11 @@ def vibrational_correction_term(T):
 
 
 if __name__ == "__main__":
-    print(first_bond_length)
-    print(second_bond_length)
-    print(bond_length, "in A")
+    print("first OH bond length in A", first_bond_length)
+    print("second OH bond length in A", second_bond_length)
+    print("average of the above two", bond_length, "in A")
 
-    print(force_constant_k, "in eV/A^2")
+    print("force constant k", force_constant_k, "eV/A^2")
     fig1, ax1 = plt.subplots(layout="constrained")
     ax1.plot(delta_bond_lengths_angstrom, single_hydrogenation_configs, marker="s", ls="")
 
@@ -87,8 +87,8 @@ if __name__ == "__main__":
     #plt.ylim(0,)
 
     print("\n\nDetermination of vibrational correction term to the chemical potential")
-    print("spring constant k of H2 in eV/A^2", force_constant_k)
-    print("spring constant k of H2 in J/m^2",k)
+    print("spring constant k of OH in eV/A^2", force_constant_k)
+    print("spring constant k of OH in J/m^2",k)
     print("reduced mass of OH in kg: ", reduced_mass)
     print("harmonic frequncy w0 in m-1: ",wave_number)
     #print("F correction to the chemical potential in eV: ", F_vib/ev2J_p_mol)

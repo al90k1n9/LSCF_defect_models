@@ -6,7 +6,7 @@ x_O2 = 0.21
 x_H2O = 0.08
 P = 1 #atm
 T_lower_bound = 700
-T_upper_bound = 1000
+T_upper_bound = 1400
 T_range = np.arange(T_lower_bound,T_upper_bound,1) #K
 #numpy imported chemical potentials, which is imported in humid models
 

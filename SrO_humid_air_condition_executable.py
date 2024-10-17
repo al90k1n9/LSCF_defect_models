@@ -1,12 +1,13 @@
 import matplotlib.pyplot as plt
 from lib.SrO_humid_models import *
+from matplotlib.ticker import  AutoMinorLocator
 
 x = 0.4 #molar fraction of Sr
 x_O2 = 0.21
 x_H2O = 0.08
 P = 1 #atm
 T_lower_bound = 700
-T_upper_bound = 1400
+T_upper_bound = 1000
 T_range = np.arange(T_lower_bound,T_upper_bound,1) #K
 #numpy imported chemical potentials, which is imported in humid models
 
@@ -40,6 +41,9 @@ ax.set_ylabel("[V\'\'\'$_{La}$]")
 ax.set_xlim(left=T_lower_bound,right=T_upper_bound)
 ax.set_ylim(0,)
 ax.legend(loc="upper right")
+ax.xaxis.set_minor_locator(AutoMinorLocator())
+ax.yaxis.set_minor_locator(AutoMinorLocator())
+
 
 bohr2m = 5.29177e-11
 a_LSCF = 1.46415980775980e+01 * bohr2m

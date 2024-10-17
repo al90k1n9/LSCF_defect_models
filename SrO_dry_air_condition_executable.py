@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 from lib.SrO_dry_air_models import *
 #chemical potentials are imported in models
 #numpy imported chemical potentials
+from matplotlib.ticker import  AutoMinorLocator
 
 x = 0.4 #molar fraction of Sr
 x_O2 = 0.21
@@ -45,7 +46,7 @@ ax.set_xlabel("T[K]")
 ax.set_ylabel("[V\'\'\'$_{La}$]")
 
 
-ax2.set_title("Dry air conditions")
+#ax2.set_title("Dry air conditions")
 ax2.set_xlabel("T[K]")
 ax2.set_ylabel("${\Delta}G$[eV]")
 
@@ -53,10 +54,14 @@ ax2.set_ylabel("${\Delta}G$[eV]")
 ax.set_xlim(left=T_lower_bound,right=T_upper_bound)
 ax.set_ylim(0,)
 ax.legend(loc="upper left")
+ax.xaxis.set_minor_locator(AutoMinorLocator())
+ax.yaxis.set_minor_locator(AutoMinorLocator())
 
 ax2.set_xlim(left=T_lower_bound,right=T_upper_bound)
 ax2.set_ylim(0,)
-ax2.legend(loc="upper left")
+ax2.legend(loc="lower right")
+ax2.xaxis.set_minor_locator(AutoMinorLocator())
+ax2.yaxis.set_minor_locator(AutoMinorLocator())
 
 
 bohr2m = 5.29177e-11

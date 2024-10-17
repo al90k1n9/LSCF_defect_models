@@ -55,10 +55,16 @@ E_ads = (E_LSCF_hydroxilated - (E_LSCF_slab + 2* E_DFT_H2O))/2 #J/mol
 E_LSCF_bulk_hydrogenated = -9.45693723052703E+04 #eV
 E_LSCF_bulk_hydrogenated *= ev2J_p_mol #J/mol
 
-E_LSCF_double_hydrogenated = -3446.0591197928 * Ha2eV #NOT CONVERGED YET
+E_LSCF_double_hydrogenated = -9.37728973049342E+04
 E_LSCF_double_hydrogenated *= ev2J_p_mol
 
 E_LSCF_single_hydrogenated = -9.37371667638564E+04 * ev2J_p_mol 
+
+
+double_hydrogenation_energy = (E_LSCF_double_hydrogenated - (E_LSCF_slab_Sr_vac_surf + 2 * E_DFT_H2))/2
+
+singe_hydrogenation_energy = (E_LSCF_single_hydrogenated-(E_LSCF_slab_Sr_vac_surf + E_DFT_H2))/2
+
 #=========================================================================================================================
 #Vibrational properties of hydrogen bonds in single hydrogenated LSCF slab
 #=========================================================================================================================

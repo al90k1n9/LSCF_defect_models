@@ -95,6 +95,7 @@ def quadratic_model(a,b,c,x=0.4):
     elif solution2 <=x and solution2>=0:
         return solution2
     else:
+        print(solution1, solution2)
         return 2
     
 kb = 1.380649 * 10**(-23) #J/K

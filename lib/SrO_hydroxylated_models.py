@@ -8,7 +8,7 @@ def case1(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
     print(delta_E/ev2J_p_mol, " of case 1")
     for T in T_range:
         p_H2 = pH2_giver(T, p_H2O, p_O2)
-        mu_H2 = cp_H2(T, E_DFT_H2)
+        mu_H2 = cp_H2(T, E_DFT_H2, P=P)
 
         delta_G = (E_LSCF_slab_Sr_vac_surf + 2*E_SrO + 2*mu_H2- E_LSCF_hydroxilated )/2
         theta = surface_coverage_H2O(T,p_H2O/P, E_ads, P)
@@ -39,7 +39,7 @@ def case3(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
     print(delta_E/ev2J_p_mol, " of case 3")
     for T in T_range:
         p_H2 = pH2_giver(T, p_H2O, p_O2)
-        mu_H2 = cp_H2(T, E_DFT_H2)
+        mu_H2 = cp_H2(T, E_DFT_H2, P=P)
 
         delta_G = (E_LSCF_single_hydrogenated + 2*E_SrO + mu_H2- E_LSCF_hydroxilated )/2
 

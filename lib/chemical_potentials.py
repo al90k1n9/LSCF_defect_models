@@ -8,7 +8,7 @@ ev2J = 1.60219*10**(-19)
 ev2J_p_mol = ev2J*N_avagadro
 R = 8.314 #J.K.mol-1
 
-def cp_O2(T, E_DFT_O2, p=1):
+def cp_O2(T, E_DFT_O2, P=1):
     #chemical potential of a pure O2 system. There is no notion of partial pressure here.
     T_0 = 298 #K
     cp = 4.83*10**-23 #K J/atom
@@ -16,7 +16,7 @@ def cp_O2(T, E_DFT_O2, p=1):
     delta_h0 = 8700 #J.mol-1
     s0 = 205 #J.mol-1.K-1
 
-    delta_mu_O2 = delta_h0 + cp* N_avagadro*(T-T_0) - T*s0 - T*cp*N_avagadro*np.log(T/T_0) + T*R * np.log(p/P_0) #J/mol
+    delta_mu_O2 = delta_h0 + cp* N_avagadro*(T-T_0) - T*s0 - T*cp*N_avagadro*np.log(T/T_0) + T*R * np.log(P/P_0) #J/mol
 
     mu_O2 = E_DFT_O2 + delta_mu_O2
     return mu_O2

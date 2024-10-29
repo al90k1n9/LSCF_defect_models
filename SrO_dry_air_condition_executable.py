@@ -48,7 +48,8 @@ ax.set_ylabel("[V\'\'\'$_{La}$]")
 
 #ax2.set_title("Dry air conditions")
 ax2.set_xlabel("T[K]")
-ax2.set_ylabel("${\Delta}G$[eV]")
+ax2.set_ylabel("${\Delta}G^*(T,p)$ [eV]")
+
 
 
 ax.set_xlim(left=T_lower_bound,right=T_upper_bound)

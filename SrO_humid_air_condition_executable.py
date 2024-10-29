@@ -7,7 +7,7 @@ x_O2 = 0.21
 x_H2O = 0.08
 P = 1 #atm
 T_lower_bound = 700
-T_upper_bound = 1000
+T_upper_bound = 1400
 T_range = np.arange(T_lower_bound,T_upper_bound,1) #K
 #numpy imported chemical potentials, which is imported in humid models
 
@@ -15,34 +15,46 @@ p_O2 = x_O2 * P
 p_H2O = x_H2O * P
 
 fig,ax = plt.subplots(layout='constrained')
+fig2, ax2 = plt.subplots(layout="constrained")
 
-
-V_Sr = case1(T_range, x, p_O2, p_H2O, P=1)
+V_Sr, delta_G_range = case1(T_range, x, p_O2, p_H2O, P=1)
 #keep in mind that the pH2 is determined inside the case1 function by pO2 and pH2O by considering the equilibrium between these three gases.
 ax.plot(T_range, V_Sr, label="H$_{2(g)}$")
+ax2.plot(T_range, np.asarray(delta_G_range)/ev2J_p_mol)
 
-V_Sr = case2(T_range, x, p_H2O, P=1)
+V_Sr, delta_G_range = case2(T_range, x, p_H2O, P=1)
 ax.plot(T_range, V_Sr, label="[2H]$_{La}^{'}$")
+ax2.plot(T_range, np.asarray(delta_G_range)/ev2J_p_mol)
 
-V_Sr = case3(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1)
+
+V_Sr, delta_G_range = case3(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1)
 ax.plot(T_range, V_Sr, label="$\\frac{1}{2}$H$_{2(g)}$+[H]$_{La}^{''}$")
+ax2.plot(T_range, np.asarray(delta_G_range)/ev2J_p_mol)
 
 
-V_Sr = case4(T_range, x, p_O2, p_H2O, P=1)
+V_Sr, delta_G_range = case4(T_range, x, p_O2, p_H2O, P=1)
 ax.plot(T_range, V_Sr, label="H$_{2(g)}$, Sr$_{bulk}$")
+ax2.plot(T_range, np.asarray(delta_G_range)/ev2J_p_mol)
 
 #===================================================
 #PLOTTING OPTIONS
 ax.set_title("Humid conditions")
 ax.set_xlabel("T[K]")
 ax.set_ylabel("[V\'\'\'$_{La}$]")
-
-
 ax.set_xlim(left=T_lower_bound,right=T_upper_bound)
 ax.set_ylim(0,)
 ax.legend(loc="upper right")
 ax.xaxis.set_minor_locator(AutoMinorLocator())
 ax.yaxis.set_minor_locator(AutoMinorLocator())
+
+
+
+ax2.set_title("")
+ax2.set_xlabel("T[K]")
+ax2.set_ylabel("$\Delta G^*$ [eV]")
+ax2.set_xlim(left=T_lower_bound,right=T_upper_bound)
+ax2.xaxis.set_minor_locator(AutoMinorLocator())
+ax2.yaxis.set_minor_locator(AutoMinorLocator())
 
 
 bohr2m = 5.29177e-11

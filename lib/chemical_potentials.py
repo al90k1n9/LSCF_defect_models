@@ -2,6 +2,7 @@
 #delta mu is defined as follows => mu(T,p) = E_DFT(T=0, p~0) + delta_mu(T,p)
 #it's not the same delta mu as done in the derivation
 import numpy as np
+from dft_energies_0K import E_DFT_H2O, E_SrO
 
 N_avagadro = 6.0223*10**23
 ev2J = 1.60219*10**(-19)
@@ -48,3 +49,10 @@ def cp_H2(T, E_DFT_H2, P=1):
     return mu_H2
 
 
+def cp_SrOH2(T):
+    delta_G_sroh2 = np.genfromtxt("sroh2_factsage.csv", delimiter=";") #SrO (solid) +H2O (gas) gives SrOH2 (gas)
+    T_range = delta_G_sroh2[:,0]
+    mu_H2O = cp_H2O(T, E_DFT_H2O=E_DFT_H2O)
+    mu_SrOH2 = delta_G_sroh2 + mu_H2O + E_SrO #J/mol
+
+    return mu_SrOH2

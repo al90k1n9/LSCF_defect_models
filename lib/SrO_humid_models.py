@@ -1,7 +1,14 @@
+import sys
+sys.path.append("H:\Documents\SrO_defect_model")
 from lib.chemical_potentials import *
 from lib.dft_energies_0K import * #importing all the values of dft energies
 from lib.auxilliary_functions import *
 from H_vibration import *
+
+sro_vibration_data = np.genfromtxt("./lib/vibrational_correction_sro.csv",delimiter=" ")
+sro_vibration_data[:,1] *= ev2J_p_mol * 0#to convert everything in J/mol units
+T_data = sro_vibration_data[:,0]
+
 
 def case1(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
     V_Sr= []
@@ -13,7 +20,8 @@ def case1(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
         p_H2 = pH2_giver(T, p_H2O, p_O2)
         mu_H2 = cp_H2(T, E_DFT_H2, P=P)
 
-        delta_G = (E_LSCF_slab_Sr_vac_surf + 2*E_SrO + 2*mu_H2- (E_LSCF_slab + 2*mu_H2O))/2
+        T_index_vib_data = np.where(T_data == T)
+        delta_G = (E_LSCF_slab_Sr_vac_surf + 2*(E_SrO + float(sro_vibration_data[T_index_vib_data, 1])) + 2*mu_H2- (E_LSCF_slab + 2*mu_H2O))/2
         delta_G_range.append(delta_G)
         if T == 1000: print("delta G at T = 1000", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T))
@@ -39,7 +47,8 @@ def case2(T_range, x=0.4, p_H2O = 0.08, P=1):
     delta_G_range = []
     for T in T_range:
         mu_H2O = cp_H2O(T, E_DFT_H2O, P=P)
-        delta_G = (2*E_SrO + E_LSCF_double_hydrogenated - (E_LSCF_slab+ 2 * mu_H2O)) / 2 + vibrational_correction_term(T)
+        T_index_vib_data = np.where(T_data == T)
+        delta_G = (2*(E_SrO + float(sro_vibration_data[T_index_vib_data, 1])) + E_LSCF_double_hydrogenated - (E_LSCF_slab+ 2 * mu_H2O)) / 2 + vibrational_correction_term(T)
         if len(delta_G_range)>=1:    
             if delta_G * delta_G_range[-1]<0: print(T, " inversion temperature in K")
         delta_G_range.append(delta_G)
@@ -60,7 +69,8 @@ def case3(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
         p_H2 = pH2_giver(T, p_H2O, p_O2)
         mu_H2 = cp_H2(T, E_DFT_H2, P=P)
 
-        delta_G = (E_LSCF_single_hydrogenated + 2*E_SrO + mu_H2- (E_LSCF_slab + 2*mu_H2O))/2 + vibrational_correction_term(T)/2
+        T_index_vib_data = np.where(T_data == T)
+        delta_G = (E_LSCF_single_hydrogenated + 2*(E_SrO + float(sro_vibration_data[T_index_vib_data, 1])) + mu_H2- (E_LSCF_slab + 2*mu_H2O))/2 + vibrational_correction_term(T)/2
         delta_G_range.append(delta_G)
         if T == 1000: print("case 3: delta G at T = 1000", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T))
@@ -84,7 +94,8 @@ def case4(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
         p_H2 = pH2_giver(T, p_H2O, p_O2)
         mu_H2 = cp_H2(T, E_DFT_H2, P=P)
 
-        delta_G = (E_LSCF_slab_Sr_vac_bulk + mu_H2 + E_SrO) - (E_LSCF_slab + mu_H2O)
+        T_index_vib_data = np.where(T_data == T)
+        delta_G = (E_LSCF_slab_Sr_vac_bulk + mu_H2 + (E_SrO + float(sro_vibration_data[T_index_vib_data, 1]))) - (E_LSCF_slab + mu_H2O)
         delta_G_range.append(delta_G)
         if T == 1000: print("delta G at T = 1000", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T))

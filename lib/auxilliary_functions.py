@@ -58,35 +58,47 @@ def cube_root_complex(z):
     #print(phase, "phase")
     return complex(norm*np.cos(phase), norm*np.sin(phase))
 
-def cubic_model(a,b,c,d):
+def cubic_model(a:float,b:float,c:float,d:float, zero_threshold=0):
     #FUNCTION TO FIND CUBIC ROOTS
     determinant = 18 *a*b*c*d - 4*b**3*d + b**2 * c**2 - 4*a*c**3 - 27*a**2 * d**2
     #print(N, "N")
-    #print(determinant, "determinant") #If the determinant < 0, then 1 real + 2 complex root, if determinant > 0, then 3 distinc real roots, if = 0 then multiple roots
+    if abs(determinant) > zero_threshold: #test for determinant being zero. numerical errors can lead to infinitesimally small values
+        delta_zero = b**2 - 3*a*c
+        delta_one = 2*b**3 - 9*a*b*c + 27*a**2*d 
+        inner_sqrt = delta_one**2 - 4 * delta_zero**3
+        re_inner_sqrt = inner_sqrt
+        if inner_sqrt >= 0:
+            c_minus = np.cbrt((delta_one - np.sqrt(delta_one**2 - 4 * delta_zero**3))/2)
+            c_plus = np.cbrt((delta_one + np.sqrt(delta_one**2 - 4 * delta_zero**3))/2)
+        else:
+            inner_sqrt = np.abs(inner_sqrt)
+            c_minus = cube_root_complex(delta_one/2 - complex(0,np.sqrt(inner_sqrt)/2))
+            c_plus = cube_root_complex(delta_one/2 - complex(0,np.sqrt(inner_sqrt)/2))
 
-    delta_zero = b**2 - 3*a*c
-    delta_one = 2*b**3 - 9*a*b*c + 27*a**2*d 
-    inner_sqrt = delta_one**2 - 4 * delta_zero**3
-    re_inner_sqrt = inner_sqrt
-    if inner_sqrt >= 0:
-        c_minus = np.cbrt((delta_one - np.sqrt(delta_one**2 - 4 * delta_zero**3))/2)
-        c_plus = np.cbrt((delta_one + np.sqrt(delta_one**2 - 4 * delta_zero**3))/2)
+
+        xi = complex(-1/2, np.sqrt(3)/2)
+        xi_coeffs = np.asarray([1,xi, 1/xi])
+        xi_powers = np.asarray([xi_coeffs**0, xi_coeffs, xi_coeffs**2])
+        terms_minus = -1/(3*a)*np.asarray([b, c_minus, delta_zero/c_minus])
+        terms_plus = -1/(3*a)*np.asarray([b, c_plus, delta_zero/c_plus])
+        solutions_plus =np.dot( xi_powers, terms_plus)
+        solutions_minus = np.dot(xi_powers, terms_minus)
+        #print(solutions_minus[0] -solutions_plus[0], "difference in solutions ", solutions_minus[0])
+        return solutions_plus
     else:
-        inner_sqrt = np.abs(inner_sqrt)
-        c_minus = cube_root_complex(delta_one/2 - complex(0,np.sqrt(inner_sqrt)/2))
-        c_plus = cube_root_complex(delta_one/2 - complex(0,np.sqrt(inner_sqrt)/2))
+        D0 = c**2 -3*b*d
+        D1 = 2*c**3 - 9 *b*c*d + 27*a*d**2
+        if abs(D0)<zero_threshold and abs(D1)<zero_threshold:
+            return np.asarray([-b/(3*a),-b/(3*a),-b/(3*a)])
+        else:
+            # Double root case
+            double_root = -b/(3*a) + D1/D0
+            # Find the single root using the fact that sum of roots = -b/a
+            single_root = -b/a - 2*double_root
+            return np.array([double_root, double_root, single_root])
 
-    xi = complex(-1/2, np.sqrt(3)/2)
-    xi_coeffs = np.asarray([1,xi, 1/xi])
-    xi_powers = np.asarray([xi_coeffs**0, xi_coeffs, xi_coeffs**2])
-    terms_minus = -1/(3*a)*np.asarray([b, c_minus, delta_zero/c_minus])
-    terms_plus = -1/(3*a)*np.asarray([b, c_plus, delta_zero/c_plus])
-    solutions_plus =np.dot( xi_powers, terms_plus)
-    solutions_minus = np.dot(xi_powers, terms_minus)
-    #print(solutions_minus[0] -solutions_plus[0], "difference in solutions ", solutions_minus[0])
-    return solutions_plus
 
-def quadratic_model(a,b,c,x=0.4):
+def quadratic_model(a:float,b:float,c:float,x=0.4):
     delta = b**2 - 4*c*a
     solution1 = (-b + np.sqrt(delta))/(2*a)
     solution2 = (-b - np.sqrt(delta))/(2*a)
@@ -97,7 +109,23 @@ def quadratic_model(a,b,c,x=0.4):
     else:
         print(solution1, solution2)
         return 2
-    
+
+def bisection(xmin, xmax, func, maxiter=1000, tol=1e-50):
+   fmin = func(xmin)
+   fmax = func(xmax)
+   if  fmin * fmax > 0:
+       raise ValueError("no solution in the given interval")
+   for iteration in range(maxiter):
+       c= (xmin+xmax)/2
+       if abs(func(c))<tol or (xmax-xmin)/2<tol:
+           return round(c, 7)
+       
+       if func(xmin)*func(c)<0:
+           xmax = c
+       else:
+           xmin = c
+   raise ValueError("maxiter reached")
+   
 kb = 1.380649 * 10**(-23) #J/K
 m_H2O = 18.01528 / (N_avagadro*1000) #in kg
 hbar = 1.054571817*10**(-34) #reduced planck's constant in J.s

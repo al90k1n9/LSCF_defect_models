@@ -6,8 +6,14 @@ ev2J = 1.60219*10**(-19)
 ev2J_p_mol = ev2J*N_avagadro
 Ha2eV = 27.2114
 
+acell_SrO_slab = 5.16756734063135E-10 #meters #this is with standard SrO lattice parameter
+acell_LSCF_slab = 7.74799694590908E-10 #meters
+
 E_SrO = -1.28749128492132E+03 #eV
 E_SrO = E_SrO * ev2J_p_mol #in J/mol
+
+E_SrO_epitax = -1.28729253918189E+03 #eV
+E_SrO_epitax *= ev2J_p_mol
 
 E_DFT_O2 = -874.671000 #eV
 E_DFT_O2 = E_DFT_O2 * ev2J_p_mol #J/mol
@@ -23,8 +29,27 @@ E_SrOH2_bulk = -7.04103776E+03 * ev2J_p_mol/4 #the system has four molecules and
 E_LSCF_slab_Sr_vac_surf = -9.37015381643914E+04 #in eV
 E_LSCF_slab_Sr_vac_surf = E_LSCF_slab_Sr_vac_surf * ev2J_p_mol #in J/mol
 
-E_LSCF_slab = -9.54034366543809E+04
+E_LSCF_slab = -9.54034366543809E+04 #eV
 E_LSCF_slab = E_LSCF_slab * ev2J_p_mol #in J/mol
+
+E_LSCF_SrO_interface = -1.211567739277E+05 #eV
+#the system contains 20 SrO unit cells and the LSCF slab
+E_LSCF_SrO_interface *= ev2J_p_mol #J/mol
+
+E_SrO_slab = -1.2873269133E+04 #eV SrO slab containing 10 unit SrO cells
+E_SrO_slab *= ev2J_p_mol #J/mol
+
+E_SrO_slab_epitax = -1.287173093E+04 #eV lattice parameter has been elaraged to match that of LSCF
+E_SrO_slab_epitax *= ev2J_p_mol 
+
+gamma_SrO = (E_SrO_slab - 10* E_SrO)/(2*acell_SrO_slab**2) #J/mol/m**2
+gamma_SrO_epitax = (E_SrO_slab_epitax - 10* E_SrO_epitax)/(2 * 0.5* acell_LSCF_slab**2) #J/mol/m**2
+
+
+adhesion_work = (E_LSCF_slab + 20 * E_SrO_epitax + 2* gamma_SrO_epitax * acell_LSCF_slab**2 - E_LSCF_SrO_interface)/(2*acell_LSCF_slab**2) #J/mol/m**2
+
+
+E_int = (acell_LSCF_slab/2)**2/2 * (2*gamma_SrO_epitax - adhesion_work) #J/mol
 
 E_LSCF_slab_Sr_vac_bulk = -94551.83065 #eV
 E_LSCF_slab_Sr_vac_bulk = E_LSCF_slab_Sr_vac_bulk * ev2J_p_mol #J/mol

@@ -12,7 +12,7 @@ T_data = sro_vibration_data[:,0]
 
 def case1(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
     V_Sr= []
-    delta_E = (E_LSCF_slab_Sr_vac_surf + 2*E_SrO + 2*E_DFT_H2- (E_LSCF_slab + 2*E_DFT_H2O))/2
+    delta_E = (E_LSCF_slab_Sr_vac_surf + 2*E_SrO + 2*E_DFT_H2- (E_LSCF_slab + 2*E_DFT_H2O))/2 + E_int
     print(delta_E/ev2J_p_mol, " delta_E of case 1")
     delta_G_range = []
     for T in T_range:
@@ -21,7 +21,7 @@ def case1(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
         mu_H2 = cp_H2(T, E_DFT_H2, P=P)
 
         T_index_vib_data = np.where(T_data == T)
-        delta_G = (E_LSCF_slab_Sr_vac_surf + 2*(E_SrO + float(sro_vibration_data[T_index_vib_data, 1])) + 2*mu_H2- (E_LSCF_slab + 2*mu_H2O))/2
+        delta_G = (E_LSCF_slab_Sr_vac_surf + 2*(E_SrO + float(sro_vibration_data[T_index_vib_data, 1])) + 2*mu_H2- (E_LSCF_slab + 2*mu_H2O))/2 + E_int
         delta_G_range.append(delta_G)
         if T == 1000: print("delta G at T = 1000", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T))
@@ -42,13 +42,13 @@ def case1(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
 
 def case2(T_range, x=0.4, p_H2O = 0.08, P=1):
     V_Sr= []
-    delta_E = (2*E_SrO + E_LSCF_double_hydrogenated - (E_LSCF_slab+ 2 * E_DFT_H2O)) / 2
+    delta_E = (2*E_SrO + E_LSCF_double_hydrogenated - (E_LSCF_slab+ 2 * E_DFT_H2O)) / 2 + E_int
     print(delta_E/ev2J_p_mol, " delta_E of case 2")
     delta_G_range = []
     for T in T_range:
         mu_H2O = cp_H2O(T, E_DFT_H2O, P=P)
         T_index_vib_data = np.where(T_data == T)
-        delta_G = (2*(E_SrO + float(sro_vibration_data[T_index_vib_data, 1])) + E_LSCF_double_hydrogenated - (E_LSCF_slab+ 2 * mu_H2O)) / 2 + vibrational_correction_term(T)
+        delta_G = (2*(E_SrO + float(sro_vibration_data[T_index_vib_data, 1])) + E_LSCF_double_hydrogenated - (E_LSCF_slab+ 2 * mu_H2O)) / 2 + vibrational_correction_term(T) + E_int
         if len(delta_G_range)>=1:    
             if delta_G * delta_G_range[-1]<0: print(T, " inversion temperature in K")
         delta_G_range.append(delta_G)
@@ -61,7 +61,7 @@ def case2(T_range, x=0.4, p_H2O = 0.08, P=1):
 
 def case3(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
     V_Sr= []
-    delta_E = (E_LSCF_single_hydrogenated + 2*E_SrO + E_DFT_H2- (E_LSCF_slab + 2*E_DFT_H2O))/2
+    delta_E = (E_LSCF_single_hydrogenated + 2*E_SrO + E_DFT_H2- (E_LSCF_slab + 2*E_DFT_H2O))/2 + E_int
     print(delta_E/ev2J_p_mol, " delta_E of case 3")
     delta_G_range = []
     for T in T_range:
@@ -70,7 +70,7 @@ def case3(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
         mu_H2 = cp_H2(T, E_DFT_H2, P=P)
 
         T_index_vib_data = np.where(T_data == T)
-        delta_G = (E_LSCF_single_hydrogenated + 2*(E_SrO + float(sro_vibration_data[T_index_vib_data, 1])) + mu_H2- (E_LSCF_slab + 2*mu_H2O))/2 + vibrational_correction_term(T)/2
+        delta_G = (E_LSCF_single_hydrogenated + 2*(E_SrO + float(sro_vibration_data[T_index_vib_data, 1])) + mu_H2- (E_LSCF_slab + 2*mu_H2O))/2 + vibrational_correction_term(T)/2 + E_int
         delta_G_range.append(delta_G)
         if T == 1000: print("case 3: delta G at T = 1000", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T))
@@ -86,7 +86,7 @@ def case3(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
 
 def case4(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
     V_Sr= []
-    delta_E = (E_LSCF_slab_Sr_vac_bulk + E_DFT_H2 + E_SrO) - (E_LSCF_slab + E_DFT_H2O)
+    delta_E = (E_LSCF_slab_Sr_vac_bulk + E_DFT_H2 + E_SrO) - (E_LSCF_slab + E_DFT_H2O) + E_int
     print(delta_E/ev2J_p_mol, " delta_E of case 4")
     delta_G_range = []
     for T in T_range:
@@ -95,7 +95,7 @@ def case4(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
         mu_H2 = cp_H2(T, E_DFT_H2, P=P)
 
         T_index_vib_data = np.where(T_data == T)
-        delta_G = (E_LSCF_slab_Sr_vac_bulk + mu_H2 + (E_SrO + float(sro_vibration_data[T_index_vib_data, 1]))) - (E_LSCF_slab + mu_H2O)
+        delta_G = (E_LSCF_slab_Sr_vac_bulk + mu_H2 + (E_SrO + float(sro_vibration_data[T_index_vib_data, 1]))) - (E_LSCF_slab + mu_H2O) + E_int
         delta_G_range.append(delta_G)
         if T == 1000: print("delta G at T = 1000", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T))

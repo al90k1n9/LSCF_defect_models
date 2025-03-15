@@ -5,18 +5,18 @@ from lib.auxilliary_functions import *
 #H:\Documents\SrO_defect_model\lib\vibrational_correction_sro.csv
 sro_vibration_data = np.genfromtxt("./lib/vibrational_correction_sro.csv",delimiter=" ")
 sro_vibration_data[:,1] += -0.5
-sro_vibration_data[:,1] *= ev2J_p_mol #to convert everything in J/mol units
+sro_vibration_data[:,1] *= ev2J_p_mol * 0  #to convert everything in J/mol units
 T_data = sro_vibration_data[:,0]
 
 
 def case1(T_range, x=0.4, p_O2 = 0.21, P=1):
     V_Sr= []
     delta_G_list = []
-    delta_E = (E_LSCF_slab_Sr_vac_surf + 2 * E_SrO - (E_LSCF_slab + E_DFT_O2))/2
+    delta_E = (E_LSCF_slab_Sr_vac_surf + 2 * E_SrO - (E_LSCF_slab + E_DFT_O2))/2 + E_int
     for T in T_range:
         mu_O2 = cp_O2(T, E_DFT_O2, P=P)
         T_index_vib_data = np.where(T_data == T)
-        delta_G = (E_LSCF_slab_Sr_vac_surf + 2 * (E_SrO+float(sro_vibration_data[T_index_vib_data, 1])) - (E_LSCF_slab + mu_O2))/2
+        delta_G = (E_LSCF_slab_Sr_vac_surf + 2 * (E_SrO+float(sro_vibration_data[T_index_vib_data, 1])) - (E_LSCF_slab + mu_O2))/2 + E_int
         
         if T==973: print("case 1", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T))
@@ -40,12 +40,12 @@ def case1(T_range, x=0.4, p_O2 = 0.21, P=1):
 def case2(T_range, x=0.4, p_O2 = 0.21, P=1):
     delta_G_list =[]
     V_Sr= []
-    delta_E = E_LSCF_slab_Sr_vac_bulk + E_SrO - (E_LSCF_slab + 0.5*E_DFT_O2)
+    delta_E = E_LSCF_slab_Sr_vac_bulk + E_SrO - (E_LSCF_slab + 0.5*E_DFT_O2) + E_int
     for T in T_range:
         mu_O2 = cp_O2(T, E_DFT_O2, P=P)
 
         T_index_vib_data = np.where(T_data == T)
-        delta_G = E_LSCF_slab_Sr_vac_bulk + (E_SrO + float(sro_vibration_data[T_index_vib_data, 1])) - (E_LSCF_slab + 0.5*mu_O2)
+        delta_G = E_LSCF_slab_Sr_vac_bulk + (E_SrO + float(sro_vibration_data[T_index_vib_data, 1])) - (E_LSCF_slab + 0.5*mu_O2) + E_int
         if T==973: print("case 2", delta_G/ev2J_p_mol)
         delta_G_list.append(delta_G)
         K = np.exp(-delta_G/(R*T))
@@ -65,7 +65,7 @@ def case2(T_range, x=0.4, p_O2 = 0.21, P=1):
 def case3(T_range, x=0.4):
     delta_G_list = []
     V_Sr=[]
-    delta_E = E_LSCF_slab_Sr_surf_O_sub_surf /2 +  E_SrO - (E_LSCF_slab/2)
+    delta_E = E_LSCF_slab_Sr_surf_O_sub_surf /2 +  E_SrO - (E_LSCF_slab/2) + E_int
     for T in T_range:
 
         T_index_vib_data = np.where(T_data == T)
@@ -84,7 +84,7 @@ def case3(T_range, x=0.4):
 def case4(T_range, x=0.4):
     delta_G_list = []
     V_Sr=[]
-    delta_E = E_LSCF_slab_SrO_bulk +  E_SrO - (E_LSCF_slab)
+    delta_E = E_LSCF_slab_SrO_bulk +  E_SrO - (E_LSCF_slab) + E_int
     for T in T_range:
         T_index_vib_data = np.where(T_data == T)
         delta_G = delta_E + float(sro_vibration_data[T_index_vib_data, 1])
@@ -102,11 +102,11 @@ def case4(T_range, x=0.4):
 def case5(T_range, x=0.4, p_O2 = 0.21, P=1):
     delta_G_list = []
     V_Sr= []
-    delta_E = E_LSCF_bulk_Sr_vac + E_SrO - (E_LSCF_bulk + 0.5*E_DFT_O2)
+    delta_E = E_LSCF_bulk_Sr_vac + E_SrO - (E_LSCF_bulk + 0.5*E_DFT_O2) + E_int
     for T in T_range:
         mu_O2 = cp_O2(T, E_DFT_O2, P=P)
         T_index_vib_data = np.where(T_data == T)
-        delta_G = E_LSCF_bulk_Sr_vac + (E_SrO + float(sro_vibration_data[T_index_vib_data, 1])) - (E_LSCF_bulk + 0.5*mu_O2)
+        delta_G = E_LSCF_bulk_Sr_vac + (E_SrO + float(sro_vibration_data[T_index_vib_data, 1])) - (E_LSCF_bulk + 0.5*mu_O2) + E_int
         if T==973: print("case 5", delta_G/ev2J_p_mol)
         delta_G_list.append(delta_G)
 
@@ -127,7 +127,7 @@ def case5(T_range, x=0.4, p_O2 = 0.21, P=1):
 def case6(T_range, x= 0.4):
     delta_G_list = []
     V_Sr=[]
-    delta_E = E_LSCF_bulk_SrO_vac +  E_SrO - (E_LSCF_bulk)
+    delta_E = E_LSCF_bulk_SrO_vac +  E_SrO - (E_LSCF_bulk) + E_int
     for T in T_range:
         T_index_vib_data = np.where(T_data == T)
         delta_G = delta_E + float(sro_vibration_data[T_index_vib_data, 1])

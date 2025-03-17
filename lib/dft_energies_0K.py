@@ -75,7 +75,7 @@ E_LSCF_bulk = E_LSCF_bulk * ev2J_p_mol #J/mol
 E_LSCF_hydroxilated = -9.63495122688081E+04 #eV
 E_LSCF_hydroxilated *= ev2J_p_mol
 
-E_ads = (E_LSCF_hydroxilated - (E_LSCF_slab + 2* E_DFT_H2O))/2 #J/mol
+
 
 E_LSCF_bulk_hydrogenated = -9.45693723052703E+04 #eV
 E_LSCF_bulk_hydrogenated *= ev2J_p_mol #J/mol
@@ -98,10 +98,16 @@ single_hydrogenation_configs = np.asarray([-3444.77767328802, -3444.7358570430, 
 
 
 
-zpe_H2O = 0.5 * ev2J_p_mol
+zpe_H2O = 0.56 * ev2J_p_mol
 zpe_H2 = 0.27 * ev2J_p_mol
 zpe_O2 = 0.098 * ev2J_p_mol
 
 E_DFT_H2 += zpe_H2
 E_DFT_H2O += zpe_H2O
 E_DFT_O2 += zpe_O2
+
+
+
+E_ads = (E_LSCF_hydroxilated + 0.4972 * ev2J_p_mol - (E_LSCF_slab + 2* E_DFT_H2O))/2 #J/mol
+
+print(E_ads/ev2J_p_mol)

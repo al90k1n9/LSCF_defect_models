@@ -13,6 +13,7 @@ def case1(T_range, x=0.4, p_O2 = 0.21, P=1):
     V_Sr= []
     delta_G_list = []
     delta_E = (E_LSCF_slab_Sr_vac_surf + 2 * E_SrO_epitax - (E_LSCF_slab + E_DFT_O2))/2 + E_int
+    print("po2 inside the function", p_O2)
     for T in T_range:
         mu_O2 = cp_O2(T, E_DFT_O2, P=P)
         T_index_vib_data = np.where(T_data == T)

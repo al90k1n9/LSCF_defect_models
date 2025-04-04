@@ -6,6 +6,9 @@ ev2J = 1.60219*10**(-19)
 ev2J_p_mol = ev2J*N_avagadro
 Ha2eV = 27.2114
 
+OH_bond_vibration = 0.4972/2 #eV
+#OH_bond_energy = 0#eV
+
 acell_SrO_slab = 5.16756734063135E-10 #meters #this is with standard SrO lattice parameter
 acell_LSCF_slab = 7.74799694590908E-10 #meters
 
@@ -80,15 +83,13 @@ E_LSCF_hydroxilated *= ev2J_p_mol
 E_LSCF_bulk_hydrogenated = -9.45693723052703E+04 #eV
 E_LSCF_bulk_hydrogenated *= ev2J_p_mol #J/mol
 
-E_LSCF_double_hydrogenated = -9.37728973049342E+04
+E_LSCF_double_hydrogenated = -9.37728973049342E+04 + 0*OH_bond_vibration
 E_LSCF_double_hydrogenated *= ev2J_p_mol
 
-E_LSCF_single_hydrogenated = -9.37371667638564E+04 * ev2J_p_mol 
+E_LSCF_single_hydrogenated = -9.37371667638564E+04 + 2*OH_bond_vibration
+E_LSCF_single_hydrogenated *= ev2J_p_mol 
 
 
-double_hydrogenation_energy = (E_LSCF_double_hydrogenated - (E_LSCF_slab_Sr_vac_surf + 2 * E_DFT_H2))/2
-
-singe_hydrogenation_energy = (E_LSCF_single_hydrogenated-(E_LSCF_slab_Sr_vac_surf + E_DFT_H2))/2
 
 #=========================================================================================================================
 #Vibrational properties of hydrogen bonds in single hydrogenated LSCF slab
@@ -108,6 +109,9 @@ E_DFT_O2 += zpe_O2
 
 
 
-E_ads = (E_LSCF_hydroxilated + 0.4972 * ev2J_p_mol - (E_LSCF_slab + 2* E_DFT_H2O))/2 #J/mol
+E_ads = (E_LSCF_hydroxilated - (E_LSCF_slab + 2* E_DFT_H2O))/2  #J/mol
 
-print(E_ads/ev2J_p_mol)
+
+double_hydrogenation_energy = (E_LSCF_double_hydrogenated - (E_LSCF_slab_Sr_vac_surf + 2 * E_DFT_H2))/2
+
+singe_hydrogenation_energy = (E_LSCF_single_hydrogenated-(E_LSCF_slab_Sr_vac_surf + E_DFT_H2))/2

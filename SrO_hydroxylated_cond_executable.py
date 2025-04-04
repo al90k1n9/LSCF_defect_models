@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from matplotlib.ticker import AutoMinorLocator
 from lib.SrO_hydroxylated_models import *
+from lib.auxilliary_functions import *
 
 x = 0.4 #molar fraction of Sr
 x_O2 = 0.21
@@ -18,6 +19,9 @@ p_H2O = x_H2O * P
 fig,ax = plt.subplots(layout='constrained')
 fig2, ax2 = plt.subplots(layout="constrained")
 
+fig3, ax3 = plt.subplots(layout="constrained")
+
+
 V_Sr, delta_G = case1(T_range, x, p_O2, p_H2O, P)
 ax.plot(T_range, V_Sr, label="case 1")
 ax2.plot(T_range, delta_G/ev2J_p_mol, label="case1")
@@ -25,6 +29,7 @@ ax2.plot(T_range, delta_G/ev2J_p_mol, label="case1")
 V_Sr, delta_G = case2(T_range, x, p_H2O, P)
 ax.plot(T_range, V_Sr, label="case 2")
 ax2.plot(T_range, delta_G/ev2J_p_mol, label="case2")
+ax3.plot(T_range, np.asarray(V_Sr)/0.4*100, label="SrO")
 
 V_Sr, delta_G = case3(T_range, x, p_O2, p_H2O, P)
 ax.plot(T_range, V_Sr, label="case 3")
@@ -33,14 +38,13 @@ ax2.plot(T_range, delta_G/ev2J_p_mol, label="case3")
 
 #===================================================
 #PLOTTING OPTIONS
-ax.set_title("Hydroxilation")
 ax.set_xlabel("T[K]")
-ax.set_ylabel("[V\'\'\'$_{La}$]")
+ax.set_ylabel("V${_La}$\'\'\'")
 
 
 ax.set_xlim(left=T_lower_bound,right=T_upper_bound)
 ax.set_ylim(0,)
-ax.legend(loc="upper right")
+ax.legend(loc="upper right", facecolor="none")
 
 bohr2m = 5.29177e-11
 a_LSCF = 1.46415980775980e+01 * bohr2m
@@ -49,14 +53,22 @@ sample_thickness = 20 * 1e-6 #m
 specific_surface_area = 3.59*1e6 #m^2/m^3 <=> active surface area per unit volume of the electrode
 volume_fraction_LSCF = 0.48
 
+#def yaxconvert(x):
+#    return x * volume_fraction_LSCF * a_SrO**2/(a_LSCF**3 * specific_surface_area)
+#
+#def yaxinvert(x):
+#    return x/(volume_fraction_LSCF * a_SrO**2/(a_LSCF**3 * specific_surface_area))
+
 def yaxconvert(x):
-    return x * volume_fraction_LSCF * a_SrO**2/(a_LSCF**3 * specific_surface_area)
+    return x * 100/0.4
 
 def yaxinvert(x):
-    return x/(volume_fraction_LSCF * a_SrO**2/(a_LSCF**3 * specific_surface_area))
+    return x *0.4/100
+
 
 secyax = ax.secondary_yaxis("right", functions=(yaxconvert, yaxinvert))
-secyax.set_ylabel("blocked active surface area / total active surface area")
+secyax.yaxis.set_minor_locator(AutoMinorLocator())
+secyax.set_ylabel("% of total Sr content")
 
 ax2.set_title("Hydroxilation")
 ax2.set_xlabel("T[K]")
@@ -72,4 +84,28 @@ ax2.set_xlim(left=T_lower_bound,right=T_upper_bound)
 #ax2.set_ylim(0,)
 ax2.legend(loc="upper right")
 
+#T_range = np.arange(T_lower_bound, T_upper_bound+200, 1)
+theta_list = surface_coverage_H2O(T_range, x_H2O=0.08, E_ads= E_ads, P=1)
+ax3.plot(T_range, theta_list*100, color="black", label="surface coverage")
+
+ax3.set_xlabel("T [K]")
+ax3.set_ylabel("% of total Sr")
+
+ax3.xaxis.set_minor_locator(AutoMinorLocator())
+ax3.yaxis.set_minor_locator(AutoMinorLocator())
+
+ax3.set_xlim(T_lower_bound, T_upper_bound)
+ax3.legend()
+
+def percent2surf_coverage(x):
+    return x/100
+
+def surf_coverage2percent(x):
+    return x*100
+
+ax32 = ax3.secondary_yaxis('right', functions=(percent2surf_coverage, surf_coverage2percent))
+ax32.set_ylabel("$\\theta$")
+ax32.yaxis.set_minor_locator(AutoMinorLocator())
+
+fig3.savefig("hydroxylated_case.png", dpi=300, transparent=True)
 plt.show()

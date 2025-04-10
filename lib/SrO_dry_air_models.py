@@ -9,17 +9,16 @@ sro_vibration_data[:,1] *= ev2J_p_mol * 0  #to convert everything in J/mol units
 T_data = sro_vibration_data[:,0]
 
 
-def case1(T_range, x=0.4, p_O2 = 0.21, P=1):
+def case1(T_range, x=0.4, x_O2 = 0.21, P=1):
+    p_O2 = P*x_O2
     V_Sr= []
     delta_G_list = []
     delta_E = (E_LSCF_slab_Sr_vac_surf + 2 * E_SrO_epitax - (E_LSCF_slab + E_DFT_O2))/2 + E_int
-    print("po2 inside the function", p_O2)
     for T in T_range:
         mu_O2 = cp_O2(T, E_DFT_O2, P=P)
         T_index_vib_data = np.where(T_data == T)
         delta_G = (E_LSCF_slab_Sr_vac_surf + 2 * (E_SrO_epitax+float(sro_vibration_data[T_index_vib_data, 1])) - (E_LSCF_slab + mu_O2))/2 + E_int
-        
-        if T==973: print("case 1", delta_G/ev2J_p_mol)
+        #if T==973: print("case 1", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T))
         #print(K)
 
@@ -38,7 +37,8 @@ def case1(T_range, x=0.4, p_O2 = 0.21, P=1):
         #print(solution[0])
     return (V_Sr,delta_G_list)
 
-def case2(T_range, x=0.4, p_O2 = 0.21, P=1):
+def case2(T_range, x=0.4, x_O2 = 0.21, P=1):
+    p_O2 = x_O2*P
     delta_G_list =[]
     V_Sr= []
     delta_E = E_LSCF_slab_Sr_vac_bulk + E_SrO_epitax - (E_LSCF_slab + 0.5*E_DFT_O2) + E_int
@@ -100,7 +100,8 @@ def case4(T_range, x=0.4):
         V_Sr.append(quadratic_model(a,b,c,x))
     return (V_Sr,delta_G_list)
 
-def case5(T_range, x=0.4, p_O2 = 0.21, P=1):
+def case5(T_range, x=0.4, x_O2 = 0.21, P=1):
+    p_O2 = x_O2 * P
     delta_G_list = []
     V_Sr= []
     delta_E = E_LSCF_bulk_Sr_vac + E_SrO_epitax - (E_LSCF_bulk + 0.5*E_DFT_O2) + E_int

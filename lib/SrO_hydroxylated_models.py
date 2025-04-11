@@ -14,6 +14,7 @@ def case1(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
     delta_E = (E_LSCF_slab_Sr_vac_surf + 2*E_SrO_epitax + 2*E_DFT_H2- E_LSCF_hydroxilated )/2 + E_int
     print(delta_E/ev2J_p_mol, " of case 1")
     delta_G_list = []
+    theta_list = []
     for T in T_range:
         p_H2 = pH2_giver(T, p_H2O, p_O2)
         mu_H2 = cp_H2(T, E_DFT_H2, P=P)
@@ -30,7 +31,8 @@ def case1(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
         d = -N * x * (1-x)**2
         solution= cubic_model(a,b,c,d)
         V_Sr.append(solution[0])
-    return (V_Sr, np.asarray(delta_G_list))
+        theta_list.append(theta)
+    return (V_Sr, np.asarray(delta_G_list), theta_list)
 
 def case2(T_range, x=0.4, p_H2O = 0.08, P=1):
     V_Sr= []
@@ -38,6 +40,7 @@ def case2(T_range, x=0.4, p_H2O = 0.08, P=1):
     print(delta_E/ev2J_p_mol, " of case 2")
     
     delta_G_list = []
+    theta_list = []
     for T in T_range:
         T_index_vib_data = np.where(T_data == T)
         delta_G = delta_E + float(sro_vibration_data[T_index_vib_data, 1]) 
@@ -45,13 +48,15 @@ def case2(T_range, x=0.4, p_H2O = 0.08, P=1):
         theta = surface_coverage_H2O(T,p_H2O/P, E_ads, P)
         N = theta/(1-theta) * np.exp(-delta_G/(R*T))
         V_Sr.append(N/(1+N)*x)
-    return (V_Sr, np.asarray(delta_G_list))
+        theta_list.append(theta)
+    return (V_Sr, np.asarray(delta_G_list), theta_list)
 
 def case3(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
     V_Sr= []
     delta_E = (E_LSCF_single_hydrogenated + 2*E_SrO_epitax + E_DFT_H2 - E_LSCF_hydroxilated )/2 + E_int
     print(delta_E/ev2J_p_mol, " of case 3")
     delta_G_list = []
+    theta_list= []
     for T in T_range:
         p_H2 = pH2_giver(T, p_H2O, p_O2)
         mu_H2 = cp_H2(T, E_DFT_H2, P=P)
@@ -67,4 +72,5 @@ def case3(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
         b = x+N
         c = -N*(x-x**2)
         V_Sr.append(quadratic_model(a,b,c))
-    return (V_Sr, np.asarray(delta_G_list))
+        theta_list.append(theta)
+    return (V_Sr, np.asarray(delta_G_list), theta_list)

@@ -6,7 +6,6 @@ sys.path.append("H:\Documents\SrO_defect_model")
 
 import numpy as np
 from lib.dft_energies_0K import E_DFT_H2O, E_SrO
-from lib.dft_energies_0K import zpe_H2O, zpe_H2, zpe_O2
 
 N_avagadro = 6.0223*10**23
 ev2J = 1.60219*10**(-19)
@@ -23,7 +22,7 @@ def cp_O2(T, E_DFT_O2, P=1):
 
     delta_mu_O2 = delta_h0 + cp* N_avagadro*(T-T_0) - T*s0 - T*cp*N_avagadro*np.log(T/T_0) + T*R * np.log(P/P_0) #J/mol
 
-    mu_O2 = E_DFT_O2 + delta_mu_O2 + zpe_O2
+    mu_O2 = E_DFT_O2 + delta_mu_O2
     return mu_O2
 
 def cp_H2O(T, E_DFT_H2O, P=1):
@@ -35,7 +34,7 @@ def cp_H2O(T, E_DFT_H2O, P=1):
 
     delta_mu_H2O = delta_h0 + cp* N_avagadro*(T-T_0) - T*s0 - T*cp*N_avagadro*np.log(T/T_0) + T*R * np.log(P/P_0) #J/mol
 
-    mu_H2O = E_DFT_H2O + delta_mu_H2O + zpe_H2O
+    mu_H2O = E_DFT_H2O + delta_mu_H2O 
     return mu_H2O
 
 
@@ -49,7 +48,7 @@ def cp_H2(T, E_DFT_H2, P=1):
     #it's not the same delta mu as done in the derivation
     delta_mu_H2 = delta_h0 + cp* N_avagadro*(T-T_0) - T*s0 - T*cp*N_avagadro*np.log(T/T_0) + T*R * np.log(P/P_0) #J/mol
     #print(delta_mu_H2, "delta_mu_H2 in J/mol")
-    mu_H2 = E_DFT_H2 + delta_mu_H2 + zpe_H2
+    mu_H2 = E_DFT_H2 + delta_mu_H2
     return mu_H2
 
 

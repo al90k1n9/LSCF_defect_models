@@ -24,6 +24,7 @@ def pH2_giver(T,p_H2O, p_O2):
     t=T/1000
     h_mat = np.array([t,  t**2/2, t**3/3, t**4/4, -1/t, 1, 0, -1])
     s_mat = np.array([np.log(t), t,  t**2/2.0,  t**3/3, -1./(2 * t**2), 0, 1, 0])
+    assert ((T<1000 and T>=700) or (T>=1000 and T<1700)), "Temperature out of range in shomate equations"
     if T<1000 and T>=700:
         shomate_coeffs = [[30.09200, 6.832514, 6.793435, -2.534480,0.082139, -250.8810, 223.3967, -241.8264],
                             [33.066178, -11.363417, 11.432816, -2.772874, -0.158558, -9.980797, 172.707974, 0.0],
@@ -110,7 +111,7 @@ def quadratic_model(a:float,b:float,c:float,x=0.4):
         print(solution1, solution2)
         return 2
 
-def bisection(xmin, xmax, func, maxiter=1000, tol=1e-50):
+def bisection(xmin, xmax, func, maxiter=10000, tol=1e-20):
    fmin = func(xmin)
    fmax = func(xmax)
    if  fmin * fmax > 0:
@@ -125,11 +126,13 @@ def bisection(xmin, xmax, func, maxiter=1000, tol=1e-50):
        else:
            xmin = c
    raise ValueError("maxiter reached")
-   
+
+from lib.dft_energies_0K import zpe_H2O, ev2J_p_mol   
 kb = 1.380649 * 10**(-23) #J/K
 m_H2O = 18.01528 / (N_avagadro*1000) #in kg
 hbar = 1.054571817*10**(-34) #reduced planck's constant in J.s
 def surface_coverage_H2O(T, x_H2O, E_ads, P):
-    P0 = kb*T*(m_H2O*kb*T/(2*np.pi*hbar**2))**(3./2)*np.exp(E_ads/(N_avagadro * kb*T))
-    theta = x_H2O * P * 101325/(x_H2O * P * 101325 + P0)
+    model_chemical_potential = kb*T*np.log(x_H2O*P*101325/(kb*T)*(m_H2O*kb*T/(2*np.pi*hbar**2))**(-3./2)) + zpe_H2O/N_avagadro
+    exp_term = np.exp(-(-E_ads+model_chemical_potential*N_avagadro)/(N_avagadro*kb*T))
+    theta = 1/(1+exp_term)
     return theta

@@ -103,14 +103,7 @@ zpe_H2O = 0.56 * ev2J_p_mol
 zpe_H2 = 0.27 * ev2J_p_mol
 zpe_O2 = 0.098 * ev2J_p_mol
 
-E_DFT_H2 += zpe_H2
-E_DFT_H2O += zpe_H2O
-E_DFT_O2 += zpe_O2
-
-
-
 E_ads = (E_LSCF_hydroxilated - (E_LSCF_slab + 2* E_DFT_H2O))/2  #J/mol
-
 
 double_hydrogenation_energy = (E_LSCF_double_hydrogenated - (E_LSCF_slab_Sr_vac_surf + 2 * E_DFT_H2))/2
 

@@ -9,7 +9,7 @@ Ha2eV = 27.2114
 ev2J = 1.60219*10**(-19)
 kB = 1.380649 * 10**(-23) #J/K
 hbar = 1.054571817*10**(-34) #reduced planck's constant in J.s
-T_range = np.arange(700,1400)
+T_range = np.arange(0,1400)
 
 O58 = np.asarray([7.4076004134E-01,  2.1591012494E-01,  4.1481175529E-01])
 O87 = np.asarray([8.1539519077E-01,  3.1418832058E-01,  4.1970138000E-01])
@@ -24,7 +24,7 @@ second_bond_length = np.sqrt(np.matmul(np.transpose(second_bond), second_bond)) 
 
 bond_length = (first_bond_length + second_bond_length)/2
 
-delta_bond_lengths_percent = [0,15, -15,-10, -5, 10,5]
+delta_bond_lengths_percent = [0, 15, -15, -10, -5, 10, 5]
 bond_lengths_angstrom = []
 delta_bond_lengths_angstrom = np.asarray(delta_bond_lengths_percent)/100 * bond_length
 bond_lengths_angstrom = delta_bond_lengths_angstrom + bond_length 
@@ -46,6 +46,7 @@ k = force_constant_k*1e20 * ev2J #J/m^2
 mass_hydrogen = 1.67e-27 #kg
 mass_oxygen = 2.6566962 * 10**-26 #kg
 reduced_mass = (mass_hydrogen*mass_oxygen)/(mass_oxygen + mass_hydrogen)
+#reduced_mass = mass_hydrogen
 
 omega = np.sqrt(2*k/reduced_mass)
 f = omega/(2*np.pi) #frequency charactersitic
@@ -58,6 +59,7 @@ def vibrational_correction_term(T):
     Z= 0
     beta = 1/(kB*T)
     #print("order n\t\t Z \t\t\t nth term \t\t F")
+    print(T)
     for n in range(0,4):
         Z += np.exp(-hbar * beta*omega * (n+0.5))
         #F_vib = -kB * T * np.log(Z)

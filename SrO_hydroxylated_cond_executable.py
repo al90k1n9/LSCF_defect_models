@@ -21,19 +21,24 @@ fig2, ax2 = plt.subplots(layout="constrained")
 
 fig3, ax3 = plt.subplots(layout="constrained")
 
+fig4, ax4  = plt.subplots(layout="constrained")
 
-V_Sr, delta_G = case1(T_range, x, p_O2, p_H2O, P)
+
+V_Sr, delta_G, theta_list = case1(T_range, x, p_O2, p_H2O, P)
 ax.plot(T_range, V_Sr, label="case 1")
 ax2.plot(T_range, delta_G/ev2J_p_mol, label="case1")
+ax4.plot(T_range, theta_list, label="case1")
 
-V_Sr, delta_G = case2(T_range, x, p_H2O, P)
+V_Sr, delta_G, theta_list = case2(T_range, x, p_H2O, P)
 ax.plot(T_range, V_Sr, label="case 2")
 ax2.plot(T_range, delta_G/ev2J_p_mol, label="case2")
 ax3.plot(T_range, np.asarray(V_Sr)/0.4*100, label="SrO")
+ax4.plot(T_range, theta_list, label="case1")
 
-V_Sr, delta_G = case3(T_range, x, p_O2, p_H2O, P)
+V_Sr, delta_G, theta_list = case3(T_range, x, p_O2, p_H2O, P)
 ax.plot(T_range, V_Sr, label="case 3")
 ax2.plot(T_range, delta_G/ev2J_p_mol, label="case3")
+ax4.plot(T_range, theta_list, label="case1")
 
 
 #===================================================
@@ -107,5 +112,15 @@ ax32 = ax3.secondary_yaxis('right', functions=(percent2surf_coverage, surf_cover
 ax32.set_ylabel("$\\theta$")
 ax32.yaxis.set_minor_locator(AutoMinorLocator())
 
-fig3.savefig("hydroxylated_case.png", dpi=300, transparent=True)
+#fig3.savefig("hydroxylated_case.png", dpi=300, transparent=True)
+
+ax4.set_xlabel("T [K]")
+ax4.set_ylabel("$\\theta$")
+
+ax4.xaxis.set_minor_locator(AutoMinorLocator())
+ax4.yaxis.set_minor_locator(AutoMinorLocator())
+
+ax4.set_xlim(T_lower_bound, T_upper_bound)
+#ax4.set_ylim(0,)
+
 plt.show()

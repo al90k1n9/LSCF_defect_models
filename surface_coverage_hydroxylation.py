@@ -6,6 +6,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import AutoMinorLocator
 
+default_colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
+
 #N_avagadro, ev2j, ev2J_p_mol defined in dft_energies_0k
 x_H2O = 0.08
 x_O2 = 0.21
@@ -19,37 +21,48 @@ hbar = 1.054571817*10**(-34) #reduced planck's constant in J.s
 oxygen_adsorption = -0.6 #eV
 oxygen_adsorption *= ev2J_p_mol #J/mol
 
-print("oxygen adsorption ", oxygen_adsorption*N_avagadro)
+print("oxygen adsorption ", oxygen_adsorption/ev2J_p_mol)
 print("boltzmann constant in J ", kb)
 print("adsorption energy in eV ", E_ads/ev2J_p_mol)
 
 
-def surface_coverage_modified(T, x_H2O, E_ads, P):
-    chemical_potential = cp_H2O(T, E_DFT_H2O=0, P=x_H2O*P) +  zpe_H2O #J/mol
-    #BE CAREFUL YOU NEED TO GET THE CHEMICAL POTENTIAL CORRECTION; IT'S IMPORTANT TO PUT THE DFT ENERGY PARAMETER TO ZERO
-    exp_term = np.exp(-(-E_ads+chemical_potential)/(R*T))
-    theta = 1/(1+exp_term)
-    return theta
+def comp_ads(T, x_H2O, x_O2, E_ads_H2O, E_ads_O2, P):
+	chemical_potential_O2 = cp_O2(T, E_DFT_O2 = 0, P=x_O2*P) + zpe_O2
+	chemical_potential_H2O = cp_H2O(T, E_DFT_H2O = 0, P=x_H2O*P) + zpe_H2O
+	exp_term_H2O = np.exp(-(E_ads_H2O - chemical_potential_H2O)/(R*T))
+	exp_term_O2 = np.exp(-(E_ads_O2 - chemical_potential_O2)/(R*T))
+	theta_O2 = 1/(1+1/exp_term_O2 + exp_term_H2O/exp_term_O2)
+	theta_H2O = 1/(1+1/exp_term_H2O + exp_term_O2/exp_term_H2O)
+	return (theta_O2, theta_H2O, chemical_potential_O2, chemical_potential_H2O)
+
+T_range = np.arange(400, 1301, 0.1)
 
 
-def langumuir_isotherm(T, x_H2O, E_ads, P):
-    chemical_potential = cp_H2O(T, E_DFT_H2O=0, P=x_H2O*P) +  zpe_H2O #J/mol
-T_range = np.arange(600, 1301)
+inversion_temp_list=[]
+half_coverage_temp_list=[]
 
+theta_list_def_model = surface_coverage_H2O(T_range, x_H2O=0.08, E_ads=E_ads, P=1)
+fig0, ax0 = plt.subplots(layout="constrained")
+ax0.plot(T_range, theta_list_def_model)
+Delta_G = E_ads - cp_H2O(T_range,E_DFT_H2O = 0, P=x_H2O) - zpe_H2O
+energy_ax = ax0.twinx()
 
-theta_list_def_model = surface_coverage_H2O(T_range, x_H2O, E_ads, P=1)
-theta_modified = surface_coverage_modified(T_range, x_H2O, E_ads, P=1)
-
-
+energy_ax.plot(T_range, Delta_G/ev2J_p_mol, color="black")
+energy_ax.axhline(y=0, color="black", linestyle="dashed")
 
 
 fig,ax = plt.subplots(layout="constrained")
-
-
-ax.plot(T_range, theta_list_def_model, label="in def model")
-ax.plot(T_range, theta_modified, label="modified")
-
-
+#for x_H2O in [0.08, 0.2, 0.5]:
+x_H2O_range = np.linspace(0.01, 0.99, 200)
+for x_H2O in x_H2O_range:
+	theta_list_def_model = surface_coverage_H2O(T_range, x_H2O, E_ads, P=1)
+	Delta_G = E_ads - cp_H2O(T_range,E_DFT_H2O = 0, P=x_H2O) - zpe_H2O
+	#energy_axes = ax.twinx()
+	#ax.plot(T_range, theta_list_def_model, label="$x_{H_2O}=$"+str(x_H2O))
+	for index in range(1,len(T_range)):
+		if Delta_G[index-1]<0 and Delta_G[index]>=0: inversion_temp_list.append(T_range[index])
+		if theta_list_def_model[index-1]>0.5 and theta_list_def_model[index]<=0.5: half_coverage_temp_list.append(T_range[index])
+#
 #x_H2O_range = np.linspace(0.02,1,5)
 #for x_H2O in x_H2O_range:
 #    theta_list = surface_coverage_H2O(T_range, x_H2O, E_ads, P=1)
@@ -63,9 +76,109 @@ ax.set_ylabel("$\\theta_{H_2O}$")
 
 ax.xaxis.set_minor_locator(AutoMinorLocator())
 ax.yaxis.set_minor_locator(AutoMinorLocator())
+ax.legend(facecolor="none")
+
+ax0.set_xlim(T_range[0], T_range[-1])
+ax0.set_ylim(0,1.01)
+
+ax0.set_xlabel("T [K]")
+ax0.set_ylabel("$\\theta_{H_2O}$")
+
+ax0.xaxis.set_minor_locator(AutoMinorLocator())
+ax0.yaxis.set_minor_locator(AutoMinorLocator())
+
+energy_ax.set_ylabel("$\Delta_r^{ads} G(T,p=p_{H_2O})$ [eV]")
+energy_ax.yaxis.set_minor_locator(AutoMinorLocator())
+
+
 #ax.set_xticks([min(T_range), max(T_range)])
 #ax.set_xticklabels([f'{min(T_range)}', f'{max(T_range)}'])
-ax.legend()
 
-fig.savefig("surf_coverage.svg", format="svg", dpi=300, transparent=True)
+fig2, ax2 = plt.subplots(layout="constrained")
+ax2.plot(inversion_temp_list, half_coverage_temp_list, marker="s", linestyle="")
+ax2.plot(inversion_temp_list, inversion_temp_list, linestyle="dashed", color="black", label="x=y")
+
+ax2.legend(facecolor="none")
+
+ax2.set_xlabel("Inversion temperature [K]")
+ax2.set_ylabel("Half coverage temperature [K]")
+
+ax2.xaxis.set_minor_locator(AutoMinorLocator())
+ax2.yaxis.set_minor_locator(AutoMinorLocator())
+
+fig3, ax3 = plt.subplots(layout="constrained")
+
+ax3.plot(x_H2O_range, inversion_temp_list)
+
+ax3.set_xlabel("$x_{H_2O}$")
+ax3.set_ylabel("Inversion temperature [K]")
+
+ax3.set_xlim(0,1)
+
+ax3.xaxis.set_minor_locator(AutoMinorLocator())
+ax3.yaxis.set_minor_locator(AutoMinorLocator())
+
+
+ax3inset = ax3.inset_axes([0.45, 0.15, 0.5, 0.5])
+
+ax3inset.plot(x_H2O_range, inversion_temp_list)
+ax3inset.set_xlim(0.01, 0.1)
+ax3inset.set_ylim(860, 960)
+ax3inset.set_facecolor("none")
+ax3inset.xaxis.set_minor_locator(AutoMinorLocator())
+ax3inset.yaxis.set_minor_locator(AutoMinorLocator())
+
+
+fig4, ax4 = plt.subplots(layout="constrained")
+theta_O2, theta_H2O, chemical_potential_O2, chemical_potential_H2O = comp_ads(T_range, 0.08, 0.21, E_ads, oxygen_adsorption, 1)
+
+ax4.plot(T_range, theta_H2O)
+ax4twinax = ax4.twinx()
+ax4twinax.plot(T_range, theta_O2, color=default_colors[1])
+
+#ax4.axvline(x=940, color="black", linestyle="dashed")
+
+ax4.set_xlabel("T [K]")
+ax4.set_ylabel("$\\theta_{H_2O}$")
+
+
+ax4twinax.set_ylabel("$\\theta_{O_2}$")
+
+
+
+ax4twinax.yaxis.set_minor_locator(AutoMinorLocator())
+ax4.xaxis.set_minor_locator(AutoMinorLocator())
+ax4.yaxis.set_minor_locator(AutoMinorLocator())
+
+ax4.set_xlim(T_range[0], T_range[-1])
+ax4.set_ylim(0,)
+ax4twinax.set_ylim(0,)
+
+fig5, ax5 = plt.subplots(layout="constrained")
+
+ax5.plot(T_range, (E_ads-chemical_potential_H2O)/ev2J_p_mol, label="$\Delta_r^{C5}G^*(T, p=p_{H_2O})$")
+ax5.plot(T_range, (oxygen_adsorption - chemical_potential_O2)/ev2J_p_mol, label="$\Delta_r^{C4}G^*(T, p=p_{O_2})$")
+difference = ((oxygen_adsorption - chemical_potential_O2)-(E_ads-chemical_potential_H2O))/ev2J_p_mol
+
+#ax5.plot(T_range, np.abs(difference), color="black", label="|$\Delta_r^{C4}G^*(T, p=p_{O_2})-\Delta_r^{C5}G^*(T, p=p_{H_2O})$|")
+
+
+
+ax5.set_xlabel("T [K]")
+ax5.set_ylabel("[eV]")
+
+ax5.legend(facecolor="none")
+
+ax5.xaxis.set_minor_locator(AutoMinorLocator())
+ax5.yaxis.set_minor_locator(AutoMinorLocator())
+
+ax5.set_xlim(T_range[0], T_range[-1])
+
+
+#fig0.savefig("surface_coverage.svg", dpi=300, transparent=True, format="svg")
+#fig.savefig("surface_coverage_xH2O.svg", dpi=300, transparent=True, format="svg")
+#fig2.savefig("inversion_temp_half_coverage_temp.svg", dpi=300, transparent=True, format="svg")
+fig3.savefig("inverstion_temp_xH2O.svg", dpi=300, transparent=True, format="svg")
+fig4.savefig("comp_adsorption.svg", format="svg", dpi=300, transparent=True)
+fig5.savefig("comp_adsorption_delta_Gs.svg", format="svg", dpi=300, transparent=True)
 plt.show()

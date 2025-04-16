@@ -1,2 +1,4 @@
 lib/__pycache__/
 __pycache__/
+*svg
+*png

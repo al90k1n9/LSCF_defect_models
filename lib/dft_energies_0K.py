@@ -24,6 +24,12 @@ E_DFT_O2 = E_DFT_O2 * ev2J_p_mol #J/mol
 E_DFT_H2O = -4.71505500161390E+02 #eV
 E_DFT_H2O *= ev2J_p_mol #J/mol
 
+E_DFT_SrCrO4 = -1.99412155436326E+04/4
+E_DFT_SrCrO4 *= ev2J_p_mol
+
+E_DFT_CrO3 = -3.69256819208978E+03
+E_DFT_CrO3 *= ev2J_p_mol
+
 E_DFT_H2 = -3.17817399567036E+01  #in ev without zero point energy corrention at T=0K
 E_DFT_H2 = E_DFT_H2 * ev2J_p_mol #in J/mol
 

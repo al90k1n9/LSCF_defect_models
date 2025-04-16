@@ -61,3 +61,18 @@ def cp_SrOH2(T):
     mu_H2O = cp_H2O(T, E_DFT_H2O=E_DFT_H2O)
     mu_SrOH2 = delta_G_sroh2[T_index] + mu_H2O + E_SrO #J/mol
     return mu_SrOH2
+
+
+
+def cp_CrO3(T, E_DFT_CrO3, P=1):
+    T_0 = 298 #K
+    cp = 56.025/N_avagadro #K J/atom
+    P_0 = 1 #bar
+    delta_h0 = 0 #J.mol-1
+    s0 = 266.178 #J.mol-1.K-1
+
+    delta_mu_CrO3 = delta_h0 + cp* N_avagadro*(T-T_0) - T*s0 - T*cp*N_avagadro*np.log(T/T_0) + T*R * np.log(P/P_0) #J/mol
+
+    mu_CrO3 = E_DFT_CrO3 + delta_mu_CrO3
+    return mu_CrO3
+

@@ -118,3 +118,18 @@ def case4(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1):
         V_Sr.append(solution[0])
         #print(solution[0])
     return (V_Sr, delta_G_range)
+
+
+def case5(T_range, x0 = 0.4, x_H2O = 0.08, P = 1):
+    #case similar to 1 in KV notation. but the activity is expressed differently
+    #experimentally equivalent to keep a lid on the LSCF surface and using only the porosity of the LSCF as gas volume
+    V_Sr= []
+    delta_G_list = []
+    delta_E = (E_LSCF_slab_Sr_vac_surf + 2*E_SrO_epitax + 2*E_DFT_H2- (E_LSCF_slab + 2*E_DFT_H2O))/2 + E_int
+    print("delta E ", delta_E/ev2J_p_mol)
+    for T in T_range:
+        mu_H2 = cp_H2(T, E_DFT_H2, P=1)
+        mu_H2O = cp_H2O(T, E_DFT_H2O, P=1)
+        delta_G = (E_LSCF_slab_Sr_vac_surf + 2*E_SrO_epitax + 2*mu_H2- (E_LSCF_slab + 2*mu_H2O))/2 + E_int
+        delta_G_list.append(delta_G)
+    return (np.asarray(V_Sr), np.asarray(delta_G_list))

@@ -4,7 +4,8 @@ from lib.chemical_potentials import *
 from lib.auxilliary_functions import *
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.ticker import AutoMinorLocator
+from matplotlib.ticker import AutoMinorLocator, FormatStrFormatter
+from tqdm import tqdm
 
 default_colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
 
@@ -18,7 +19,7 @@ m_O2 = 32 / (N_avagadro*1000) #in kg
 hbar = 1.054571817*10**(-34) #reduced planck's constant in J.s
 
 
-oxygen_adsorption = -0.6 #eV
+oxygen_adsorption = -2.2 #eV
 oxygen_adsorption *= ev2J_p_mol #J/mol
 
 print("oxygen adsorption ", oxygen_adsorption/ev2J_p_mol)
@@ -113,17 +114,18 @@ ax3.plot(x_H2O_range, inversion_temp_list)
 ax3.set_xlabel("$x_{H_2O}$")
 ax3.set_ylabel("Inversion temperature [K]")
 
-ax3.set_xlim(0,1)
+ax3.set_xlim(0.01, 0.1)
+ax3.set_ylim(870, 950)
 
 ax3.xaxis.set_minor_locator(AutoMinorLocator())
 ax3.yaxis.set_minor_locator(AutoMinorLocator())
 
 
-ax3inset = ax3.inset_axes([0.45, 0.15, 0.5, 0.5])
-
+ax3inset = ax3.inset_axes([0.45, 0.1, 0.5, 0.5])
+ax3inset.set_xlim(0,1)
 ax3inset.plot(x_H2O_range, inversion_temp_list)
-ax3inset.set_xlim(0.01, 0.1)
-ax3inset.set_ylim(860, 960)
+
+
 ax3inset.set_facecolor("none")
 ax3inset.xaxis.set_minor_locator(AutoMinorLocator())
 ax3inset.yaxis.set_minor_locator(AutoMinorLocator())
@@ -173,12 +175,39 @@ ax5.xaxis.set_minor_locator(AutoMinorLocator())
 ax5.yaxis.set_minor_locator(AutoMinorLocator())
 
 ax5.set_xlim(T_range[0], T_range[-1])
+item = 1
 
-
-#fig0.savefig("surface_coverage.svg", dpi=300, transparent=True, format="svg")
-#fig.savefig("surface_coverage_xH2O.svg", dpi=300, transparent=True, format="svg")
-#fig2.savefig("inversion_temp_half_coverage_temp.svg", dpi=300, transparent=True, format="svg")
-fig3.savefig("inverstion_temp_xH2O.svg", dpi=300, transparent=True, format="svg")
-fig4.savefig("comp_adsorption.svg", format="svg", dpi=300, transparent=True)
-fig5.savefig("comp_adsorption_delta_Gs.svg", format="svg", dpi=300, transparent=True)
+#for oxygen_adsorption in tqdm(np.linspace(-3.0, 0, 1000)):
+#	oxygen_adsorption *= ev2J_p_mol
+#	theta_O2, theta_H2O, chemical_potential_O2, chemical_potential_H2O = comp_ads(T_range, 0.08, 0.21, E_ads, oxygen_adsorption, 1)
+#	fig6, ax6 = plt.subplots(layout="constrained")
+#	fig6.get_layout_engine().set(wspace=0.3, hspace=0.3)
+#
+#	ax6.plot(T_range, theta_H2O)
+#	ax6_alternate = ax6.twinx()
+#	ax6_alternate.plot(T_range, theta_O2, color=default_colors[1])
+#
+#	ax6.set_xlabel("T[K]")
+#	ax6.set_ylabel("$\\theta_{H_2O}$")
+#	ax6_alternate.set_ylabel("$\\theta_{O_2}$")
+#	ax6.set_xlim(T_range[0], T_range[-1])
+#	ax6.set_ylim(0,)
+#	ax6_alternate.set_ylim(0,)
+#
+#	ax6.xaxis.set_minor_locator(AutoMinorLocator())
+#	ax6.yaxis.set_minor_locator(AutoMinorLocator())
+#	ax6_alternate.yaxis.set_minor_locator(AutoMinorLocator())
+#	ax6.yaxis.set_major_formatter(FormatStrFormatter('%.2e'))
+#	ax6_alternate.yaxis.set_major_formatter(FormatStrFormatter('%.2e'))
+#
+#	ax6.set_title("E$_{O_2}^{ads}$ = " + str(round(oxygen_adsorption/ev2J_p_mol,2)) + " eV")
+#	fig6.savefig("figs/gif_comp_surf_coverage/"+str(item)+".png", dpi=300, format="png", transparent=True)
+#	item += 1
+#	plt.close()
+#fig0.savefig("surface_coverage.png", dpi=300, transparent=True, format="png")
+#fig.savefig("surface_coverage_xH2O.png", dpi=300, transparent=True, format="png")
+#fig2.savefig("inversion_temp_half_coverage_temp.png", dpi=300, transparent=True, format="png")
+fig3.savefig("figs/inverstion_temp_xH2O.svg", dpi=300, transparent=True, format="png")
+#fig4.savefig("comp_adsorption.png", format="png", dpi=300, transparent=True)
+#fig5.savefig("comp_adsorption_delta_Gs.png", format="png", dpi=300, transparent=True)
 plt.show()

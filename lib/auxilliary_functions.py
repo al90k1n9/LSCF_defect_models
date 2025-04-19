@@ -99,13 +99,13 @@ def cubic_model(a:float,b:float,c:float,d:float, zero_threshold=0):
             return np.array([double_root, double_root, single_root])
 
 
-def quadratic_model(a:float,b:float,c:float,x=0.4):
+def quadratic_model(a:float,b:float,c:float,x0=0.4):
     delta = b**2 - 4*c*a
     solution1 = (-b + np.sqrt(delta))/(2*a)
     solution2 = (-b - np.sqrt(delta))/(2*a)
-    if solution1<=x and solution1>=0:
+    if solution1<=x0 and solution1>=0:
         return solution1
-    elif solution2 <=x and solution2>=0:
+    elif solution2 <=x0 and solution2>=0:
         return solution2
     else:
         print(solution1, solution2)

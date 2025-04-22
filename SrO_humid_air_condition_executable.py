@@ -15,12 +15,12 @@ T_range = np.arange(T_lower_bound,T_upper_bound,1) #K
 fig,ax = plt.subplots(layout='constrained')
 fig2, ax2 = plt.subplots(layout="constrained")
 
-axinset = ax.inset_axes([0.4, 0.1, 0.5, 0.5])
+#axinset = ax.inset_axes([0.4, 0.2, 0.5, 0.5])
 
 V_Sr, delta_G_range = case1(T_range, x0, x_O2, x_H2O, P=1)
 #keep in mind that the pH2 is determined inside the case1 function by pO2 and pH2O by considering the equilibrium between these three gases.
 ax.plot(T_range, V_Sr, label="H$_{2(g)}$")
-axinset.plot(T_range, V_Sr, label="H$_{2(g)}$")
+#axinset.plot(T_range, V_Sr, label="H$_{2(g)}$")
 ax2.plot(T_range, np.asarray(delta_G_range)/ev2J_p_mol, label="H$_{2(g)}$")
 
 V_Sr, delta_G_range = case2(T_range, x0, x_H2O, P=1)
@@ -77,14 +77,14 @@ def yaxconvert(x):
 def yaxinvert(x):
     return x/(volume_fraction_LSCF * a_SrO**2/(a_LSCF**3 * specific_surface_area))
 
-axinset.set_xlim(left=T_lower_bound,right=T_upper_bound+1)
-axinset.set_ylim(1.8e-8, 6e-8)
-axinset.xaxis.set_minor_locator(AutoMinorLocator())
-axinset.yaxis.set_minor_locator(AutoMinorLocator())
-axinset.set_facecolor("none")
-
-secyax_inset = axinset.secondary_yaxis("right", functions=(yaxconvert, yaxinvert))
-secyax_inset.yaxis.set_minor_locator(AutoMinorLocator())
+#axinset.set_xlim(left=T_lower_bound,right=T_upper_bound+1)
+#axinset.set_ylim(1.8e-8, 6e-8)
+#axinset.xaxis.set_minor_locator(AutoMinorLocator())
+#axinset.yaxis.set_minor_locator(AutoMinorLocator())
+#axinset.set_facecolor("none")
+#
+#secyax_inset = axinset.secondary_yaxis("right", functions=(yaxconvert, yaxinvert))
+#secyax_inset.yaxis.set_minor_locator(AutoMinorLocator())
 
 
 

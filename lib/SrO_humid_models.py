@@ -51,7 +51,7 @@ def case2(T_range, x0=0.4, x_H2O = 0.08, P=1):
     for T in T_range:
         mu_H2O = cp_H2O(T, E_DFT_H2O, P=P)
         T_index_vib_data = np.where(T_data == T)
-        delta_G = (2*(E_SrO_epitax + float(sro_vibration_data[T_index_vib_data, 1])) + E_LSCF_double_hydrogenated - (E_LSCF_slab+ 2 *(mu_H2O + zpe_H2O))) / 2  + E_int
+        delta_G = (2*(E_SrO_epitax + float(sro_vibration_data[T_index_vib_data, 1])) + E_LSCF_double_hydrogenated - (E_LSCF_slab+ 2 *(mu_H2O + zpe_H2O))) / 2  + E_int + 4*OH_bond_vibration
         delta_G_range.append(delta_G)
         if T == 1000: print("case 2: delta G at T = 1000", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T)) 

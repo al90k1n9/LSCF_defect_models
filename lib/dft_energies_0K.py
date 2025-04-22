@@ -6,8 +6,7 @@ ev2J = 1.60219*10**(-19)
 ev2J_p_mol = ev2J*N_avagadro
 Ha2eV = 27.2114
 
-OH_bond_vibration = 0.4972/2 #eV
-#OH_bond_energy = 0#eV
+OH_bond_vibration = 0.351/2 * ev2J_p_mol #J/mol
 
 acell_SrO_slab = 5.16756734063135E-10 #meters #this is with standard SrO lattice parameter
 acell_LSCF_slab = 7.74799694590908E-10 #meters
@@ -89,10 +88,10 @@ E_LSCF_hydroxilated *= ev2J_p_mol
 E_LSCF_bulk_hydrogenated = -9.45693723052703E+04 #eV
 E_LSCF_bulk_hydrogenated *= ev2J_p_mol #J/mol
 
-E_LSCF_double_hydrogenated = -9.37728973049342E+04 + 0*OH_bond_vibration
+E_LSCF_double_hydrogenated = -9.37728973049342E+04
 E_LSCF_double_hydrogenated *= ev2J_p_mol
 
-E_LSCF_single_hydrogenated = -9.37371667638564E+04 + 2*OH_bond_vibration
+E_LSCF_single_hydrogenated = -9.37371667638564E+04
 E_LSCF_single_hydrogenated *= ev2J_p_mol 
 
 

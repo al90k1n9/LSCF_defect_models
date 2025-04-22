@@ -17,6 +17,8 @@ p_O2 = x_O2 * P
 fig,ax = plt.subplots(layout='constrained')
 axinset1 = ax.inset_axes([0.3,0.65,0.3,0.3])
 axinset2 = ax.inset_axes([0.07,0.25,0.3,0.3])
+axinset1.set_facecolor("none")
+axinset2.set_facecolor("none")
 
 fig2, ax2 = plt.subplots(layout ="constrained")
 
@@ -85,7 +87,7 @@ ax4.set_xlabel("T[K]")
 ax4.set_ylabel("$[V\'\'\'_{La}]_{eq}=x_{eq}$")
 
 
-ax.set_xlim(left=T_lower_bound,right=T_upper_bound)
+ax.set_xlim(left=T_lower_bound,right=T_upper_bound+1)
 ax.set_ylim(0,)
 ax.legend(loc="upper left", facecolor="none")
 ax.xaxis.set_minor_locator(AutoMinorLocator())
@@ -95,26 +97,26 @@ axinset2.xaxis.set_minor_locator(AutoMinorLocator())
 axinset1.yaxis.set_minor_locator(AutoMinorLocator())
 axinset2.yaxis.set_minor_locator(AutoMinorLocator())
 
-axinset1.set_xlim(T_lower_bound, T_upper_bound)
+axinset1.set_xlim(T_lower_bound, T_upper_bound+1)
 axinset1.set_ylim(0,0.3e-8)
 
-axinset2.set_xlim(T_lower_bound, T_upper_bound)
+axinset2.set_xlim(T_lower_bound, T_upper_bound+1)
 axinset2.set_ylim(0,0.75e-11)
 
 
-ax2.set_xlim(left=T_lower_bound,right=T_upper_bound)
+ax2.set_xlim(left=T_lower_bound,right=T_upper_bound+1)
 ax2.set_ylim(0,)
 ax2.legend(loc="lower right", facecolor="none")
 ax2.xaxis.set_minor_locator(AutoMinorLocator())
 ax2.yaxis.set_minor_locator(AutoMinorLocator())
 
-ax3.set_xlim(left=T_lower_bound,right=T_upper_bound)
+ax3.set_xlim(left=T_lower_bound,right=T_upper_bound+1)
 ax3.set_ylim(0,)
 ax3.legend(loc="upper left", facecolor="none")
 ax3.xaxis.set_minor_locator(AutoMinorLocator())
 ax3.yaxis.set_minor_locator(AutoMinorLocator())
 
-ax4.set_xlim(left=T_lower_bound,right=T_upper_bound)
+ax4.set_xlim(left=T_lower_bound,right=T_upper_bound+1)
 ax4.set_ylim(0,)
 ax4.legend(loc="upper left", facecolor="none")
 ax4.xaxis.set_minor_locator(AutoMinorLocator())
@@ -155,9 +157,9 @@ secyax4.yaxis.set_minor_locator(AutoMinorLocator())
 
 plt.show()
 
-#fig.savefig("dry_air_conditions.svg", dpi=300, transparent=True)
-#fig2.savefig("dry_air_condition_deltaG.svg", dpi=300, transparent=True)
-#fig3.savefig("dry_air_cond_po2_dep.svg", dpi=300, transparent=True)
-#fig4.savefig("dry_air_cond_p_dep.svg", dpi=300, transparent=True)
+fig.savefig("figs/dry_air_conditions.svg", dpi=300, transparent=True)
+#fig2.savefig("figs/dry_air_condition_deltaG.svg", dpi=300, transparent=True)
+#fig3.savefig("figs/dry_air_cond_po2_dep.svg", dpi=300, transparent=True)
+#fig4.savefig("figs/dry_air_cond_p_dep.svg", dpi=300, transparent=True)
 
 

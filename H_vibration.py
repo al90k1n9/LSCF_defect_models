@@ -2,6 +2,7 @@ from lib.dft_energies_0K import *
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 from matplotlib.ticker import FormatStrFormatter as fsf
+from matplotlib.ticker import AutoMinorLocator
 
 acell = 1.4641598078E+01 
 Bohr2Angstrom = 0.5291777
@@ -48,7 +49,7 @@ mass_oxygen = 2.6566962 * 10**-26 #kg
 reduced_mass = (mass_hydrogen*mass_oxygen)/(mass_oxygen + mass_hydrogen)
 #reduced_mass = mass_hydrogen
 
-omega = np.sqrt(2*k/reduced_mass)
+omega = np.sqrt(k/reduced_mass)
 f = omega/(2*np.pi) #frequency charactersitic
 wave_number = f/299792458
 
@@ -86,7 +87,9 @@ if __name__ == "__main__":
     ax1.plot(fit_xlist, quadratic_fit(fit_xlist, force_constant_k[0]), color = "black", ls="dashed")
     ax1.set_xlabel("u [A]")
     ax1.set_ylabel("delta total energy [eV]")
-    #plt.ylim(0,)
+    ax1.xaxis.set_minor_locator(AutoMinorLocator())
+    ax1.yaxis.set_minor_locator(AutoMinorLocator())
+    ax1.set_ylim(0,)
 
     print("\n\nDetermination of vibrational correction term to the chemical potential")
     print("spring constant k of OH in eV/A^2", force_constant_k)
@@ -100,7 +103,13 @@ if __name__ == "__main__":
     fig2, ax2 = plt.subplots(layout="constrained")
     ax2.plot(T_range, F_vib/ev2J_p_mol)
     ax2.set_xlabel("T[K]")
-    ax2.set_ylabel("F_vib [eV]")
-    ax2.set_xlim(min(T_range),max(T_range))
-    ax2.yaxis.set_major_formatter(fsf('%.4f'))
+    ax2.set_ylabel("F$_{O-H}^{vib}$ [eV]")
+    ax2.set_xlim(min(T_range),max(T_range)+1)
+    #ax2.yaxis.set_major_formatter(fsf('%.2e'))
+    ax2.xaxis.set_minor_locator(AutoMinorLocator())
+    ax2.yaxis.set_minor_locator(AutoMinorLocator())
+
+
+    fig1.savefig("figs/H_vibrations_parabolic_fit.svg", format="svg", transparent=True, dpi=300)
+    fig2.savefig("figs/H_vibrations_F_vib.svg", format="svg", transparent=True, dpi=300)
     plt.show()

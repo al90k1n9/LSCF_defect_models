@@ -49,7 +49,7 @@ def case2(T_range, x=0.4, p_H2O = 0.08, P=1):
         N = theta/(1-theta) * np.exp(-delta_G/(R*T))
         V_Sr.append(N/(1+N)*x)
         theta_list.append(theta)
-    return (V_Sr, np.asarray(delta_G_list), theta_list)
+    return (np.asarray(V_Sr), np.asarray(delta_G_list), theta_list)
 
 def case3(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
     V_Sr= []

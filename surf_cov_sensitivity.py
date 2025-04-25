@@ -58,6 +58,16 @@ ax.invert_xaxis()
 #axinset.set_ylim(0,)
 #axinset.set_xlim(lower_bound,1)
 
+def yaxconvert(x):
+    return x * 100/0.4
+
+def yaxinvert(x):
+    return x *0.4/100
+
+secyax = ax.secondary_yaxis("right", functions=(yaxconvert, yaxinvert))
+secyax.set_ylabel("% of initial Sr content $\\frac{100 \cdot x_{eq}}{x_0}$")
+secyax.yaxis.set_minor_locator(AutoMinorLocator())
+
 fig.savefig("figs/surf_cov_sensitivity.svg", format="svg", dpi=300, transparent=True)
 
 

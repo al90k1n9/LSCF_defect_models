@@ -18,7 +18,7 @@ p_H2O = x_H2O * P
 
 fig,ax = plt.subplots(layout='constrained')
 axinset = ax.inset_axes([0.45,0.15,0.5,0.5])
-#axinset.set_facecolor("none")
+axinset.set_facecolor("none")
 fig2, ax2 = plt.subplots(layout="constrained")
 
 #fig3, ax3 = plt.subplots(layout="constrained")

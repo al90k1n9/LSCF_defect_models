@@ -8,7 +8,7 @@ default_colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
 
 x0 = 0.4 #molar fraction of Sr
 x_O2 = 0.21
-x_CrO3 = 1e-3
+x_CrO3 = 1e-7
 P = 1 #atm
 T_lower_bound = 825
 T_upper_bound = 875
@@ -19,7 +19,7 @@ p_O2 = x_O2 * P
 fig, ax = plt.subplots(layout="constrained")
 fig2, ax2 = plt.subplots(layout="constrained")
 T = 800
-V_Sr, delta_G, delta_G_instance,(a,b,c,d) = case1(T_range)
+V_Sr, delta_G, delta_G_instance,(a,b,c,d) = case1(T_range, x_CrO3=x_CrO3)
 
 #polynomial = []
 #og_function = []
@@ -44,7 +44,7 @@ ax2.plot(T_range, V_Sr[:,2], label="case 1 solution 3", color=default_colors[0],
 
 
 
-V_Sr, delta_G = case2(T_range)
+V_Sr, delta_G = case2(T_range, x_CrO3=x_CrO3)
 
 ax.plot(T_range, delta_G/ev2J_p_mol, label="case 2")
 ax2.plot(T_range, V_Sr, label="case 2", color=default_colors[1])
@@ -56,6 +56,16 @@ ax.xaxis.set_minor_locator(AutoMinorLocator())
 ax.yaxis.set_minor_locator(AutoMinorLocator())
 
 ax.legend(facecolor = "none")
+
+def yaxconvert(x):
+    return x * 100/0.4
+
+def yaxinvert(x):
+    return x *0.4/100
+
+secyax = ax2.secondary_yaxis("right", functions=(yaxconvert, yaxinvert))
+secyax.set_ylabel("% of initial Sr content $\\frac{100 \\cdot x_{eq}}{x_0}$")
+secyax.yaxis.set_minor_locator(AutoMinorLocator())
 
 ax2.set_xlabel("T [K]")
 ax2.set_ylabel("$[V_{La}''']$")

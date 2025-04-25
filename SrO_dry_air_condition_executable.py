@@ -143,13 +143,13 @@ def yaxinvert(x):
     return x *0.4/100
 
 secyax = ax.secondary_yaxis("right", functions=(yaxconvert, yaxinvert))
-secyax.set_ylabel("% of initial Sr content $\\frac{100 \cdot x_{eq}}{x_0}$")
+secyax.set_ylabel("% of initial Sr content $\\frac{100 \\cdot x_{eq}}{x_0}$")
 
 secyax3= ax3.secondary_yaxis("right", functions=(yaxconvert, yaxinvert))
-secyax3.set_ylabel("% of initial Sr content $\\frac{100 \cdot x_{eq}}{x_0}$")
+secyax3.set_ylabel("% of initial Sr content $\\frac{100 \\cdot x_{eq}}{x_0}$")
 
 secyax4= ax4.secondary_yaxis("right", functions=(yaxconvert, yaxinvert))
-secyax4.set_ylabel("% of initial Sr content $\\frac{100 \cdot x_{eq}}{x_0}$")
+secyax4.set_ylabel("% of initial Sr content $\\frac{100 \\cdot x_{eq}}{x_0}$")
 
 secyax.yaxis.set_minor_locator(AutoMinorLocator())
 secyax3.yaxis.set_minor_locator(AutoMinorLocator())

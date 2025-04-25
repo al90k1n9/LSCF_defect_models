@@ -45,7 +45,7 @@ def case2(T_range, x=0.4, p_H2O = 0.08, P=1):
         T_index_vib_data = np.where(T_data == T)
         delta_G = delta_E + float(sro_vibration_data[T_index_vib_data, 1]) 
         delta_G_list.append(delta_G)
-        theta = surface_coverage_H2O(T,p_H2O/P, E_ads, P)
+        theta, chemical_potential_used = surface_coverage_H2O(T,p_H2O/P, E_ads, P)
         N = theta/(1-theta) * np.exp(-delta_G/(R*T))
         V_Sr.append(N/(1+N)*x)
         theta_list.append(theta)

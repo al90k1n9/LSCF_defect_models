@@ -134,9 +134,14 @@ m_H2O = 18.01528 / (N_avagadro*1000) #in kg
 hbar = 1.054571817*10**(-34) #reduced planck's constant in J.s
 
 
-def surface_coverage_H2O(T, x_H2O, E_ads, P):
-    chemical_potential = cp_H2O(T, E_DFT_H2O=0, P=x_H2O*P) +  zpe_H2O #J/mol
+def surface_coverage_H2O(T, x_H2O, E_ads, P, chem_pot = 0):
+    #chem_pot 0 for experimental chemical potential
+    #chem_pot 1 for translational chemical potential
+    if chem_pot == 0: 
+        chemical_potential = cp_H2O(T, E_DFT_H2O=0, P=x_H2O*P) +  zpe_H2O #J/mol
+    else:
+        chemical_potential = N_avagadro * kb*T* np.log(x_H2O*P*1e5/(kb*T) * (2*np.pi*hbar**2/(m_H2O*kb*T))**(3/2)) #J/mol
     #BE CAREFUL YOU NEED TO GET THE CHEMICAL POTENTIAL CORRECTION; IT'S IMPORTANT TO PUT THE DFT ENERGY PARAMETER TO ZERO
     exp_term = np.exp(-(-E_ads+chemical_potential)/(R*T))
     theta = 1/(1+exp_term)
-    return theta
+    return (theta, chemical_potential)

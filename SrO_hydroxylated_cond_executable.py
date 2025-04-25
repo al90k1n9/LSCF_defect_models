@@ -19,9 +19,9 @@ p_H2O = x_H2O * P
 fig,ax = plt.subplots(layout='constrained')
 axinset = ax.inset_axes([0.45,0.15,0.5,0.5])
 axinset.set_facecolor("none")
-fig2, ax2 = plt.subplots(layout="constrained")
+#fig2, ax2 = plt.subplots(layout="constrained")
 
-#fig3, ax3 = plt.subplots(layout="constrained")
+
 #
 #fig4, ax4  = plt.subplots(layout="constrained")
 
@@ -38,16 +38,16 @@ axinset.plot(T_range, V_Sr/x0)
 axinset.plot(T_range, theta_list, label="$\\theta_{H_2O}$")
 axinset.legend(facecolor="none")
 axinset.legend(facecolor="none")
-ax2.plot(T_range, delta_G/ev2J_p_mol, label="case 3.3")
+#ax2.plot(T_range, delta_G/ev2J_p_mol, label="case 3.3")
 print("case 2 ", delta_G[1]/ev2J_p_mol)
 
-#ax3.plot(T_range, np.asarray(V_Sr)/0.4*100, label="SrO")
-#ax4.plot(T_range, theta_list, label="case1")
 
-#V_Sr, delta_G, theta_list = case3(T_range, x0, p_O2, p_H2O, P)
-#ax.plot(T_range, V_Sr, label="case 3")
-#ax2.plot(T_range, delta_G/ev2J_p_mol, label="case3")
-#ax4.plot(T_range, theta_list, label="case1")
+#fig3, ax3 = plt.subplots(layout="constrained")
+#theta, used_chemical_potential = surface_coverage_H2O(T_range, p_H2O/P, E_ads, P, chem_pot= 0)
+#ax3.plot(T_range, used_chemical_potential/ev2J_p_mol, label="exp")
+#theta, used_chemical_potential = surface_coverage_H2O(T_range, p_H2O/P, E_ads, P, chem_pot= 1)
+#ax3.plot(T_range, used_chemical_potential/ev2J_p_mol, label="translational")
+
 
 
 #===================================================
@@ -89,56 +89,23 @@ secyax.set_ylabel("% of total Sr content $\\frac{100\\cdot x_{eq}}{x_0}$")
 #secyaxinset = axinset.secondary_yaxis("right", functions=(yaxconvert, yaxinvert))
 #secyaxinset.yaxis.set_minor_locator(AutoMinorLocator())
 
-ax2.set_xlabel("T[K]")
-ax2.set_ylabel("$\Delta_rG^*(T,p)$ [eV]")
-
-ax.xaxis.set_minor_locator(AutoMinorLocator())
-ax.yaxis.set_minor_locator(AutoMinorLocator())
-axinset.xaxis.set_minor_locator(AutoMinorLocator())
-axinset.yaxis.set_minor_locator(AutoMinorLocator())
-ax2.xaxis.set_minor_locator(AutoMinorLocator())
-ax2.yaxis.set_minor_locator(AutoMinorLocator())
-
-
-ax2.set_xlim(left=T_lower_bound,right=T_upper_bound)
-#ax2.set_ylim(0,)
-ax2.legend(loc="upper right", facecolor="none")
-
-#T_range = np.arange(T_lower_bound, T_upper_bound+200, 1)
-#theta_list = surface_coverage_H2O(T_range, x_H2O=0.08, E_ads= E_ads, P=1)
-#ax3.plot(T_range, theta_list*100, color="black", label="surface coverage")
+#ax2.set_xlabel("T[K]")
+#ax2.set_ylabel("$\\Delta_rG^*(T,p)$ [eV]")
 #
-#ax3.set_xlabel("T [K]")
-#ax3.set_ylabel("% of total Sr")
+#ax.xaxis.set_minor_locator(AutoMinorLocator())
+#ax.yaxis.set_minor_locator(AutoMinorLocator())
+#axinset.xaxis.set_minor_locator(AutoMinorLocator())
+#axinset.yaxis.set_minor_locator(AutoMinorLocator())
+#ax2.xaxis.set_minor_locator(AutoMinorLocator())
+#ax2.yaxis.set_minor_locator(AutoMinorLocator())
 #
-#ax3.xaxis.set_minor_locator(AutoMinorLocator())
-#ax3.yaxis.set_minor_locator(AutoMinorLocator())
 #
-#ax3.set_xlim(T_lower_bound, T_upper_bound)
-#ax3.legend()
+#ax2.set_xlim(left=T_lower_bound,right=T_upper_bound)
+##ax2.set_ylim(0,)
+#ax2.legend(loc="upper right", facecolor="none")
 #
-#def percent2surf_coverage(x):
-#    return x/100
-#
-#def surf_coverage2percent(x):
-#    return x*100
-#
-#ax32 = ax3.secondary_yaxis('right', functions=(percent2surf_coverage, surf_coverage2percent))
-#ax32.set_ylabel("$\\theta$")
-#ax32.yaxis.set_minor_locator(AutoMinorLocator())
-#
-##fig3.savefig("hydroxylated_case.png", dpi=300, transparent=True)
-#
-#ax4.set_xlabel("T [K]")
-#ax4.set_ylabel("$\\theta$")
-#
-#ax4.xaxis.set_minor_locator(AutoMinorLocator())
-#ax4.yaxis.set_minor_locator(AutoMinorLocator())
-#
-#ax4.set_xlim(T_lower_bound, T_upper_bound)
-##ax4.set_ylim(0,)
 
 fig.savefig("figs/hydroxylated_cond_delta_G.svg", format="svg", dpi=300, transparent=True)
-fig2.savefig("figs/hydroxylated_cond_VSr.svg", format="svg", dpi=300, transparent=True)
+#fig2.savefig("figs/hydroxylated_cond_VSr.svg", format="svg", dpi=300, transparent=True)
 
 plt.show()

@@ -17,9 +17,11 @@ def case1(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1):
     delta_E = (E_LSCF_slab_Sr_vac_surf + 2*E_SrO_epitax + 2*E_DFT_H2- (E_LSCF_slab + 2*E_DFT_H2O))/2 + E_int
     print(delta_E/ev2J_p_mol, " delta_E of case 1")
     delta_G_range = []
+    p_H2_list = []
     for T in T_range:
         mu_H2O = cp_H2O(T, E_DFT_H2O, P=P)
         p_H2 = pH2_giver(T, p_H2O, p_O2)
+        p_H2_list.append(p_H2)
         mu_H2 = cp_H2(T, E_DFT_H2, P=P)
 
         T_index_vib_data = np.where(T_data == T)
@@ -40,7 +42,7 @@ def case1(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1):
         #print(equation(x0_minus), equation(x0_plus))
         V_Sr.append(solution[0])
         #print(solution[0])
-    return (V_Sr, delta_G_range)
+    return (V_Sr, delta_G_range, p_H2_list)
 
 def case2(T_range, x0=0.4, x_H2O = 0.08, P=1):
     p_H2O = x_H2O * P
@@ -133,3 +135,22 @@ def case5(T_range, x0 = 0.4, x_H2O = 0.08, P = 1):
         delta_G = (E_LSCF_slab_Sr_vac_surf + 2*E_SrO_epitax + 2*mu_H2- (E_LSCF_slab + 2*mu_H2O))/2 + E_int
         delta_G_list.append(delta_G)
     return (np.asarray(V_Sr), np.asarray(delta_G_list))
+
+
+def ph2_sensitivity_case1(x_H2_range, T=1000, x0 = 0.4, x_H2O=0.08, P=1):
+    p_H2O = x_H2O * P
+    V_Sr= []
+    mu_H2O = cp_H2O(T, E_DFT_H2O, P=P)
+    mu_H2 = cp_H2(T, E_DFT_H2, P=P)
+    delta_G = (E_LSCF_slab_Sr_vac_surf + 2*E_SrO_epitax + 2*(mu_H2 + zpe_H2)- (E_LSCF_slab + 2*(mu_H2O + zpe_H2O)))/2 + E_int
+    K = np.exp(-delta_G/(R*T))
+    for x_H2 in x_H2_range:
+        p_H2 = x_H2 * P
+        N = K * p_H2O/p_H2 #notice that the total pressure cancels out in the case
+        a = 4+4*N
+        b= 4*(x0-1*N)
+        c= x0**2 + (1-x0)*N * (1+3*x0)
+        d = -N * x0 * (1-x0)**2
+        solution= cubic_model(a,b,c,d)
+        V_Sr.append(solution[0])
+    return V_Sr

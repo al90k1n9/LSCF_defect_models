@@ -17,7 +17,7 @@ fig2, ax2 = plt.subplots(layout="constrained")
 
 #axinset = ax.inset_axes([0.4, 0.2, 0.5, 0.5])
 
-V_Sr, delta_G_range = case1(T_range, x0, x_O2, x_H2O, P=1)
+V_Sr, delta_G_range, pH2 = case1(T_range, x0, x_O2, x_H2O, P=1)
 #keep in mind that the pH2 is determined inside the case1 function by pO2 and pH2O by considering the equilibrium between these three gases.
 ax.plot(T_range, V_Sr, label="H$_{2(g)}$")
 #axinset.plot(T_range, V_Sr, label="H$_{2(g)}$")
@@ -71,12 +71,6 @@ ax.legend(loc="upper right", facecolor="none")
 ax.xaxis.set_minor_locator(AutoMinorLocator())
 ax.yaxis.set_minor_locator(AutoMinorLocator())
 
-def yaxconvert(x):
-    return x * volume_fraction_LSCF * a_SrO**2/(a_LSCF**3 * specific_surface_area)
-
-def yaxinvert(x):
-    return x/(volume_fraction_LSCF * a_SrO**2/(a_LSCF**3 * specific_surface_area))
-
 #axinset.set_xlim(left=T_lower_bound,right=T_upper_bound+1)
 #axinset.set_ylim(1.8e-8, 6e-8)
 #axinset.xaxis.set_minor_locator(AutoMinorLocator())
@@ -104,6 +98,11 @@ sample_thickness = 20 * 1e-6 #m
 specific_surface_area = 3.59*1e6 #m^2/m^3 <=> active surface area per unit volume of the electrode
 volume_fraction_LSCF = 0.48
 
+def yaxconvert(x):
+    return x * 100/0.4
+
+def yaxinvert(x):
+    return x *0.4/100
 secyax = ax.secondary_yaxis("right", functions=(yaxconvert, yaxinvert))
 secyax.set_ylabel("% of initial Sr content $\\frac{100 \cdot x_{eq}}{x_0}$")
 secyax.yaxis.set_minor_locator(AutoMinorLocator())
@@ -111,5 +110,31 @@ secyax.yaxis.set_minor_locator(AutoMinorLocator())
 fig.savefig("figs/humid_conditions_VSr.svg", format="svg", dpi=300, transparent=True)
 fig2.savefig("figs/humid_conditions_delta_G.svg", format="svg", dpi=300, transparent=True)
 
+
+fig4, ax4 = plt.subplots(layout="constrained")
+ax4.plot(T_range, pH2)
+
+ax4.set_xlabel("T [K]")
+ax4.set_ylabel("$p_{H_2}$ [atm]")
+
+ax4.xaxis.set_minor_locator(AutoMinorLocator())
+ax4.yaxis.set_minor_locator(AutoMinorLocator())
+
+
+ax4.set_xlim(T_lower_bound, T_upper_bound+1)
+
+
+x_H2_range = np.logspace(-30, -8, 300)
+V_Sr = ph2_sensitivity_case1(x_H2_range)
+fig5, ax5 = plt.subplots(layout="constrained")
+ax5.plot(x_H2_range, V_Sr)
+ax5.set_xlabel("x$_{H_2}$")
+ax5.set_ylabel("$x_{eq} = [V_{La}''']_{eq}$")
+ax5.yaxis.set_minor_locator(AutoMinorLocator())
+ax5.set_xscale("log")
+ax5.set_ylim(0,)
+secyax5 = ax5.secondary_yaxis("right", functions=(yaxconvert, yaxinvert))
+secyax5.set_ylabel("% of initial Sr content $\\frac{100 \cdot x_{eq}}{x_0}$")
+secyax5.yaxis.set_minor_locator(AutoMinorLocator())
 
 plt.show()

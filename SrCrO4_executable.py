@@ -53,10 +53,10 @@ ax.plot(T_range, delta_G/ev2J_p_mol, label="case 2")
 ax2.plot(T_range, V_Sr, label="case 2", color=default_colors[1])
 
 
-T_range = np.genfromtxt("lib/CrO2OH2_factsage.csv", delimiter=";")[:,0]
-T_range = T_range[25:]
-print(T_range[0], T_range[-1], np.shape(T_range))
-V_Sr, delta_G = case3(T_range)
+#T_range = np.genfromtxt("lib/CrO2OH2_factsage.csv", delimiter=";")[:,0]
+#T_range = T_range[25:]
+#print(T_range[0], T_range[-1], np.shape(T_range))
+V_Sr, delta_G, mu_list = case3(T_range)
 
 ax2.plot(T_range, V_Sr[:,0], color=default_colors[2])
 ax2.plot(T_range, V_Sr[:,1], color=default_colors[2], ls="dashed")
@@ -90,6 +90,8 @@ ax2.yaxis.set_minor_locator(AutoMinorLocator())
 
 ax2.legend(facecolor="none")
 
+fig3, ax3 = plt.subplots(layout="constrained")
+ax3.plot(T_range, np.asarray(mu_list)/ev2J_p_mol)
+
 
 plt.show()
-

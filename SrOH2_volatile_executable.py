@@ -10,8 +10,9 @@ x_H2O = 0.08
 P = 1 #atm
 
 
-data = np.genfromtxt("./lib/sroh2_factsage.csv", delimiter=";")
-T_range = data[100::100,0]
+T_lower_bound = 700
+T_upper_bound = 1100
+T_range = np.arange(T_lower_bound, T_upper_bound)
 V_Sr, delta_G= case1(T_range)
 
 fig, ax = plt.subplots(layout="constrained")

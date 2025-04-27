@@ -14,7 +14,6 @@ def case1(T_range, x=0.4, p_H2O = 0.08, P = 1, volume_fraction_gas= 0.5):
 
     for index in range(len(T_range)):
         T = T_range[index]
-        print(T, end=" ")
         mu_H2O = cp_H2O(T, E_DFT_H2O=E_DFT_H2O)
         mu_SrOH2 = cp_SrOH2(T)
         delta_G = float(0.5*(2*mu_SrOH2 + E_LSCF_slab_Sr_surf_O_sub_surf - 2*mu_H2O - E_LSCF_slab))

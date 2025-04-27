@@ -5,7 +5,7 @@ import sys
 sys.path.append("H:\Documents\SrO_defect_model")
 
 import numpy as np
-from lib.dft_energies_0K import E_DFT_H2O, E_SrO
+from lib.dft_energies_0K import E_DFT_H2O, E_DFT_CrO3, E_SrO
 
 N_avagadro = 6.0223*10**23
 ev2J = 1.60219*10**(-19)
@@ -52,14 +52,14 @@ def cp_H2(T, E_DFT_H2, P=1):
     return mu_H2
 
 
-def cp_SrOH2(T):
+def cp_SrOH2(T, P=1):
     data = np.genfromtxt("./lib/sroh2_factsage.csv", delimiter=";") #SrO (solid) +H2O (gas) gives SrOH2 (gas)
     T_range = data[:,0]
     delta_G_sroh2 = data[:,2]
     assert T in T_range, "T not in the range of the factsage provided database. or out of range"
     T_index = np.where(T_range==T)
     mu_H2O = cp_H2O(T, E_DFT_H2O=E_DFT_H2O)
-    mu_SrOH2 = delta_G_sroh2[T_index] + mu_H2O + E_SrO #J/mol
+    mu_SrOH2 = delta_G_sroh2[T_index] + mu_H2O + E_SrO + R*T*np.log(P) #J/mol
     return mu_SrOH2
 
 
@@ -75,4 +75,18 @@ def cp_CrO3(T, E_DFT_CrO3, P=1):
 
     mu_CrO3 = E_DFT_CrO3 + delta_mu_CrO3
     return mu_CrO3
+
+
+def cp_CrO2OH2(T, P=1):
+    data = np.genfromtxt("./lib/CrO2OH2_factsage.csv", delimiter=";") #SrO (solid) +H2O (gas) gives SrOH2 (gas)
+    T_range = data[:,0]
+    delta_Gf_CrO2OH2 = data[:,2]
+    assert T in T_range, "T not in the range of the factsage provided database. or out of range"
+    T_index = np.where(T_range==T)
+    mu_H2O = cp_H2O(T, E_DFT_H2O=E_DFT_H2O)
+    mu_CrO3 = cp_CrO3(T, E_DFT_CrO3=E_DFT_CrO3)
+    mu_CrO2OH2 = delta_Gf_CrO2OH2[T_index] + mu_H2O + mu_CrO3 + R*T*np.log(P) #J/mol
+    return mu_CrO2OH2
+
+
 

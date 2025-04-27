@@ -8,7 +8,7 @@ default_colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
 
 x0 = 0.4 #molar fraction of Sr
 x_O2 = 0.21
-x_CrO3 = 1e-7
+x_CrO3 = 1e-3
 P = 1 #atm
 T_lower_bound = 825
 T_upper_bound = 875
@@ -20,6 +20,9 @@ fig, ax = plt.subplots(layout="constrained")
 fig2, ax2 = plt.subplots(layout="constrained")
 T = 800
 V_Sr, delta_G, delta_G_instance,(a,b,c,d) = case1(T_range, x_CrO3=x_CrO3)
+print(V_Sr[0], V_Sr[0] - V_Sr[-1])
+
+
 
 #polynomial = []
 #og_function = []
@@ -48,6 +51,18 @@ V_Sr, delta_G = case2(T_range, x_CrO3=x_CrO3)
 
 ax.plot(T_range, delta_G/ev2J_p_mol, label="case 2")
 ax2.plot(T_range, V_Sr, label="case 2", color=default_colors[1])
+
+
+T_range = np.genfromtxt("lib/CrO2OH2_factsage.csv", delimiter=";")[:,0]
+T_range = T_range[25:]
+print(T_range[0], T_range[-1], np.shape(T_range))
+V_Sr, delta_G = case3(T_range)
+
+ax2.plot(T_range, V_Sr[:,0], color=default_colors[2])
+ax2.plot(T_range, V_Sr[:,1], color=default_colors[2], ls="dashed")
+ax2.plot(T_range, V_Sr[:,2], color=default_colors[2], ls="dotted")
+ax.plot(T_range, delta_G/ev2J_p_mol, color=default_colors[2], label="case 3")
+
 
 ax.set_xlabel("T [K]")
 ax.set_ylabel("$\Delta_rG^*(T, p)$")

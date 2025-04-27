@@ -10,12 +10,23 @@ OH_bond_vibration = 0.351/2 * ev2J_p_mol #J/mol
 
 acell_SrO_slab = 5.16756734063135E-10 #meters #this is with standard SrO lattice parameter
 acell_LSCF_slab = 7.74799694590908E-10 #meters
+acell_LSCF_slab_expaned =  7.84E-10 #meters
+
 
 E_SrO = -1.28749128492132E+03 #eV
 E_SrO = E_SrO * ev2J_p_mol #in J/mol
 
 E_SrO_epitax = -1.28729253918189E+03 #eV
 E_SrO_epitax *= ev2J_p_mol
+
+E_SrO_expanded_substrate = -1.28719164856155E+03 #eV
+E_SrO_expanded_substrate *= ev2J_p_mol
+
+
+E_SrO_slab_expanded_substrate = -1.28711321076406E+04 #eV
+E_SrO_slab_expanded_substrate *= ev2J_p_mol
+
+#print((E_SrO_expanded_substrate-E_SrO_epitax)/ev2J_p_mol, " difference in unit cell energy")
 
 E_DFT_O2 = -874.671000 #eV
 E_DFT_O2 = E_DFT_O2 * ev2J_p_mol #J/mol
@@ -28,6 +39,10 @@ E_DFT_SrCrO4 *= ev2J_p_mol
 
 E_DFT_CrO3 = -3.69256819208978E+03
 E_DFT_CrO3 *= ev2J_p_mol
+
+
+E_DFT_CrO2OH2 = -4.16229857029462E+03
+E_DFT_CrO2OH2 *= ev2J_p_mol
 
 E_DFT_H2 = -3.17817399567036E+01  #in ev without zero point energy corrention at T=0K
 E_DFT_H2 = E_DFT_H2 * ev2J_p_mol #in J/mol
@@ -52,12 +67,24 @@ E_SrO_slab_epitax *= ev2J_p_mol
 
 gamma_SrO = (E_SrO_slab - 10* E_SrO)/(2*acell_SrO_slab**2) #J/mol/m**2
 gamma_SrO_epitax = (E_SrO_slab_epitax - 10* E_SrO_epitax)/(2 * 0.5* acell_LSCF_slab**2) #J/mol/m**2
+gamma_SrO_expanded_substrate = (E_SrO_slab_expanded_substrate - 10* E_SrO_expanded_substrate)/(2 * 0.5* acell_LSCF_slab**2) #J/mol/m**2
 
+
+#print("SrO free surface energies in eV/[1x1]")
+#print(gamma_SrO/ev2J_p_mol*acell_SrO_slab**2/2)
+#print(gamma_SrO_epitax/ev2J_p_mol*acell_LSCF_slab**2*0.25)
+#print(gamma_SrO_expanded_substrate/ev2J_p_mol*acell_LSCF_slab_expaned**2*0.25)
 
 adhesion_work = (E_LSCF_slab + 20 * E_SrO_epitax + 2* gamma_SrO_epitax * acell_LSCF_slab**2 - E_LSCF_SrO_interface)/(2*acell_LSCF_slab**2) #J/mol/m**2
 
 
 E_int = (acell_LSCF_slab/2)**2/2 * (2*gamma_SrO_epitax - adhesion_work) #J/mol
+E_int_expanded_substrate = (acell_LSCF_slab/2)**2/2 * (2*gamma_SrO_expanded_substrate - adhesion_work) #J/mol
+
+#print("interface energy contribution in eV")
+#print(E_int/ev2J_p_mol)
+#print(E_int_expanded_substrate/ev2J_p_mol)
+
 
 E_LSCF_slab_Sr_vac_bulk = -94551.83065 #eV
 E_LSCF_slab_Sr_vac_bulk = E_LSCF_slab_Sr_vac_bulk * ev2J_p_mol #J/mol

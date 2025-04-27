@@ -7,10 +7,25 @@ sys.path.append("H:\Documents\SrO_defect_model")
 import numpy as np
 from lib.dft_energies_0K import E_DFT_H2O, E_DFT_CrO3, E_SrO
 
+
 N_avagadro = 6.0223*10**23
 ev2J = 1.60219*10**(-19)
 ev2J_p_mol = ev2J*N_avagadro
 R = 8.314 #J.K.mol-1
+
+
+def linear_interpolator(x, x_data, y_data):
+    assert (x>=x_data[0] and x<=x_data[-1]), "requested data not in interpolation domain" + str(x)
+    if x in x_data:
+        x_index = np.where(x_data == x)
+        return y_data[x_index]
+    else:
+        for index in range(0, len(x_data)):
+            if x_data[index] < x:
+                slope = (y_data[index] - y_data[index-1])/(x_data[index] - x_data[index-1])
+                intercept = y_data[index] - slope*x_data[index]
+                value = slope*x+intercept
+                return value
 
 def cp_O2(T, E_DFT_O2, P=1):
     #chemical potential of a pure O2 system. There is no notion of partial pressure here.
@@ -53,13 +68,10 @@ def cp_H2(T, E_DFT_H2, P=1):
 
 
 def cp_SrOH2(T, P=1):
-    data = np.genfromtxt("./lib/sroh2_factsage.csv", delimiter=";") #SrO (solid) +H2O (gas) gives SrOH2 (gas)
-    T_range = data[:,0]
-    delta_G_sroh2 = data[:,2]
-    assert T in T_range, "T not in the range of the factsage provided database. or out of range"
-    T_index = np.where(T_range==T)
+    data = np.genfromtxt("./lib/SrOH2_factsage_processed.csv", delimiter=";") #SrO (solid) +H2O (gas) gives SrOH2 (gas)
+    delta_G_sroh2 = linear_interpolator(T,data[:,0], data[:,1])
     mu_H2O = cp_H2O(T, E_DFT_H2O=E_DFT_H2O)
-    mu_SrOH2 = delta_G_sroh2[T_index] + mu_H2O + E_SrO + R*T*np.log(P) #J/mol
+    mu_SrOH2 = delta_G_sroh2 + mu_H2O + E_SrO + R*T*np.log(P) #J/mol
     return mu_SrOH2
 
 
@@ -78,15 +90,9 @@ def cp_CrO3(T, E_DFT_CrO3, P=1):
 
 
 def cp_CrO2OH2(T, P=1):
-    data = np.genfromtxt("./lib/CrO2OH2_factsage.csv", delimiter=";") #SrO (solid) +H2O (gas) gives SrOH2 (gas)
-    T_range = data[:,0]
-    delta_Gf_CrO2OH2 = data[:,2]
-    assert T in T_range, "T not in the range of the factsage provided database. or out of range"
-    T_index = np.where(T_range==T)
+    data = np.genfromtxt("./lib/CrO2OH2_factsage_processed.csv", delimiter=";") #SrO (solid) +H2O (gas) gives SrOH2 (gas)
+    delta_Gf_CrO2OH2 = linear_interpolator(T, data[:,0],data[:,1])
     mu_H2O = cp_H2O(T, E_DFT_H2O=E_DFT_H2O)
     mu_CrO3 = cp_CrO3(T, E_DFT_CrO3=E_DFT_CrO3)
-    mu_CrO2OH2 = delta_Gf_CrO2OH2[T_index] + mu_H2O + mu_CrO3 + R*T*np.log(P) #J/mol
+    mu_CrO2OH2 = delta_Gf_CrO2OH2 + mu_H2O + mu_CrO3 + R*T*np.log(P) #J/mol
     return mu_CrO2OH2
-
-
-

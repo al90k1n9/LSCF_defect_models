@@ -6,7 +6,7 @@ from lib.auxilliary_functions import *
 
 sro_vibration_data = np.genfromtxt("./lib/vibrational_correction_sro.csv",delimiter=" ")
 sro_vibration_data[:,1] +=0
-sro_vibration_data[:,1] *= 0* ev2J_p_mol #to convert everything in J/mol units
+sro_vibration_data[:,1] *= ev2J_p_mol #to convert everything in J/mol units
 T_data = sro_vibration_data[:,0]
 
 def case1(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):

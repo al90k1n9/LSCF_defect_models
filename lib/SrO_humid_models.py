@@ -6,7 +6,7 @@ from lib.auxilliary_functions import *
 from H_vibration import *
 
 sro_vibration_data = np.genfromtxt("./lib/vibrational_correction_sro.csv",delimiter=" ")
-sro_vibration_data[:,1] *= ev2J_p_mol * 0#to convert everything in J/mol units
+sro_vibration_data[:,1] *= ev2J_p_mol*0 #to convert everything in J/mol units
 T_data = sro_vibration_data[:,0]
 
 
@@ -142,7 +142,8 @@ def ph2_sensitivity_case1(x_H2_range, T=1000, x0 = 0.4, x_H2O=0.08, P=1):
     V_Sr= []
     mu_H2O = cp_H2O(T, E_DFT_H2O, P=P)
     mu_H2 = cp_H2(T, E_DFT_H2, P=P)
-    delta_G = (E_LSCF_slab_Sr_vac_surf + 2*E_SrO_epitax + 2*(mu_H2 + zpe_H2)- (E_LSCF_slab + 2*(mu_H2O + zpe_H2O)))/2 + E_int
+    T_index_vib_data = np.where(T_data == T)
+    delta_G = (E_LSCF_slab_Sr_vac_surf + 2*(E_SrO_epitax+float(sro_vibration_data[T_index_vib_data, 1])) + 2*(mu_H2 + zpe_H2)- (E_LSCF_slab + 2*(mu_H2O + zpe_H2O)))/2 + E_int
     K = np.exp(-delta_G/(R*T))
     for x_H2 in x_H2_range:
         p_H2 = x_H2 * P

@@ -93,9 +93,7 @@ def chem_pot_CrO3(T, E_DFT_CrO3, P=1):
 
 def chem_pot_CrO2OH2(T, P=1, data = data_CrO2OH2):
     delta_Gf_CrO2OH2 = linear_interpolator(T, data[:,0],data[:,1])
-    mu_H2O = cp_H2O(T, E_DFT_H2O=E_DFT_H2O) + zpe_H2O
-    mu_CrO3 = cp_CrO3(T, E_DFT_CrO3=E_DFT_CrO3) + zpe_CrO3
-    mu_CrO2OH2 = delta_Gf_CrO2OH2 + mu_H2O + mu_CrO3 + R*T*np.log(P) #J/mol
+    mu_CrO2OH2 = delta_Gf_CrO2OH2 + chem_pot_H2O(T, E_DFT_H2O=E_DFT_H2O) + chem_pot_CrO3(T, E_DFT_CrO3=E_DFT_CrO3) + R*T*np.log(P) #J/mol
     return mu_CrO2OH2
 
 

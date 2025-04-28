@@ -8,7 +8,7 @@ def case1(T_range, x0=0.4, x_O2=0.21, x_CrO3 = 1e-3, P=1):
 	delta_G_list = []
 	delta_E = (E_LSCF_slab_Sr_vac_surf + 2*E_DFT_SrCrO4 - 2*E_DFT_CrO3 - E_DFT_O2 - E_LSCF_slab)/2
 	for T in T_range:
-		mu_CrO3 = cp_CrO3(T, E_DFT_CrO3, P=1)
+		mu_CrO3 = cp_CrO3(T, E_DFT_CrO3, P=1) + zpe_CrO3
 		mu_O2 = cp_O2(T, E_DFT_O2, P=1) + zpe_O2
 		delta_G = (E_LSCF_slab_Sr_vac_surf + 2*E_DFT_SrCrO4 - 2*mu_CrO3 - mu_O2 - E_LSCF_slab)/2
 		delta_G_list.append(delta_G)
@@ -28,7 +28,7 @@ def case2(T_range, x0=0.4, x_CrO3 = 1e-3, P = 1):
 	delta_G_list = []
 	delta_E = (E_LSCF_slab_Sr_surf_O_sub_surf + 2*E_DFT_SrCrO4 - E_DFT_O2 - E_LSCF_slab)/2
 	for T in T_range:
-		mu_CrO3 = cp_CrO3(T, E_DFT_CrO3, P=1)
+		mu_CrO3 = cp_CrO3(T, E_DFT_CrO3, P=1) + zpe_CrO3
 		delta_G = (E_LSCF_slab_Sr_surf_O_sub_surf + 2*E_DFT_SrCrO4 - 2*mu_CrO3 - E_LSCF_slab)/2
 		delta_G_list.append(delta_G)
 		N = x_CrO3 * np.exp(-delta_G/(R*T))

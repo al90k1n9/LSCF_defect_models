@@ -5,7 +5,7 @@ import sys
 sys.path.append("H:\Documents\SrO_defect_model")
 
 import numpy as np
-from lib.dft_energies_0K import E_DFT_H2O, E_DFT_CrO3, E_SrO, E_SrO_epitax, zpe_H2O
+from lib.dft_energies_0K import E_DFT_H2O, E_DFT_CrO3, E_SrO, E_SrO_epitax, zpe_H2O, zpe_CrO3
 
 
 N_avagadro = 6.0223*10**23
@@ -93,9 +93,9 @@ def cp_CrO3(T, E_DFT_CrO3, P=1):
 
 def cp_CrO2OH2(T, P=1, data = data_CrO2OH2):
     delta_Gf_CrO2OH2 = linear_interpolator(T, data[:,0],data[:,1])
-    mu_H2O = cp_H2O(T, E_DFT_H2O=E_DFT_H2O)
-    mu_CrO3 = cp_CrO3(T, E_DFT_CrO3=E_DFT_CrO3)
-    mu_CrO2OH2 = delta_Gf_CrO2OH2 + mu_H2O + zpe_H2O + mu_CrO3 + R*T*np.log(P) #J/mol
+    mu_H2O = cp_H2O(T, E_DFT_H2O=E_DFT_H2O) + zpe_H2O
+    mu_CrO3 = cp_CrO3(T, E_DFT_CrO3=E_DFT_CrO3) + zpe_CrO3
+    mu_CrO2OH2 = delta_Gf_CrO2OH2 + mu_H2O + mu_CrO3 + R*T*np.log(P) #J/mol
     return mu_CrO2OH2
 
 

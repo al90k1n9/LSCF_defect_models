@@ -134,6 +134,7 @@ single_hydrogenation_configs = np.asarray([-3444.77767328802, -3444.7358570430, 
 zpe_H2O = 0.56 * ev2J_p_mol
 zpe_H2 = 0.27 * ev2J_p_mol
 zpe_O2 = 0.098 * ev2J_p_mol
+zpe_CrO3 = 0.25 * ev2J_p_mol
 
 E_ads = (E_LSCF_hydroxilated - (E_LSCF_slab + 2* E_DFT_H2O))/2  #J/mol
 

@@ -134,6 +134,7 @@ def ph2_sensitivity_case1(x_H2_range, T=1000, x0 = 0.4, x_H2O=0.08, P=1):
     mu_H2O = cp_H2O(T, E_DFT_H2O, P=P)
     mu_H2 = cp_H2(T, E_DFT_H2, P=P)
     delta_G = (E_LSCF_slab_Sr_vac_surf + 2*chem_pot_SrO(T) + 2*(mu_H2 + zpe_H2)- (E_LSCF_slab + 2*(mu_H2O + zpe_H2O)))/2 + E_int
+    print(type(mu_H2O), type(mu_H2), type(chem_pot_SrO(T)))
     K = np.exp(-delta_G/(R*T))
     for x_H2 in x_H2_range:
         p_H2 = x_H2 * P

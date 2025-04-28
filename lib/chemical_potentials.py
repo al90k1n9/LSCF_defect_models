@@ -21,14 +21,14 @@ def linear_interpolator(x, x_data, y_data):
     assert (x>=x_data[0] and x<=x_data[-1]), "requested data not in interpolation domain" + str(x)
     if x in x_data:
         x_index = np.where(x_data == x)
-        return y_data[x_index]
+        return float(y_data[x_index])
     else:
         for index in range(0, len(x_data)):
             if x_data[index] < x:
                 slope = (y_data[index] - y_data[index-1])/(x_data[index] - x_data[index-1])
                 intercept = y_data[index] - slope*x_data[index]
                 value = slope*x+intercept
-                return value
+                return float(value)
 
 def cp_O2(T, E_DFT_O2, P=1):
     #chemical potential of a pure O2 system. There is no notion of partial pressure here.

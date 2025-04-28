@@ -66,7 +66,7 @@ print(np.min(energy_0K-E))
 fig4, ax4 = plt.subplots(layout="constrained", figsize=(8,6))
 
 
-T_range = np.arange(1,1300,150)
+T_range = np.arange(1,1300)
 T_len = np.shape(T_range)[0]
 V_min_index = 2
 V_max_index = -1
@@ -94,13 +94,13 @@ art_xlist = np.arange(volume_list[V_min_index], volume_list[V_max_index-1], 0.00
 for index in range(T_len):
     ylist = EpF[index,V_min_index:V_max_index]-E
     popt, pcov = curve_fit(quadratic_fit, xlist, ylist, [0,0,0])  
-    ax4.plot(xlist , ylist, marker="o", markerfacecolor="None", label="T="+str(T_range[index])+"K")
-    ax4.plot(art_xlist, quadratic_fit(art_xlist, popt[0], popt[1], popt[2]), color="black", ls="dashed")
+    #ax4.plot(xlist , ylist, marker="o", markerfacecolor="None", label="T="+str(T_range[index])+"K")
+    #ax4.plot(art_xlist, quadratic_fit(art_xlist, popt[0], popt[1], popt[2]), color="black", ls="dashed")
     xmin = -popt[1]/(2*popt[0])
     F_min = quadratic_fit(xmin, popt[0], popt[1], popt[2])
     eq_V[index] = xmin
     F_eq[index] = F_min
-    ax4.plot(xmin, F_min, marker = 'o', markersize=5, color="black")
+    #ax4.plot(xmin, F_min, marker = 'o', markersize=5, color="black")
 ax4.legend(loc="upper center", facecolor="none", ncol=5, bbox_to_anchor=(0.5, 1.15))
 
 ax4.set_ylabel("F$_{vib}$ + E$_{static}(V)$ - E$_{static}$(V=V$_0$) [eV]")
@@ -154,5 +154,9 @@ ax6.set_xlim(T_range[0]-1, T_range[-1]+1)
 #fig.savefig("./figs/sro_phonon_lattice_expansion.svg", format="svg", dpi=300, transparent=True)
 #fig3.savefig("./figs/sro_phonon_static_energy.svg", format="svg", dpi=300, transparent=True)
 #fig6.savefig("./figs/sro_phonon_free_energy.svg", format="svg", dpi=300, transparent=True)
-fig4.savefig("./figs/sro_phonon_feq_veq.svg", format="svg", dpi= 300, transparent=True)
+#fig4.savefig("./figs/sro_phonon_feq_veq.svg", format="svg", dpi= 300, transparent=True)
+
+export_data = np.vstack((T_range, F_eq)).T
+np.savetxt("./lib/sro_phonon_vibrational_free_energy.csv", export_data, delimiter=";")
+
 plt.show()

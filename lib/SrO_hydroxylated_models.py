@@ -4,11 +4,6 @@ from lib.auxilliary_functions import *
 
 
 
-sro_vibration_data = np.genfromtxt("./lib/vibrational_correction_sro.csv",delimiter=" ")
-sro_vibration_data[:,1] +=0
-sro_vibration_data[:,1] *= ev2J_p_mol #to convert everything in J/mol units
-T_data = sro_vibration_data[:,0]
-
 def case1(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
     V_Sr= []
     delta_E = (E_LSCF_slab_Sr_vac_surf + 2*E_SrO_epitax + 2*E_DFT_H2- E_LSCF_hydroxilated )/2 + E_int
@@ -19,8 +14,7 @@ def case1(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
         p_H2 = pH2_giver(T, p_H2O, p_O2)
         mu_H2 = cp_H2(T, E_DFT_H2, P=P)
 
-        T_index_vib_data = np.where(T_data == T)
-        delta_G = (E_LSCF_slab_Sr_vac_surf + 2*(E_SrO_epitax + float(sro_vibration_data[T_index_vib_data, 1])) + 2*(mu_H2+zpe_H2)- E_LSCF_hydroxilated )/2 + E_int
+        delta_G = (E_LSCF_slab_Sr_vac_surf + 2*chem_pot_SrO(T) + 2*(mu_H2+zpe_H2)- E_LSCF_hydroxilated )/2 + E_int
         delta_G_list.append(delta_G)
         theta = surface_coverage_H2O(T,p_H2O/P, E_ads, P)
         N = theta/(1-theta) * np.exp(-delta_G/(R*T)) * P/p_H2
@@ -42,8 +36,7 @@ def case2(T_range, x=0.4, p_H2O = 0.08, P=1):
     delta_G_list = []
     theta_list = []
     for T in T_range:
-        T_index_vib_data = np.where(T_data == T)
-        delta_G = delta_E + float(sro_vibration_data[T_index_vib_data, 1]) 
+        delta_G = (E_LSCF_double_hydrogenated + 2*chem_pot_SrO(T) - E_LSCF_hydroxilated )/2 + E_int
         delta_G_list.append(delta_G)
         theta, chemical_potential_used = surface_coverage_H2O(T,p_H2O/P, E_ads, P)
         N = theta/(1-theta) * np.exp(-delta_G/(R*T))
@@ -61,8 +54,7 @@ def case3(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
         p_H2 = pH2_giver(T, p_H2O, p_O2)
         mu_H2 = cp_H2(T, E_DFT_H2, P=P)
 
-        T_index_vib_data = np.where(T_data == T)
-        delta_G = (E_LSCF_single_hydrogenated + 2*(E_SrO_epitax + float(sro_vibration_data[T_index_vib_data, 1])) + mu_H2 + zpe_H2 - E_LSCF_hydroxilated )/2 + E_int
+        delta_G = (E_LSCF_single_hydrogenated + 2*chem_pot_SrO(T) + mu_H2 + zpe_H2 - E_LSCF_hydroxilated )/2 + E_int
         delta_G_list.append(delta_G)
 
         theta = surface_coverage_H2O(T,p_H2O/P, E_ads, P)

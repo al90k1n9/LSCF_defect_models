@@ -5,7 +5,7 @@ import sys
 sys.path.append("H:\Documents\SrO_defect_model")
 
 import numpy as np
-from lib.dft_energies_0K import E_DFT_H2O, E_DFT_CrO3, E_SrO, zpe_H2O
+from lib.dft_energies_0K import E_DFT_H2O, E_DFT_CrO3, E_SrO, E_SrO_epitax, zpe_H2O
 
 
 N_avagadro = 6.0223*10**23
@@ -13,6 +13,9 @@ ev2J = 1.60219*10**(-19)
 ev2J_p_mol = ev2J*N_avagadro
 R = 8.314 #J.K.mol-1
 
+data_SrOH2 = np.genfromtxt("./lib/SrOH2_factsage_processed.csv", delimiter=";") #SrO (solid) +H2O (gas) gives SrOH2 (gas)
+data_CrO2OH2 = np.genfromtxt("./lib/CrO2OH2_factsage_processed.csv", delimiter=";") #SrO (solid) +H2O (gas) gives SrOH2 (gas)
+data_SrO_vibration = np.genfromtxt("./lib/sro_phonon_vibrational_free_energy.csv", delimiter =";") #results from dfpt
 
 def linear_interpolator(x, x_data, y_data):
     assert (x>=x_data[0] and x<=x_data[-1]), "requested data not in interpolation domain" + str(x)
@@ -67,8 +70,7 @@ def cp_H2(T, E_DFT_H2, P=1):
     return mu_H2
 
 
-def cp_SrOH2(T, P=1):
-    data = np.genfromtxt("./lib/SrOH2_factsage_processed.csv", delimiter=";") #SrO (solid) +H2O (gas) gives SrOH2 (gas)
+def cp_SrOH2(T, P=1, data = data_SrOH2):
     delta_G_sroh2 = linear_interpolator(T,data[:,0], data[:,1])
     mu_H2O = cp_H2O(T, E_DFT_H2O=E_DFT_H2O)
     mu_SrOH2 = delta_G_sroh2 + mu_H2O + zpe_H2O + E_SrO + R*T*np.log(P) #J/mol
@@ -89,10 +91,14 @@ def cp_CrO3(T, E_DFT_CrO3, P=1):
     return mu_CrO3
 
 
-def cp_CrO2OH2(T, P=1):
-    data = np.genfromtxt("./lib/CrO2OH2_factsage_processed.csv", delimiter=";") #SrO (solid) +H2O (gas) gives SrOH2 (gas)
+def cp_CrO2OH2(T, P=1, data = data_CrO2OH2):
     delta_Gf_CrO2OH2 = linear_interpolator(T, data[:,0],data[:,1])
     mu_H2O = cp_H2O(T, E_DFT_H2O=E_DFT_H2O)
     mu_CrO3 = cp_CrO3(T, E_DFT_CrO3=E_DFT_CrO3)
     mu_CrO2OH2 = delta_Gf_CrO2OH2 + mu_H2O + zpe_H2O + mu_CrO3 + R*T*np.log(P) #J/mol
     return mu_CrO2OH2
+
+
+def chem_pot_SrO(T, E_DFT_SrO=E_SrO_epitax, data = data_SrO_vibration):
+    F_vib = linear_interpolator(T, data[:,0], data[:,1]) * ev2J_p_mol
+    return F_vib + E_DFT_SrO

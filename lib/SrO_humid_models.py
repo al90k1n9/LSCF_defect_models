@@ -5,11 +5,6 @@ from lib.dft_energies_0K import * #importing all the values of dft energies
 from lib.auxilliary_functions import *
 from H_vibration import *
 
-sro_vibration_data = np.genfromtxt("./lib/vibrational_correction_sro.csv",delimiter=" ")
-sro_vibration_data[:,1] *= ev2J_p_mol #to convert everything in J/mol units
-T_data = sro_vibration_data[:,0]
-
-
 def case1(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1):
     p_O2 = x_O2 * P
     p_H2O = x_H2O * P
@@ -24,8 +19,7 @@ def case1(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1):
         p_H2_list.append(p_H2)
         mu_H2 = cp_H2(T, E_DFT_H2, P=P)
 
-        T_index_vib_data = np.where(T_data == T)
-        delta_G = (E_LSCF_slab_Sr_vac_surf + 2*(E_SrO_epitax + float(sro_vibration_data[T_index_vib_data, 1])) + 2*(mu_H2 + zpe_H2)- (E_LSCF_slab + 2*(mu_H2O + zpe_H2O)))/2 + E_int
+        delta_G = (E_LSCF_slab_Sr_vac_surf + 2*chem_pot_SrO(T) + 2*(mu_H2 + zpe_H2)- (E_LSCF_slab + 2*(mu_H2O + zpe_H2O)))/2 + E_int
         delta_G_range.append(delta_G)
         if T == 1000: print("delta G at T = 1000", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T))
@@ -52,8 +46,7 @@ def case2(T_range, x0=0.4, x_H2O = 0.08, P=1):
     delta_G_range = []
     for T in T_range:
         mu_H2O = cp_H2O(T, E_DFT_H2O, P=P)
-        T_index_vib_data = np.where(T_data == T)
-        delta_G = (2*(E_SrO_epitax + float(sro_vibration_data[T_index_vib_data, 1])) + E_LSCF_double_hydrogenated - (E_LSCF_slab+ 2 *(mu_H2O + zpe_H2O))) / 2  + E_int + 2*OH_bond_vibration
+        delta_G = (2*chem_pot_SrO(T) + E_LSCF_double_hydrogenated - (E_LSCF_slab+ 2 *(mu_H2O + zpe_H2O))) / 2  + E_int + 2*OH_bond_vibration
         delta_G_range.append(delta_G)
         if T == 1000: print("case 2: delta G at T = 1000", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T)) 
@@ -74,8 +67,7 @@ def case3(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1):
         p_H2 = pH2_giver(T, p_H2O, p_O2)
         mu_H2 = cp_H2(T, E_DFT_H2, P=P)
 
-        T_index_vib_data = np.where(T_data == T)
-        delta_G = (E_LSCF_single_hydrogenated + 2*(E_SrO_epitax + float(sro_vibration_data[T_index_vib_data, 1])) + mu_H2 + zpe_H2- (E_LSCF_slab + 2*(mu_H2O + zpe_H2O)))/2 + E_int
+        delta_G = (E_LSCF_single_hydrogenated + 2*chem_pot_SrO(T) + mu_H2 + zpe_H2- (E_LSCF_slab + 2*(mu_H2O + zpe_H2O)))/2 + E_int
         delta_G_range.append(delta_G)
         if T == 1000: print("case 3: delta G at T = 1000", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T))
@@ -101,8 +93,7 @@ def case4(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1):
         p_H2 = pH2_giver(T, p_H2O, p_O2)
         mu_H2 = cp_H2(T, E_DFT_H2, P=P)
 
-        T_index_vib_data = np.where(T_data == T)
-        delta_G = (E_LSCF_slab_Sr_vac_bulk + mu_H2 + zpe_H2 + (E_SrO_epitax + float(sro_vibration_data[T_index_vib_data, 1]))) - (E_LSCF_slab + mu_H2O + zpe_H2O) + E_int
+        delta_G = (E_LSCF_slab_Sr_vac_bulk + mu_H2 + zpe_H2 + chem_pot_SrO(T)) - (E_LSCF_slab + mu_H2O + zpe_H2O) + E_int
         delta_G_range.append(delta_G)
         if T == 1000: print("delta G at T = 1000", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T))
@@ -132,7 +123,7 @@ def case5(T_range, x0 = 0.4, x_H2O = 0.08, P = 1):
     for T in T_range:
         mu_H2 = cp_H2(T, E_DFT_H2, P=1)
         mu_H2O = cp_H2O(T, E_DFT_H2O, P=1)
-        delta_G = (E_LSCF_slab_Sr_vac_surf + 2*E_SrO_epitax + 2*mu_H2- (E_LSCF_slab + 2*mu_H2O))/2 + E_int
+        delta_G = (E_LSCF_slab_Sr_vac_surf + 2*chem_pot_SrO(T) + 2*mu_H2- (E_LSCF_slab + 2*mu_H2O))/2 + E_int
         delta_G_list.append(delta_G)
     return (np.asarray(V_Sr), np.asarray(delta_G_list))
 
@@ -142,8 +133,7 @@ def ph2_sensitivity_case1(x_H2_range, T=1000, x0 = 0.4, x_H2O=0.08, P=1):
     V_Sr= []
     mu_H2O = cp_H2O(T, E_DFT_H2O, P=P)
     mu_H2 = cp_H2(T, E_DFT_H2, P=P)
-    T_index_vib_data = np.where(T_data == T)
-    delta_G = (E_LSCF_slab_Sr_vac_surf + 2*(E_SrO_epitax+float(sro_vibration_data[T_index_vib_data, 1])) + 2*(mu_H2 + zpe_H2)- (E_LSCF_slab + 2*(mu_H2O + zpe_H2O)))/2 + E_int
+    delta_G = (E_LSCF_slab_Sr_vac_surf + 2*chem_pot_SrO(T) + 2*(mu_H2 + zpe_H2)- (E_LSCF_slab + 2*(mu_H2O + zpe_H2O)))/2 + E_int
     K = np.exp(-delta_G/(R*T))
     for x_H2 in x_H2_range:
         p_H2 = x_H2 * P

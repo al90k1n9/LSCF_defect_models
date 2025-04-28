@@ -12,9 +12,8 @@ def case1(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
     theta_list = []
     for T in T_range:
         p_H2 = pH2_giver(T, p_H2O, p_O2)
-        mu_H2 = cp_H2(T, E_DFT_H2, P=P)
 
-        delta_G = (E_LSCF_slab_Sr_vac_surf + 2*chem_pot_SrO(T) + 2*mu_H2- E_LSCF_hydroxilated )/2 + E_int
+        delta_G = (E_LSCF_slab_Sr_vac_surf + 2*chem_pot_SrO(T) + 2*chem_pot_H2(T, E_DFT_H2, P=P)- E_LSCF_hydroxilated )/2 + E_int
         delta_G_list.append(delta_G)
         theta = surface_coverage_H2O(T,p_H2O/P, E_ads, P)
         N = theta/(1-theta) * np.exp(-delta_G/(R*T)) * P/p_H2
@@ -52,9 +51,8 @@ def case3(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
     theta_list= []
     for T in T_range:
         p_H2 = pH2_giver(T, p_H2O, p_O2)
-        mu_H2 = cp_H2(T, E_DFT_H2, P=P)
 
-        delta_G = (E_LSCF_single_hydrogenated + 2*chem_pot_SrO(T) + mu_H2 - E_LSCF_hydroxilated )/2 + E_int
+        delta_G = (E_LSCF_single_hydrogenated + 2*chem_pot_SrO(T) + chem_pot_H2(T, E_DFT_H2, P=P) - E_LSCF_hydroxilated )/2 + E_int
         delta_G_list.append(delta_G)
 
         theta = surface_coverage_H2O(T,p_H2O/P, E_ads, P)

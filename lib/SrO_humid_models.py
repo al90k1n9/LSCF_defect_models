@@ -14,12 +14,10 @@ def case1(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1):
     delta_G_range = []
     p_H2_list = []
     for T in T_range:
-        mu_H2O = cp_H2O(T, E_DFT_H2O, P=P)
         p_H2 = pH2_giver(T, p_H2O, p_O2)
         p_H2_list.append(p_H2)
-        mu_H2 = cp_H2(T, E_DFT_H2, P=P)
 
-        delta_G = (E_LSCF_slab_Sr_vac_surf + 2*chem_pot_SrO(T) + 2*mu_H2- (E_LSCF_slab + 2*mu_H2O))/2 + E_int
+        delta_G = (E_LSCF_slab_Sr_vac_surf + 2*chem_pot_SrO(T) + 2*chem_pot_H2(T, E_DFT_H2, P=P)- (E_LSCF_slab + 2*chem_pot_H2O(T, E_DFT_H2O, P=P)))/2 + E_int
         delta_G_range.append(delta_G)
         if T == 1000: print("delta G at T = 1000", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T))
@@ -45,8 +43,7 @@ def case2(T_range, x0=0.4, x_H2O = 0.08, P=1):
     print(delta_E/ev2J_p_mol, " delta_E of case 2")
     delta_G_range = []
     for T in T_range:
-        mu_H2O = cp_H2O(T, E_DFT_H2O, P=P)
-        delta_G = (2*chem_pot_SrO(T) + E_LSCF_double_hydrogenated - (E_LSCF_slab+ 2 *mu_H2O)) / 2  + E_int + 2*OH_bond_vibration
+        delta_G = (2*chem_pot_SrO(T) + E_LSCF_double_hydrogenated - (E_LSCF_slab+ 2 *chem_pot_H2O(T, E_DFT_H2O, P=P))) / 2  + E_int + 2*OH_bond_vibration
         delta_G_range.append(delta_G)
         if T == 1000: print("case 2: delta G at T = 1000", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T)) 
@@ -63,11 +60,9 @@ def case3(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1):
     print(delta_E/ev2J_p_mol, " delta_E of case 3")
     delta_G_range = []
     for T in T_range:
-        mu_H2O = cp_H2O(T, E_DFT_H2O, P=P)
         p_H2 = pH2_giver(T, p_H2O, p_O2)
-        mu_H2 = cp_H2(T, E_DFT_H2, P=P)
 
-        delta_G = (E_LSCF_single_hydrogenated + 2*chem_pot_SrO(T) + mu_H2 - (E_LSCF_slab + 2*mu_H2O))/2 + E_int
+        delta_G = (E_LSCF_single_hydrogenated + 2*chem_pot_SrO(T) + chem_pot_H2(T, E_DFT_H2, P=P) - (E_LSCF_slab + 2*chem_pot_H2O(T, E_DFT_H2O, P=P)))/2 + E_int
         delta_G_range.append(delta_G)
         if T == 1000: print("case 3: delta G at T = 1000", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T))
@@ -89,11 +84,9 @@ def case4(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1):
     print(delta_E/ev2J_p_mol, " delta_E of case 4")
     delta_G_range = []
     for T in T_range:
-        mu_H2O = cp_H2O(T, E_DFT_H2O, P=P)
         p_H2 = pH2_giver(T, p_H2O, p_O2)
-        mu_H2 = cp_H2(T, E_DFT_H2, P=P)
 
-        delta_G = (E_LSCF_slab_Sr_vac_bulk + mu_H2 + chem_pot_SrO(T)) - (E_LSCF_slab + mu_H2O) + E_int
+        delta_G = (E_LSCF_slab_Sr_vac_bulk + chem_pot_H2(T, E_DFT_H2, P=P) + chem_pot_SrO(T)) - (E_LSCF_slab + chem_pot_H2O(T, E_DFT_H2O, P=P)) + E_int
         delta_G_range.append(delta_G)
         if T == 1000: print("delta G at T = 1000", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T))
@@ -121,9 +114,7 @@ def case5(T_range, x0 = 0.4, x_H2O = 0.08, P = 1):
     delta_E = (E_LSCF_slab_Sr_vac_surf + 2*E_SrO_epitax + 2*E_DFT_H2- (E_LSCF_slab + 2*E_DFT_H2O))/2 + E_int
     print("delta E ", delta_E/ev2J_p_mol)
     for T in T_range:
-        mu_H2 = cp_H2(T, E_DFT_H2, P=1)
-        mu_H2O = cp_H2O(T, E_DFT_H2O, P=1)
-        delta_G = (E_LSCF_slab_Sr_vac_surf + 2*chem_pot_SrO(T) + 2*mu_H2- (E_LSCF_slab + 2*mu_H2O))/2 + E_int
+        delta_G = (E_LSCF_slab_Sr_vac_surf + 2*chem_pot_SrO(T) + 2*chem_pot_H2(T, E_DFT_H2, P=P)- (E_LSCF_slab + 2*chem_pot_H2O(T, E_DFT_H2O, P=P)))/2 + E_int
         delta_G_list.append(delta_G)
     return (np.asarray(V_Sr), np.asarray(delta_G_list))
 
@@ -131,9 +122,7 @@ def case5(T_range, x0 = 0.4, x_H2O = 0.08, P = 1):
 def ph2_sensitivity_case1(x_H2_range, T=1000, x0 = 0.4, x_H2O=0.08, P=1):
     p_H2O = x_H2O * P
     V_Sr= []
-    mu_H2O = cp_H2O(T, E_DFT_H2O, P=P)
-    mu_H2 = cp_H2(T, E_DFT_H2, P=P)
-    delta_G = (E_LSCF_slab_Sr_vac_surf + 2*chem_pot_SrO(T) + 2*mu_H2 - (E_LSCF_slab + 2*mu_H2O ))/2 + E_int
+    delta_G = (E_LSCF_slab_Sr_vac_surf + 2*chem_pot_SrO(T) + 2*chem_pot_H2(T, E_DFT_H2, P=P) - (E_LSCF_slab + 2*chem_pot_H2O(T, E_DFT_H2O, P=P)))/2 + E_int
     K = np.exp(-delta_G/(R*T))
     for x_H2 in x_H2_range:
         p_H2 = x_H2 * P

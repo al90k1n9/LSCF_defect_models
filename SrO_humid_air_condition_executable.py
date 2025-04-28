@@ -13,13 +13,14 @@ T_range = np.arange(T_lower_bound,T_upper_bound,1) #K
 
 
 fig,ax = plt.subplots(layout='constrained')
+axinset = ax.inset_axes([0.45,0.1,0.5,0.5])
 fig2, ax2 = plt.subplots(layout="constrained")
 
-#axinset = ax.inset_axes([0.4, 0.2, 0.5, 0.5])
 
 V_Sr, delta_G_range, pH2 = case1(T_range, x0, x_O2, x_H2O, P=1)
 #keep in mind that the pH2 is determined inside the case1 function by pO2 and pH2O by considering the equilibrium between these three gases.
 ax.plot(T_range, V_Sr, label="H$_{2(g)}$")
+axinset.plot(T_range, V_Sr, label="H$_{2(g)}$")
 #axinset.plot(T_range, V_Sr, label="H$_{2(g)}$")
 ax2.plot(T_range, np.asarray(delta_G_range)/ev2J_p_mol, label="H$_{2(g)}$")
 
@@ -70,6 +71,12 @@ ax.set_ylim(0,)
 ax.legend(loc="upper right", facecolor="none")
 ax.xaxis.set_minor_locator(AutoMinorLocator())
 ax.yaxis.set_minor_locator(AutoMinorLocator())
+
+
+axinset.xaxis.set_minor_locator(AutoMinorLocator())
+axinset.yaxis.set_minor_locator(AutoMinorLocator())
+axinset.set_xlim(T_lower_bound, T_upper_bound+1)
+axinset.set_ylim(0, )
 
 #axinset.set_xlim(left=T_lower_bound,right=T_upper_bound+1)
 #axinset.set_ylim(1.8e-8, 6e-8)

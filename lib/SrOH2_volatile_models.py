@@ -1,5 +1,4 @@
 import sys
-sys.path.append("H:\Documents\SrO_defect_model")
 
 from lib.chemical_potentials import *
 from lib.dft_energies_0K import * 

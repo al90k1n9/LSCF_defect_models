@@ -15,6 +15,8 @@ T_range = np.arange(T_lower_bound,T_upper_bound,1) #K
 p_O2 = x_O2 * P
 
 
+default_colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
+
 fig,ax = plt.subplots(layout='constrained')
 axinset1 = ax.inset_axes([0.3,0.65,0.3,0.3])
 axinset2 = ax.inset_axes([0.07,0.25,0.3,0.3])
@@ -30,37 +32,28 @@ fig4, ax4 = plt.subplots(layout="constrained")
 ylist, delta_G_list = case1(T_range, x, p_O2, P)
 plt_element_case1 = ax.plot(T_range, ylist, label ="case 1")
 axinset1.plot(T_range, ylist)
-axinset2.plot(T_range, ylist)
 plt_element_case1_dG = ax2.plot(T_range, np.asarray(delta_G_list)/ev2J_p_mol, label="case 1")
 
 ylist, delta_G_list = case2(T_range, x, p_O2, P)
 plt_element_case2, = ax.plot(T_range, ylist, label = "case 2")
-axinset1.plot(T_range, ylist)
-axinset2.plot(T_range, ylist)
+axinset2.plot(T_range, ylist, color = default_colors[1])
 plt_element_case2_dG = ax2.plot(T_range, np.asarray(delta_G_list)/ev2J_p_mol, label="case 2")
 
 ylist, delta_G_list = case3(T_range, x=0.4)
 plt_element_case3, =ax.plot(T_range, ylist, label ="case 3")
-axinset1.plot(T_range, ylist)
-axinset2.plot(T_range, ylist)
 plt_element_case3_dG = ax2.plot(T_range, np.asarray(delta_G_list)/ev2J_p_mol, label="case 3")
 
 ylist, delta_G_list = case4(T_range, x = 0.4)
 plt_element_case4, = ax.plot(T_range, ylist, label ="case 4")
-axinset1.plot(T_range, ylist)
-axinset2.plot(T_range, ylist)
 plt_element_case4_dG = ax2.plot(T_range, np.asarray(delta_G_list)/ev2J_p_mol, label="case 4")
 
 ylist, delta_G_list = case5(T_range, x, p_O2, P)
 plt_element_case5 = ax.plot(T_range, ylist, label ="case 5")
-axinset1.plot(T_range, ylist)
-axinset2.plot(T_range, ylist)
+axinset2.plot(T_range, ylist, color=default_colors[4])
 plt_element_case5_dG = ax2.plot(T_range, np.asarray(delta_G_list)/ev2J_p_mol, label="case 5")
 
 ylist, delta_G_list = case6(T_range, x=0.4)
 plt_element_case6 = ax.plot(T_range, ylist, label ="case 6")
-axinset1.plot(T_range, ylist)
-axinset2.plot(T_range, ylist)
 plt_element_case6_dG = ax2.plot(T_range, np.asarray(delta_G_list)/ev2J_p_mol, label="case 6")
 
 x_O2_range = np.linspace(0.1, 1, 10)
@@ -99,15 +92,15 @@ axinset1.yaxis.set_minor_locator(AutoMinorLocator())
 axinset2.yaxis.set_minor_locator(AutoMinorLocator())
 
 axinset1.set_xlim(T_lower_bound, T_upper_bound+1)
-axinset1.set_ylim(0,0.3e-8)
+axinset1.set_ylim(0,)
 
 axinset2.set_xlim(T_lower_bound, T_upper_bound+1)
-axinset2.set_ylim(0,0.75e-11)
+axinset2.set_ylim(0,)
 
 
 ax2.set_xlim(left=T_lower_bound,right=T_upper_bound+1)
 ax2.set_ylim(0,)
-ax2.legend(loc="lower right", facecolor="none")
+ax2.legend(loc="lower left", facecolor="none")
 ax2.xaxis.set_minor_locator(AutoMinorLocator())
 ax2.yaxis.set_minor_locator(AutoMinorLocator())
 

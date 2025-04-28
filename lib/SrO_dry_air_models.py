@@ -8,8 +8,7 @@ def case1(T_range, x=0.4, x_O2 = 0.21, P=1):
     delta_G_list = []
     delta_E = (E_LSCF_slab_Sr_vac_surf + 2 * E_SrO_epitax - (E_LSCF_slab + E_DFT_O2))/2 + E_int
     for T in T_range:
-        mu_O2 = cp_O2(T, E_DFT_O2, P=P)
-        delta_G = (E_LSCF_slab_Sr_vac_surf + 2 * (chem_pot_SrO(T)) - (E_LSCF_slab + mu_O2))/2 + E_int
+        delta_G = (E_LSCF_slab_Sr_vac_surf + 2 * (chem_pot_SrO(T)) - (E_LSCF_slab + chem_pot_O2(T, E_DFT_O2, P=P)))/2 + E_int
         #if T==973: print("case 1", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T))
         #print(K)
@@ -35,8 +34,7 @@ def case2(T_range, x=0.4, x_O2 = 0.21, P=1):
     V_Sr= []
     delta_E = E_LSCF_slab_Sr_vac_bulk + E_SrO_epitax - (E_LSCF_slab + 0.5*E_DFT_O2) + E_int
     for T in T_range:
-        mu_O2 = cp_O2(T, E_DFT_O2, P=P)
-        delta_G = E_LSCF_slab_Sr_vac_bulk + chem_pot_SrO(T) - (E_LSCF_slab + 0.5*(mu_O2)) + E_int
+        delta_G = E_LSCF_slab_Sr_vac_bulk + chem_pot_SrO(T) - (E_LSCF_slab + 0.5*(chem_pot_O2(T, E_DFT_O2, P=P))) + E_int
         if T==973: print("case 2", delta_G/ev2J_p_mol)
         delta_G_list.append(delta_G)
         K = np.exp(-delta_G/(R*T))
@@ -94,8 +92,7 @@ def case5(T_range, x=0.4, x_O2 = 0.21, P=1):
     V_Sr= []
     delta_E = E_LSCF_bulk_Sr_vac + E_SrO_epitax - (E_LSCF_bulk + 0.5*E_DFT_O2) + E_int
     for T in T_range:
-        mu_O2 = cp_O2(T, E_DFT_O2, P=P)
-        delta_G = E_LSCF_bulk_Sr_vac + chem_pot_SrO(T) - (E_LSCF_bulk + 0.5*(mu_O2)) + E_int
+        delta_G = E_LSCF_bulk_Sr_vac + chem_pot_SrO(T) - (E_LSCF_bulk + 0.5*(chem_pot_O2(T, E_DFT_O2, P=P))) + E_int
         if T==973: print("case 5", delta_G/ev2J_p_mol)
         delta_G_list.append(delta_G)
 

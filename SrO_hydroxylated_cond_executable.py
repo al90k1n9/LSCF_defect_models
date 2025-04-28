@@ -7,7 +7,7 @@ x0 = 0.4 #molar fraction of Sr
 x_O2 = 0.21
 x_H2O = 0.08
 P = 1 #atm
-T_lower_bound = 400
+T_lower_bound = 500
 T_upper_bound = 1299
 T_range = np.arange(T_lower_bound,T_upper_bound,1) #K
 #numpy imported chemical potentials, which is imported in humid models
@@ -17,7 +17,7 @@ p_H2O = x_H2O * P
 
 
 fig,ax = plt.subplots(layout='constrained')
-axinset = ax.inset_axes([0.45,0.15,0.5,0.5])
+axinset = ax.inset_axes([0.45,0.25,0.5,0.5])
 axinset.set_facecolor("none")
 #fig2, ax2 = plt.subplots(layout="constrained")
 
@@ -92,10 +92,10 @@ secyax.set_ylabel("% of total Sr content $\\frac{100\\cdot x_{eq}}{x_0}$")
 #ax2.set_xlabel("T[K]")
 #ax2.set_ylabel("$\\Delta_rG^*(T,p)$ [eV]")
 #
-#ax.xaxis.set_minor_locator(AutoMinorLocator())
-#ax.yaxis.set_minor_locator(AutoMinorLocator())
-#axinset.xaxis.set_minor_locator(AutoMinorLocator())
-#axinset.yaxis.set_minor_locator(AutoMinorLocator())
+ax.xaxis.set_minor_locator(AutoMinorLocator())
+ax.yaxis.set_minor_locator(AutoMinorLocator())
+axinset.xaxis.set_minor_locator(AutoMinorLocator())
+axinset.yaxis.set_minor_locator(AutoMinorLocator())
 #ax2.xaxis.set_minor_locator(AutoMinorLocator())
 #ax2.yaxis.set_minor_locator(AutoMinorLocator())
 #

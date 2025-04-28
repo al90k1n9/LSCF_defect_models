@@ -30,7 +30,7 @@ def linear_interpolator(x, x_data, y_data):
                 value = slope*x+intercept
                 return float(value)
 
-def cp_O2(T, E_DFT_O2, P=1):
+def chem_pot_O2(T, E_DFT_O2, P=1):
     #chemical potential of a pure O2 system. There is no notion of partial pressure here.
     T_0 = 298 #K
     cp = 4.83*10**-23 #K J/atom
@@ -43,7 +43,7 @@ def cp_O2(T, E_DFT_O2, P=1):
     mu_O2 = E_DFT_O2 + delta_mu_O2 + zpe_O2
     return mu_O2
 
-def cp_H2O(T, E_DFT_H2O, P=1):
+def chem_pot_H2O(T, E_DFT_H2O, P=1):
     T_0 = 298 #K
     cp = 33.6 / N_avagadro #K J/atom
     P_0 = 1 #bar
@@ -56,7 +56,7 @@ def cp_H2O(T, E_DFT_H2O, P=1):
     return mu_H2O
 
 
-def cp_H2(T, E_DFT_H2, P=1):
+def chem_pot_H2(T, E_DFT_H2, P=1):
     T_0 = 298 #K
     cp = 28.8 / N_avagadro #K J/atom
     P_0 = 1 #bar
@@ -70,7 +70,7 @@ def cp_H2(T, E_DFT_H2, P=1):
     return mu_H2
 
 
-def cp_SrOH2(T, P=1, data = data_SrOH2):
+def chem_pot_SrOH2(T, P=1, data = data_SrOH2):
     delta_G_sroh2 = linear_interpolator(T,data[:,0], data[:,1])
     mu_H2O = cp_H2O(T, E_DFT_H2O=E_DFT_H2O)
     mu_SrOH2 = delta_G_sroh2 + mu_H2O + zpe_H2O + E_SrO + R*T*np.log(P) #J/mol
@@ -78,7 +78,7 @@ def cp_SrOH2(T, P=1, data = data_SrOH2):
 
 
 
-def cp_CrO3(T, E_DFT_CrO3, P=1):
+def chem_pot_CrO3(T, E_DFT_CrO3, P=1):
     T_0 = 298 #K
     cp = 56.025/N_avagadro #K J/atom
     P_0 = 1 #bar
@@ -91,7 +91,7 @@ def cp_CrO3(T, E_DFT_CrO3, P=1):
     return mu_CrO3
 
 
-def cp_CrO2OH2(T, P=1, data = data_CrO2OH2):
+def chem_pot_CrO2OH2(T, P=1, data = data_CrO2OH2):
     delta_Gf_CrO2OH2 = linear_interpolator(T, data[:,0],data[:,1])
     mu_H2O = cp_H2O(T, E_DFT_H2O=E_DFT_H2O) + zpe_H2O
     mu_CrO3 = cp_CrO3(T, E_DFT_CrO3=E_DFT_CrO3) + zpe_CrO3

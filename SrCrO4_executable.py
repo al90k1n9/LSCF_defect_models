@@ -8,7 +8,7 @@ default_colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
 
 x0 = 0.4 #molar fraction of Sr
 x_O2 = 0.21
-x_CrO3 = 1e-3
+x_CrO3 = 1e-10
 P = 1 #atm
 T_lower_bound = 825
 T_upper_bound = 875
@@ -58,9 +58,9 @@ ax2.plot(T_range, V_Sr, label="case 2", color=default_colors[1])
 #print(T_range[0], T_range[-1], np.shape(T_range))
 V_Sr, delta_G, mu_list = case3(T_range)
 
-ax2.plot(T_range, V_Sr[:,0], color=default_colors[2])
-ax2.plot(T_range, V_Sr[:,1], color=default_colors[2], ls="dashed")
-ax2.plot(T_range, V_Sr[:,2], color=default_colors[2], ls="dotted")
+ax2.plot(T_range, V_Sr[:,0], color=default_colors[2], label="case3")
+ax2.plot(T_range, V_Sr[:,1], color=default_colors[2], ls="dashed", label="case3")
+ax2.plot(T_range, V_Sr[:,2], color=default_colors[2], ls="dotted", label="case3")
 ax.plot(T_range, delta_G/ev2J_p_mol, color=default_colors[2], label="case 3")
 
 

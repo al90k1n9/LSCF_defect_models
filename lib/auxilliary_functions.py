@@ -127,7 +127,7 @@ def bisection(xmin, xmax, func, maxiter=10000, tol=1e-20):
            xmin = c
    raise ValueError("maxiter reached")
 
-from lib.dft_energies_0K import zpe_H2O, E_DFT_H2O, ev2J_p_mol
+from lib.dft_energies_0K import E_DFT_H2O, ev2J_p_mol
 from lib.chemical_potentials import cp_H2O   
 kb = 1.380649 * 10**(-23) #J/K
 m_H2O = 18.01528 / (N_avagadro*1000) #in kg
@@ -138,7 +138,7 @@ def surface_coverage_H2O(T, x_H2O, E_ads, P, chem_pot = 0):
     #chem_pot 0 for experimental chemical potential
     #chem_pot 1 for translational chemical potential
     if chem_pot == 0: 
-        chemical_potential = cp_H2O(T, E_DFT_H2O=0, P=x_H2O*P) +  zpe_H2O #J/mol
+        chemical_potential = cp_H2O(T, E_DFT_H2O=0, P=x_H2O*P) #J/mol
     else:
         chemical_potential = N_avagadro * kb*T* np.log(x_H2O*P*1e5/(kb*T) * (2*np.pi*hbar**2/(m_H2O*kb*T))**(3/2)) #J/mol
     #BE CAREFUL YOU NEED TO GET THE CHEMICAL POTENTIAL CORRECTION; IT'S IMPORTANT TO PUT THE DFT ENERGY PARAMETER TO ZERO

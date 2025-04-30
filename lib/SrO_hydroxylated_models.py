@@ -64,3 +64,22 @@ def case3(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
         V_Sr.append(quadratic_model(a,b,c))
         theta_list.append(theta)
     return (V_Sr, np.asarray(delta_G_list), theta_list)
+
+
+
+def ph2_sensitivity_case1(x_H2_range, T=1000, x0 = 0.4, x_H2O=0.08, P=1):
+    p_H2O = x_H2O * P
+    V_Sr= []
+    delta_G = (E_LSCF_slab_Sr_vac_surf + 2*chem_pot_SrO(T) + 2*chem_pot_H2(T, E_DFT_H2, P=P)- E_LSCF_hydroxilated )/2 + E_int
+    K = np.exp(-delta_G/(R*T))
+    for x_H2 in x_H2_range:
+        p_H2 = x_H2 * P
+        N = K * p_H2O/p_H2 #notice that the total pressure cancels out in the case
+        a = 4+4*N
+        b= 4*(x0-1*N)
+        c= x0**2 + (1-x0)*N * (1+3*x0)
+        d = -N * x0 * (1-x0)**2
+        solution= cubic_model(a,b,c,d)
+        V_Sr.append(solution[0])
+    return V_Sr
+

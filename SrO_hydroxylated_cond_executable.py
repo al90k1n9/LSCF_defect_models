@@ -22,10 +22,6 @@ axinset.set_facecolor("none")
 #fig2, ax2 = plt.subplots(layout="constrained")
 
 
-#
-#fig4, ax4  = plt.subplots(layout="constrained")
-
-
 #V_Sr, delta_G, theta_list = case1(T_range, x0, p_O2, p_H2O, P)
 #ax.plot(T_range, V_Sr, label="case 3.3")
 #axinset.plot(T_range, V_Sr, label="case 3.3")
@@ -37,18 +33,28 @@ ax.plot(T_range, V_Sr, label="case 3.3")
 axinset.plot(T_range, V_Sr/x0)
 axinset.plot(T_range, theta_list, label="$\\theta_{H_2O}$")
 axinset.legend(facecolor="none")
-axinset.legend(facecolor="none")
 #ax2.plot(T_range, delta_G/ev2J_p_mol, label="case 3.3")
 print("case 2 ", delta_G[1]/ev2J_p_mol)
 
 
-#fig3, ax3 = plt.subplots(layout="constrained")
-#theta, used_chemical_potential = surface_coverage_H2O(T_range, p_H2O/P, E_ads, P, chem_pot= 0)
-#ax3.plot(T_range, used_chemical_potential/ev2J_p_mol, label="exp")
-#theta, used_chemical_potential = surface_coverage_H2O(T_range, p_H2O/P, E_ads, P, chem_pot= 1)
-#ax3.plot(T_range, used_chemical_potential/ev2J_p_mol, label="translational")
+def yaxconvert(x):
+    return x * 100/0.4
 
+def yaxinvert(x):
+    return x *0.4/100
 
+fig2,ax2 = plt.subplots(layout="constrained")
+x_H2_range = np.logspace(-27, -8, 300)
+V_Sr = ph2_sensitivity_case1(x_H2_range)
+ax2.plot(x_H2_range, V_Sr)
+ax2.set_xlabel("x$_{H_2}$")
+ax2.set_ylabel("$x_{eq} = [V_{La}''']_{eq}$")
+ax2.yaxis.set_minor_locator(AutoMinorLocator())
+ax2.set_xscale("log")
+ax2.set_ylim(0,)
+secyax2 = ax2.secondary_yaxis("right", functions=(yaxconvert, yaxinvert))
+secyax2.set_ylabel("% of initial Sr content $\\frac{100 \cdot x_{eq}}{x_0}$")
+secyax2.yaxis.set_minor_locator(AutoMinorLocator())
 
 #===================================================
 #PLOTTING OPTIONS

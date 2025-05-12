@@ -5,7 +5,6 @@ N_avagadro = 6.0223*10**23
 ev2J = 1.60219*10**(-19)
 ev2J_p_mol = ev2J*N_avagadro
 Ha2eV = 27.2114
-
 OH_bond_vibration = 0.351/2 * ev2J_p_mol #J/mol
 
 acell_SrO_slab = 5.16756734063135E-10 #meters #this is with standard SrO lattice parameter

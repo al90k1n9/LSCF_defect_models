@@ -97,6 +97,7 @@ def chem_pot_CrO2OH2(T, P=1, data = data_CrO2OH2):
     return mu_CrO2OH2
 
 
-def chem_pot_SrO(T, E_DFT_SrO=E_SrO_epitax, data = data_SrO_vibration):
+def chem_pot_SrO(T, E_DFT_SrO=E_SrO_epitax, data = data_SrO_vibration, vib=0):
     F_vib = linear_interpolator(T, data[:,0], data[:,1]) * ev2J_p_mol
-    return F_vib + E_DFT_SrO
+    if vib: return F_vib + E_DFT_SrO
+    return E_DFT_SrO

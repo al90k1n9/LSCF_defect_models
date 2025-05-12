@@ -10,8 +10,8 @@ x0 = 0.4 #molar fraction of Sr
 x_O2 = 0.21
 x_CrO3 = 1e-10
 P = 1 #atm
-T_lower_bound = 825
-T_upper_bound = 875
+T_lower_bound = 700
+T_upper_bound = 1200
 T_range = np.linspace(T_lower_bound,T_upper_bound,1000) #K
 
 p_O2 = x_O2 * P
@@ -37,7 +37,7 @@ print(V_Sr[0], V_Sr[0] - V_Sr[-1])
 #plt.plot(xlist, polynomial)
 #plt.plot(xlist, og_function)
 #plt.gca().axhline(y=0, color="black")
-#plt.ylim(-0.1, 0.1)
+##plt.ylim(-0.1, 0.1)
 #plt.show()
 
 ax.plot(T_range, np.asarray(delta_G)/ev2J_p_mol, label="case 1")
@@ -89,9 +89,21 @@ ax2.xaxis.set_minor_locator(AutoMinorLocator())
 ax2.yaxis.set_minor_locator(AutoMinorLocator())
 
 ax2.legend(facecolor="none")
+ax2.set_xlim(T_lower_bound, T_upper_bound+1)
+#ax2.set_ylim(0,)
+
 
 fig3, ax3 = plt.subplots(layout="constrained")
 ax3.plot(T_range, np.asarray(mu_list)/ev2J_p_mol)
 
+ax3.set_xlabel("T [K]")
+ax3.set_ylabel("[eV]")
+
+
+ax3.set_xlim(T_lower_bound, T_upper_bound+1)
+
+
+ax3.xaxis.set_minor_locator(AutoMinorLocator())
+ax3.yaxis.set_minor_locator(AutoMinorLocator())
 
 plt.show()

@@ -22,6 +22,8 @@ axinset.set_facecolor("none")
 #fig2, ax2 = plt.subplots(layout="constrained")
 
 
+fig3, ax3 = plt.subplots(layout="constrained")
+
 #V_Sr, delta_G, theta_list = case1(T_range, x0, p_O2, p_H2O, P)
 #ax.plot(T_range, V_Sr, label="case 3.3")
 #axinset.plot(T_range, V_Sr, label="case 3.3")
@@ -32,6 +34,19 @@ V_Sr, delta_G, theta_list = case2(T_range, x0, p_H2O, P)
 ax.plot(T_range, V_Sr, label="case 3.3")
 axinset.plot(T_range, V_Sr/x0)
 axinset.plot(T_range, theta_list, label="$\\theta_{H_2O}$")
+
+ax3.plot(T_range, V_Sr/x0, label="$[V_{La}''']_{eq}$")
+ax3.plot(T_range, theta_list, label="$\\theta_{H_2O}$", color="black")
+ax3.set_xlabel("T[K]")
+ax3.set_xlim(T_lower_bound, T_upper_bound+1)
+ax3.set_ylim(0,)
+ax3.legend(facecolor="none", loc="upper right")
+
+
+ax3.xaxis.set_minor_locator(AutoMinorLocator())
+ax3.yaxis.set_minor_locator(AutoMinorLocator())
+
+
 axinset.legend(facecolor="none")
 #ax2.plot(T_range, delta_G/ev2J_p_mol, label="case 3.3")
 print("case 2 ", delta_G[1]/ev2J_p_mol)
@@ -113,5 +128,5 @@ axinset.yaxis.set_minor_locator(AutoMinorLocator())
 
 fig.savefig("figs/hydroxylated_cond_delta_G.svg", format="svg", dpi=300, transparent=True)
 #fig2.savefig("figs/hydroxylated_cond_VSr.svg", format="svg", dpi=300, transparent=True)
-
+fig3.savefig("figs/hydrox_decomp_coverage.png", format="png", dpi=300, transparent=True)
 plt.show()

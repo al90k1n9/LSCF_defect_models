@@ -72,7 +72,7 @@ def chem_pot_H2(T, E_DFT_H2, P=1):
 
 def chem_pot_SrOH2(T, P=1, data = data_SrOH2):
     delta_G_sroh2 = linear_interpolator(T,data[:,0], data[:,1])
-    mu_H2O = cp_H2O(T, E_DFT_H2O=E_DFT_H2O)
+    mu_H2O = chem_pot_H2O(T, E_DFT_H2O=E_DFT_H2O)
     mu_SrOH2 = delta_G_sroh2 + mu_H2O + zpe_H2O + E_SrO + R*T*np.log(P) #J/mol
     return mu_SrOH2
 

@@ -28,13 +28,15 @@ def case1(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1):
         a = 4+4*N
         b= 4*(x0-1*N)
         c= x0**2 + (1-x0)*N * (1+3*x0)
+        b = -4*N
+        c = (1-x0)*N * (1+3*x0)
         d = -N * x0 * (1-x0)**2
         solution= cubic_model(a,b,c,d)
         #print(x0_minus- x0_plus)
         #print(equation(x0_minus), equation(x0_plus))
         V_Sr.append(solution[0])
         #print(solution[0])
-    return (V_Sr, delta_G_range, p_H2_list)
+    return (np.asarray(V_Sr), np.asarray(delta_G_range), np.asarray(p_H2_list))
 
 def case2(T_range, x0=0.4, x_H2O = 0.08, P=1):
     p_H2O = x_H2O * P
@@ -50,7 +52,7 @@ def case2(T_range, x0=0.4, x_H2O = 0.08, P=1):
         N = K * p_H2O/P 
         V_Sr.append(N/(1+N)*x0)
 
-    return (V_Sr, delta_G_range)
+    return (np.asarray(V_Sr), np.asarray(delta_G_range))
 
 def case3(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1):
     p_O2 = x_O2 * P

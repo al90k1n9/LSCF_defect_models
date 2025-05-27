@@ -15,12 +15,14 @@ def case1(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
 
         delta_G = (E_LSCF_slab_Sr_vac_surf + 2*chem_pot_SrO(T) + 2*chem_pot_H2(T, E_DFT_H2, P=P)- E_LSCF_hydroxilated )/2 + E_int
         delta_G_list.append(delta_G)
-        theta = surface_coverage_H2O(T,p_H2O/P, E_ads, P)
+        theta = surface_coverage_H2O(T,p_H2O/P, E_ads, P)[0]
         N = theta/(1-theta) * np.exp(-delta_G/(R*T)) * P/p_H2
 
         a = 4+4*N
         b= 4*(x-1*N)
         c= x**2 + (1-x)*N * (1+3*x)
+        b = -4*N
+        c = (1-x)*N * (1+3*x)
         d = -N * x * (1-x)**2
         solution= cubic_model(a,b,c,d)
         V_Sr.append(solution[0])

@@ -19,6 +19,8 @@ def case1(T_range, x=0.4, x_O2 = 0.21, P=1):
         a = 4+4*N
         b= 4*(x-1*N)
         c= x**2 + (1-x)*N * (1+3*x)
+        b = -4*N
+        c = (1-x)*N * (1+3*x)
         d = -N * x * (1-x)**2
         solution= cubic_model(a,b,c,d)
         #print(x0_minus- x0_plus)
@@ -32,7 +34,6 @@ def case2(T_range, x=0.4, x_O2 = 0.21, P=1):
     p_O2 = x_O2*P
     delta_G_list =[]
     V_Sr= []
-    delta_E = E_LSCF_slab_Sr_vac_bulk + E_SrO_epitax - (E_LSCF_slab + 0.5*E_DFT_O2) + E_int
     for T in T_range:
         delta_G = E_LSCF_slab_Sr_vac_bulk + chem_pot_SrO(T) - (E_LSCF_slab + 0.5*(chem_pot_O2(T, E_DFT_O2, P=P))) + E_int
         if T==973: print("case 2", delta_G/ev2J_p_mol)
@@ -44,8 +45,10 @@ def case2(T_range, x=0.4, x_O2 = 0.21, P=1):
         #SHOULD BE VERIFIED EVERY TIME THE REACTION MECHANISM IS CHANGED
         N = K * np.sqrt(p_O2/P)
         a = 4+4*N
-        b= 4*(x-1*N)
-        c= x**2 + (1-x)*N * (1+3*x)
+        #b= 4*(x-1*N)
+        #c= x**2 + (1-x)*N * (1+3*x)
+        b = -4*N
+        c = (1-x)*N * (1+3*x)
         d = -N * x * (1-x)**2
         solution= cubic_model(a,b,c,d)
         V_Sr.append(solution[0])

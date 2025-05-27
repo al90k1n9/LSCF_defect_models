@@ -81,7 +81,7 @@ E_int = (acell_LSCF_slab/2)**2/2 * (2*gamma_SrO_epitax - adhesion_work) #J/mol
 E_int_expanded_substrate = (acell_LSCF_slab/2)**2/2 * (2*gamma_SrO_expanded_substrate - adhesion_work) #J/mol
 
 #print("interface energy contribution in eV")
-#print(E_int/ev2J_p_mol)
+print(E_int/ev2J_p_mol, " E_int")
 #print(E_int_expanded_substrate/ev2J_p_mol)
 
 
@@ -143,7 +143,7 @@ single_hydrogenation_energy = (E_LSCF_single_hydrogenated-(E_LSCF_slab_Sr_vac_su
 
 second_hydrogenation_energy = (E_LSCF_double_hydrogenated - (E_LSCF_single_hydrogenated + E_DFT_H2))/2
 
-#print(single_hydrogenation_energy/ev2J_p_mol, " single hydrogenation_energy")
-#print(double_hydrogenation_energy/ev2J_p_mol, " double hydrogenation_energy")
-#print(second_hydrogenation_energy/ev2J_p_mol, " second hydrogenation_energy")
-#print((second_hydrogenation_energy+single_hydrogenation_energy)/ev2J_p_mol, " sum of first and second")
+print(single_hydrogenation_energy/ev2J_p_mol, " single hydrogenation_energy")
+print(double_hydrogenation_energy/ev2J_p_mol, " double hydrogenation_energy")
+print(second_hydrogenation_energy/ev2J_p_mol, " second hydrogenation_energy")
+print((second_hydrogenation_energy+single_hydrogenation_energy)/ev2J_p_mol, " sum of first and second")

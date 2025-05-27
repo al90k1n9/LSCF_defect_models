@@ -47,14 +47,14 @@ ylist, delta_G_list = case4(T_range, x = 0.4)
 plt_element_case4, = ax.plot(T_range, ylist, label ="case 4")
 plt_element_case4_dG = ax2.plot(T_range, np.asarray(delta_G_list)/ev2J_p_mol, label="case 4")
 
-ylist, delta_G_list = case5(T_range, x, p_O2, P)
-plt_element_case5 = ax.plot(T_range, ylist, label ="case 5")
-axinset2.plot(T_range, ylist, color=default_colors[4])
-plt_element_case5_dG = ax2.plot(T_range, np.asarray(delta_G_list)/ev2J_p_mol, label="case 5")
-
-ylist, delta_G_list = case6(T_range, x=0.4)
-plt_element_case6 = ax.plot(T_range, ylist, label ="case 6")
-plt_element_case6_dG = ax2.plot(T_range, np.asarray(delta_G_list)/ev2J_p_mol, label="case 6")
+#ylist, delta_G_list = case5(T_range, x, p_O2, P)
+#plt_element_case5 = ax.plot(T_range, ylist, label ="case 5")
+#axinset2.plot(T_range, ylist, color=default_colors[4])
+#plt_element_case5_dG = ax2.plot(T_range, np.asarray(delta_G_list)/ev2J_p_mol, label="case 5")
+#
+#ylist, delta_G_list = case6(T_range, x=0.4)
+#plt_element_case6 = ax.plot(T_range, ylist, label ="case 6")
+#plt_element_case6_dG = ax2.plot(T_range, np.asarray(delta_G_list)/ev2J_p_mol, label="case 6")
 
 x_O2_range = np.linspace(0.1, 1, 10)
 for x_O2 in x_O2_range:
@@ -152,7 +152,7 @@ secyax4.yaxis.set_minor_locator(AutoMinorLocator())
 plt.show()
 
 fig.savefig("figs/dry_air_conditions.svg", dpi=300, transparent=True)
-#fig2.savefig("figs/dry_air_condition_deltaG.svg", dpi=300, transparent=True)
+fig2.savefig("figs/dry_air_condition_deltaG.svg", dpi=300, transparent=True)
 #fig3.savefig("figs/dry_air_cond_po2_dep.svg", dpi=300, transparent=True)
 #fig4.savefig("figs/dry_air_cond_p_dep.svg", dpi=300, transparent=True)
 

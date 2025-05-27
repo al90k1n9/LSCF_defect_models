@@ -30,7 +30,7 @@ def case1(T_range, x=0.4,  p_O2 = 0.21, p_H2O = 0.08, P=1):
         d = -N * x * (1-x)**2
         solution= cubic_model(a,b,c,d)
         V_Sr.append(solution[0])
-    return (V_Sr, delta_G_list)
+    return (np.asarray(V_Sr), np.asarray(delta_G_list))
 
 def case2(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
     #uses half oxygen gas and one water moelcule to form hydroxide

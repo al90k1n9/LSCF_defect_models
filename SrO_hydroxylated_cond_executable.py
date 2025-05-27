@@ -7,8 +7,8 @@ x0 = 0.4 #molar fraction of Sr
 x_O2 = 0.21
 x_H2O = 0.08
 P = 1 #atm
-T_lower_bound = 500
-T_upper_bound = 1299
+T_lower_bound = 700
+T_upper_bound = 1099
 T_range = np.arange(T_lower_bound,T_upper_bound,1) #K
 #numpy imported chemical potentials, which is imported in humid models
 
@@ -24,8 +24,8 @@ axinset.set_facecolor("none")
 
 fig3, ax3 = plt.subplots(layout="constrained")
 
-#V_Sr, delta_G, theta_list = case1(T_range, x0, p_O2, p_H2O, P)
-#ax.plot(T_range, V_Sr, label="case 3.3")
+V_Sr, delta_G, theta_list = case1(T_range, x0, p_O2, p_H2O, P)
+ax.plot(T_range, V_Sr, label="H_2")
 #axinset.plot(T_range, V_Sr, label="case 3.3")
 #ax2.plot(T_range, delta_G/ev2J_p_mol, label="case 3.3")
 #ax4.plot(T_range, theta_list, label="case1")

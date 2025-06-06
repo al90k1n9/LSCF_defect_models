@@ -28,8 +28,6 @@ def case1(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1):
         a = 4+4*N
         b= 4*(x0-1*N)
         c= x0**2 + (1-x0)*N * (1+3*x0)
-        b = -4*N
-        c = (1-x0)*N * (1+3*x0)
         d = -N * x0 * (1-x0)**2
         solution= cubic_model(a,b,c,d)
         #print(x0_minus- x0_plus)

@@ -19,8 +19,6 @@ def case1(T_range, x=0.4, x_O2 = 0.21, P=1):
         a = 4+4*N
         b= 4*(x-1*N)
         c= x**2 + (1-x)*N * (1+3*x)
-        b = -4*N
-        c = (1-x)*N * (1+3*x)
         d = -N * x * (1-x)**2
         solution= cubic_model(a,b,c,d)
         #print(x0_minus- x0_plus)
@@ -28,7 +26,7 @@ def case1(T_range, x=0.4, x_O2 = 0.21, P=1):
         V_Sr.append(solution[0])
         delta_G_list.append(delta_G)
         #print(solution[0])
-    return (V_Sr,delta_G_list)
+    return (np.asarray(V_Sr),np.asarray(delta_G_list))
 
 def case2(T_range, x=0.4, x_O2 = 0.21, P=1):
     p_O2 = x_O2*P
@@ -45,19 +43,19 @@ def case2(T_range, x=0.4, x_O2 = 0.21, P=1):
         #SHOULD BE VERIFIED EVERY TIME THE REACTION MECHANISM IS CHANGED
         N = K * np.sqrt(p_O2/P)
         a = 4+4*N
-        #b= 4*(x-1*N)
-        #c= x**2 + (1-x)*N * (1+3*x)
-        b = -4*N
-        c = (1-x)*N * (1+3*x)
+        b= 4*(x-1*N)
+        c= x**2 + (1-x)*N * (1+3*x)
         d = -N * x * (1-x)**2
         solution= cubic_model(a,b,c,d)
         V_Sr.append(solution[0])
-    return (V_Sr,delta_G_list)
+    return (np.asarray(V_Sr),np.asarray(delta_G_list))
 
 def case3(T_range, x=0.4):
     delta_G_list = []
     V_Sr=[]
     delta_E = E_LSCF_slab_Sr_surf_O_sub_surf /2 +  E_SrO_epitax - (E_LSCF_slab/2) + E_int
+    delta_oxygen = 0
+    delta_oxygen = 0.00798
     for T in T_range:
 
         delta_G = E_LSCF_slab_Sr_surf_O_sub_surf /2 +  chem_pot_SrO(T) - (E_LSCF_slab/2) + E_int
@@ -66,16 +64,18 @@ def case3(T_range, x=0.4):
 
         K = np.exp(-delta_G/(R*T))
         a = (1-(1/K))
-        b = -3-x
-        c = 3*x
+        b = -(3-delta_oxygen)-x - delta_oxygen/K
+        c = (3-delta_oxygen)*x
 
         V_Sr.append(quadratic_model(a,b,c,x))
-    return (V_Sr,delta_G_list)
+    return(np.asarray(V_Sr), np.asarray(delta_G_list))
 
 def case4(T_range, x=0.4):
     delta_G_list = []
     V_Sr=[]
     delta_E = E_LSCF_slab_SrO_bulk +  E_SrO_epitax - (E_LSCF_slab) + E_int
+    delta_oxygen = 0
+    delta_oxygen = 0.00798
     for T in T_range:
         delta_G = E_LSCF_slab_SrO_bulk +  chem_pot_SrO(T) - (E_LSCF_slab) + E_int
         if T==973: print("case 4", delta_G/ev2J_p_mol)
@@ -83,11 +83,11 @@ def case4(T_range, x=0.4):
 
         K = np.exp(-delta_G/(R*T))
         a = (1-(1/K))
-        b = -3-x
-        c = 3*x
+        b = -(3-delta_oxygen)-x - delta_oxygen/K
+        c = (3-delta_oxygen)*x
 
         V_Sr.append(quadratic_model(a,b,c,x))
-    return (V_Sr,delta_G_list)
+    return(np.asarray(V_Sr), np.asarray(delta_G_list))
 
 def case5(T_range, x=0.4, x_O2 = 0.21, P=1):
     p_O2 = x_O2 * P
@@ -111,7 +111,7 @@ def case5(T_range, x=0.4, x_O2 = 0.21, P=1):
         d = -N * x * (1-x)**2
         solution = cubic_model(a,b,c,d)
         V_Sr.append(solution[0])
-    return (V_Sr,delta_G_list)
+    return(np.asarray(V_Sr), np.asarray(delta_G_list))
 
 def case6(T_range, x= 0.4):
     delta_G_list = []
@@ -127,4 +127,4 @@ def case6(T_range, x= 0.4):
         b = -3-x
         c = 3*x
         V_Sr.append(quadratic_model(a,b,c,x))
-    return (V_Sr,delta_G_list)
+    return(np.asarray(V_Sr), np.asarray(delta_G_list))

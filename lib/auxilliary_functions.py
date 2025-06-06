@@ -1,6 +1,6 @@
 import numpy as np
 N_avagadro = 6.0223*10**23
-R = 8.314 #J.K.mol-1
+R = 8.31446261815 #J.K.mol-1
 
 def pH2_giver(T,p_H2O, p_O2):
     #delta mu calculation

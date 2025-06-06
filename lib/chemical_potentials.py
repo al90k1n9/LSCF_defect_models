@@ -11,7 +11,7 @@ from lib.dft_energies_0K import E_DFT_H2O, E_DFT_CrO3, E_SrO, E_SrO_epitax, zpe_
 N_avagadro = 6.0223*10**23
 ev2J = 1.60219*10**(-19)
 ev2J_p_mol = ev2J*N_avagadro
-R = 8.314 #J.K.mol-1
+R = 8.31446261815 #J.K.mol-1
 
 data_SrOH2 = np.genfromtxt("./lib/SrOH2_factsage_processed.csv", delimiter=";") #SrO (solid) +H2O (gas) gives SrOH2 (gas)
 data_CrO2OH2 = np.genfromtxt("./lib/CrO2OH2_factsage_processed.csv", delimiter=";") #SrO (solid) +H2O (gas) gives SrOH2 (gas)

@@ -48,10 +48,12 @@ E_DFT_H2 = E_DFT_H2 * ev2J_p_mol #in J/mol
 
 E_SrOH2_bulk = -7.04103776E+03 * ev2J_p_mol/4 #the system has four molecules and therefore the factor 1/4
 
-E_LSCF_slab_Sr_vac_surf = -9.37015381643914E+04 #in eV
+#E_LSCF_slab_Sr_vac_surf = -9.37015381643914E+04 #in eV
+E_LSCF_slab_Sr_vac_surf = 645.2412 #in eV
 E_LSCF_slab_Sr_vac_surf = E_LSCF_slab_Sr_vac_surf * ev2J_p_mol #in J/mol
 
-E_LSCF_slab = -9.54034366543809E+04 #eV
+#E_LSCF_slab = -9.54034366543809E+04 #eV
+E_LSCF_slab = 658.2651 #eV
 E_LSCF_slab = E_LSCF_slab * ev2J_p_mol #in J/mol
 
 E_LSCF_SrO_interface = -1.211567739277E+05 #eV
@@ -88,7 +90,8 @@ print(E_int/ev2J_p_mol, " E_int")
 E_LSCF_slab_Sr_vac_bulk = -94551.83065 #eV
 E_LSCF_slab_Sr_vac_bulk = E_LSCF_slab_Sr_vac_bulk * ev2J_p_mol #J/mol
 
-E_LSCF_slab_Sr_surf_O_sub_surf = -9.28256221726180E+04 #eV
+#E_LSCF_slab_Sr_surf_O_sub_surf = -9.28256221726180E+04 #eV
+E_LSCF_slab_Sr_surf_O_sub_surf = 631.6442 #eV
 E_LSCF_slab_Sr_surf_O_sub_surf = E_LSCF_slab_Sr_surf_O_sub_surf * ev2J_p_mol #J/mol
 
 E_LSCF_slab_SrO_bulk = -9.41146616226594E+04 #eV

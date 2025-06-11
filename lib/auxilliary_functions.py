@@ -1,6 +1,89 @@
 import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.ticker import AutoMinorLocator
+from scipy.optimize import curve_fit as cf
+
+default_colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
 N_avagadro = 6.0223*10**23
 R = 8.31446261815 #J.K.mol-1
+
+def linear_function(x, a, b):
+    return a*x+b
+
+def log_convert(x):
+    return np.log(x)
+
+def log_invert(x):
+    return np.exp(x)
+
+def delta_oxygen_interpolater(plot=1, pO2 = 0.21):
+    data873 = np.genfromtxt("./lib/bouwmeester_873.csv", delimiter=",", skip_header=1)
+    data973 = np.genfromtxt("./lib/bouwmeester_973.csv", delimiter=",", skip_header=1)
+    data1073 = np.genfromtxt("./lib/bouwmeester_1073.csv", delimiter=",", skip_header=1)
+    data1173 = np.genfromtxt("./lib/bouwmeester_1173.csv", delimiter=";", skip_header=1)
+
+    
+    popt, pcov = cf(linear_function, data873[:,0], data873[:,1], p0=[0,0])
+    popt2, pcov2 = cf(linear_function, data973[:,0], data973[:,1], p0=[0,0])
+    popt3, pcov3 = cf(linear_function, data1073[:,0], data1073[:,1], p0=[0,0])
+    popt4, pcov4 = cf(linear_function, data1173[:,0], data1173[:,1], p0=[0,0])
+
+    log_pO2 = np.log(pO2)
+    T_range = np.asarray([873,973,1073,1173])
+    delta_list = np.asarray([linear_function(log_pO2, popt[0], popt[1]), linear_function(log_pO2, popt2[0], popt2[1]), linear_function(log_pO2, popt3[0], popt3[1]), linear_function(log_pO2, popt4[0], popt4[1])])
+
+    interpolated_param, cov = cf(linear_function, T_range, delta_list, p0=[0,0])
+    
+    max_concentration = 83108 #mol/m**3
+    federico_eq_concentration = 82887 #mol/m**3 federico monaco thesis, p.111 tab. 3.7
+    federico_delta_eq_concentration = 3*(1-federico_eq_concentration/max_concentration)
+    federico_delta_param = [interpolated_param[0], federico_delta_eq_concentration - interpolated_param[0] * 973]
+    print("federico monaco delta_oxygen inversion temperature T [K] ", -federico_delta_param[1]/federico_delta_param[0])
+    print("federico delta", federico_delta_eq_concentration)
+
+    if plot:
+        fig, ax =plt.subplots(layout="constrained")
+        ax.plot(data873[:,0], data873[:,1], label="T = 873K", ls="", marker = "s", markerfacecolor="none")
+        ax.plot(data973[:,0], data973[:,1], label="T = 973K", ls="", marker = "s", markerfacecolor="none")
+        ax.plot(data1073[:,0], data1073[:,1], label="T = 1073K", ls="", marker = "s", markerfacecolor="none")
+        ax.plot(data1173[:,0], data1173[:,1], label="T = 1173K", ls="", marker = "s", markerfacecolor="none")
+        
+
+        
+        artxlist_min = min(data873[0,0], data973[0,0], data1073[0,0], data1173[0,0]) 
+        artxlist_max = max(data873[-1,0], data973[-1,0], data1073[-1,0], data1173[-1,0]) 
+        artxlist = np.arange(artxlist_min, artxlist_max, (artxlist_max-artxlist_min)/1000)
+
+        secxax = ax.secondary_xaxis("top", functions=(log_invert, log_convert))
+        
+        ax.plot(artxlist, linear_function(artxlist, popt[0], popt[1]), color=default_colors[0], ls="dashed")
+        ax.plot(artxlist, linear_function(artxlist, popt2[0], popt2[1]), color=default_colors[1], ls="dashed")
+        ax.plot(artxlist, linear_function(artxlist, popt3[0], popt3[1]), color=default_colors[2], ls="dashed")
+        ax.plot(artxlist, linear_function(artxlist, popt4[0], popt4[1]), color=default_colors[3], ls="dashed")
+        
+        ax.set_xlabel("log pO$_2$")
+        ax.set_ylabel("$\\delta$")
+        ax.xaxis.set_minor_locator(AutoMinorLocator())
+        ax.yaxis.set_minor_locator(AutoMinorLocator())
+
+        ax.legend(facecolor="none")
+
+        fig2, ax2 = plt.subplots(layout="constrained")
+        ax2.plot(T_range, delta_list,  marker="s", ls="", markerfacecolor="none", color="black")
+        artTlist = np.arange(min(T_range), max(T_range), (max(T_range)-min(T_range))/1000)
+        ax2.plot(artTlist, linear_function(artTlist, interpolated_param[0], interpolated_param[1]), color="black", ls="dashed", label="pO2 = " + str(pO2) + " Bouwmeester")
+        ax2.plot(artTlist, linear_function(artTlist, federico_delta_param[0], federico_delta_param[1]), ls="dashed", label="pO2 = " + str(pO2) + " Monaco electrode")
+        
+        ax2.set_xlim(T_range[0], T_range[-1])
+        ax2.legend()
+        ax2.set_xlabel("T [K]")
+        ax2.set_ylabel("$\\delta$")
+        ax2.xaxis.set_minor_locator(AutoMinorLocator())
+        ax2.yaxis.set_minor_locator(AutoMinorLocator())
+
+
+        plt.show()
+    return federico_delta_param
 
 def pH2_giver(T,p_H2O, p_O2):
     #delta mu calculation

@@ -1,4 +1,6 @@
 from lib.auxilliary_functions import *
+import matplotlib.pyplot as plt
+import numpy as np
 
-
-delta_oxygen_interpolater()
+params = delta_oxygen_interpolater(plot=0)
+print(params)

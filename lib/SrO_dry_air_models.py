@@ -53,12 +53,12 @@ def case2(T_range, x=0.4, x_O2 = 0.21, P=1):
 def case3(T_range, x=0.4):
     delta_G_list = []
     V_Sr=[]
-    delta_E = E_LSCF_slab_Sr_surf_O_sub_surf /2 +  E_SrO_epitax - (E_LSCF_slab/2) + E_int
+    delta_E = E_LSCF_slab_Sr_surf_O_sub_surf  +  E_SrO_epitax - E_LSCF_slab + E_int
     delta_oxygen = 0
     delta_oxygen = 0.00798
     for T in T_range:
 
-        delta_G = E_LSCF_slab_Sr_surf_O_sub_surf /2 +  chem_pot_SrO(T) - (E_LSCF_slab/2) + E_int
+        delta_G = E_LSCF_slab_Sr_surf_O_sub_surf  +  chem_pot_SrO(T) - E_LSCF_slab + E_int
         if T==973: print("case 3", delta_G/ev2J_p_mol)
         delta_G_list.append(delta_G)
 

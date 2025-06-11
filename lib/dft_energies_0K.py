@@ -52,8 +52,7 @@ E_SrOH2_bulk = -7.04103776E+03 * ev2J_p_mol/4 #the system has four molecules and
 E_LSCF_slab_Sr_vac_surf = 645.2412 #in eV
 E_LSCF_slab_Sr_vac_surf = E_LSCF_slab_Sr_vac_surf * ev2J_p_mol #in J/mol
 
-#E_LSCF_slab = -9.54034366543809E+04 #eV
-E_LSCF_slab = 658.2651 #eV
+E_LSCF_slab = -9.54034366543809E+04 #eV
 E_LSCF_slab = E_LSCF_slab * ev2J_p_mol #in J/mol
 
 E_LSCF_SrO_interface = -1.211567739277E+05 #eV
@@ -81,6 +80,15 @@ adhesion_work = (E_LSCF_slab + 20 * E_SrO_epitax + 2* gamma_SrO_epitax * acell_L
 
 E_int = (acell_LSCF_slab/2)**2/2 * (2*gamma_SrO_epitax - adhesion_work) #J/mol
 E_int_expanded_substrate = (acell_LSCF_slab/2)**2/2 * (2*gamma_SrO_expanded_substrate - adhesion_work) #J/mol
+
+#VASP ENERGIES HERE; E_int should calcaulte everything with abinit energies. this is why i keep it here
+E_SrO_epitax = -1.28729253918189E+03 #eV
+E_SrO_epitax *= ev2J_p_mol
+
+E_LSCF_slab = 658.2651 #eV
+E_LSCF_slab = E_LSCF_slab * ev2J_p_mol #in J/mol
+
+
 
 #print("interface energy contribution in eV")
 print(E_int/ev2J_p_mol, " E_int")

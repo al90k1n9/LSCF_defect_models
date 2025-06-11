@@ -13,7 +13,11 @@ P = 1 #atm
 T_lower_bound = 700
 T_upper_bound = 1100
 T_range = np.arange(T_lower_bound, T_upper_bound)
-V_Sr, delta_G= case1(T_range)
+
+
+
+delta_oxygen_parameters = delta_oxygen_interpolater(plot=0)
+V_Sr, delta_G, delta_oxygen_list = case1(T_range, delta_oxygen_parameters=delta_oxygen_parameters)
 
 fig, ax = plt.subplots(layout="constrained")
 

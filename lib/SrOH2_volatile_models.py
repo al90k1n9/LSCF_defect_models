@@ -5,11 +5,12 @@ from lib.dft_energies_0K import *
 from lib.auxilliary_functions import * 
 
 
-def case1(T_range, x=0.4, p_H2O = 0.08, P = 1, volume_fraction_gas= 0.5):
+def case1(T_range, x=0.4, p_H2O = 0.08, P = 1, volume_fraction_gas= 0.5, delta_oxygen_parameters = [0,0]):
     V_Sr = np.zeros(len(T_range))
     V_Sr1 = np.zeros(len(T_range))
     V_Sr2 = np.zeros(len(T_range))
     delta_G_list = np.zeros(len(T_range))
+    delta_oxygen_list = []
 
     for index in range(len(T_range)):
         T = T_range[index]
@@ -18,18 +19,22 @@ def case1(T_range, x=0.4, p_H2O = 0.08, P = 1, volume_fraction_gas= 0.5):
         delta_G = float(0.5*(2*mu_SrOH2 + E_LSCF_slab_Sr_surf_O_sub_surf - 2*mu_H2O - E_LSCF_slab))
         delta_G_list[index] = delta_G
 
+        delta_oxygen = delta_oxygen_parameters[0] * T + delta_oxygen_parameters[1]
+        if delta_oxygen<0: delta_oxygen = 0 #understoichiometry cannot be negative.
+        delta_oxygen_list.append(delta_oxygen)
+
         Ni_H2O = volume_fraction_gas/(1-volume_fraction_gas) * (acell_LSCF_slab/2)**3/(kb*T) * p_H2O * 1e5
 
         a = -1-np.exp(delta_G/(R*T))
         b = Ni_H2O + x + 3
-        c = -(x*Ni_H2O + 3*Ni_H2O + 3*x)
-        d = 3*x*Ni_H2O
+        c = -(x*Ni_H2O + (3-delta_oxygen)*Ni_H2O + (3-delta_oxygen)*x)
+        d = (3-delta_oxygen)*x*Ni_H2O
         solutions = cubic_model(a,b,c,d)
         #equation_func = lambda x: equation(x, T=T, p_H2O=  p_H2O, delta_G=delta_G)
         #solution = bisection(0,0.4)
 
         V_Sr[index] = solutions[0]
-    return (V_Sr, delta_G_list)
+    return(np.asarray(V_Sr), np.asarray(delta_G_list), np.asarray(delta_oxygen_list))
 
 
 
@@ -37,8 +42,8 @@ if __name__ == "__main__":
     data = np.genfromtxt("./lib/sroh2_factsage.csv", delimiter=";")
     T_range = data[100::100,0]
     T = T_range[99]
-    mu_H2O = cp_H2O(T, E_DFT_H2O=E_DFT_H2O)
-    mu_SrOH2 = cp_SrOH2(T)
+    mu_H2O = chem_pot_H2O(T, E_DFT_H2O=E_DFT_H2O)
+    mu_SrOH2 = chem_pot_SrOH2(T)
     delta_G = 0.5*(2*mu_SrOH2[0] + E_LSCF_slab_Sr_surf_O_sub_surf - 2*mu_H2O - E_LSCF_slab)
 
     print("exponential term: ", np.exp(-delta_G/(R*T)))

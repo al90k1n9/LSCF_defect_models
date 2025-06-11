@@ -55,15 +55,17 @@ def case3(T_range, x=0.4, delta_oxygen_parameters=np.asarray([0,0])):
     delta_oxygen_list = []
     V_Sr=[]
     delta_E = E_LSCF_slab_Sr_surf_O_sub_surf /2 +  E_SrO_epitax - (E_LSCF_slab/2) + E_int
-    if delta_oxygen_parameters[0] != 0 and delta_oxygen_parameters[1] != 0: inversion_temperature = -delta_oxygen_parameters[1]/delta_oxygen_parameters[0]
+    delta_oxygen_parameter_condition = delta_oxygen_parameters[0] != 0 and delta_oxygen_parameters[1] != 0
+    if delta_oxygen_parameter_condition: inversion_temperature = -delta_oxygen_parameters[1]/delta_oxygen_parameters[0]
     for T in T_range:
 
         delta_G = E_LSCF_slab_Sr_surf_O_sub_surf /2 +  chem_pot_SrO(T) - (E_LSCF_slab/2) + E_int
         if T==973: print("case 3", delta_G/ev2J_p_mol)
         delta_G_list.append(delta_G)
         #delta_oxygen = delta_oxygen_parameters[0] * T + delta_oxygen_parameters[1]
-        delta_oxygen = delta_oxygen_parameters[0] * np.log(1+np.exp(T-inversion_temperature))
-        if delta_oxygen<0: delta_oxygen = 0 #understoichiometry cannot be negative.
+        #if delta_oxygen<0: delta_oxygen = 0 #understoichiometry cannot be negative.
+        if delta_oxygen_parameter_condition: delta_oxygen = delta_oxygen_parameters[0] * np.log(1+np.exp(T-inversion_temperature))
+        else: delta_oxygen = 0
         delta_oxygen_list.append(delta_oxygen)
         K = np.exp(-delta_G/(R*T))
         a = (1-(1/K))
@@ -78,14 +80,16 @@ def case4(T_range, x=0.4, delta_oxygen_parameters = [0,0]):
     V_Sr=[]
     delta_E = E_LSCF_slab_SrO_bulk +  E_SrO_epitax - (E_LSCF_slab) + E_int
     delta_oxygen_list = []
-    if delta_oxygen_parameters[0] != 0 and delta_oxygen_parameters[1] != 0: inversion_temperature = -delta_oxygen_parameters[1]/delta_oxygen_parameters[0]
+    delta_oxygen_parameter_condition = delta_oxygen_parameters[0] != 0 and delta_oxygen_parameters[1] != 0
+    if delta_oxygen_parameter_condition: inversion_temperature = -delta_oxygen_parameters[1]/delta_oxygen_parameters[0]
     for T in T_range:
         delta_G = E_LSCF_slab_SrO_bulk +  chem_pot_SrO(T) - (E_LSCF_slab) + E_int
         if T==973: print("case 4", delta_G/ev2J_p_mol)
         delta_G_list.append(delta_G)
         #delta_oxygen = delta_oxygen_parameters[0] * T + delta_oxygen_parameters[1]
-        delta_oxygen = delta_oxygen_parameters[0] * np.log(1+np.exp(T-inversion_temperature))
-        if delta_oxygen<0: delta_oxygen = 0 #understoichiometry cannot be negative.
+        #if delta_oxygen<0: delta_oxygen = 0 #understoichiometry cannot be negative.
+        if delta_oxygen_parameter_condition: delta_oxygen = delta_oxygen_parameters[0] * np.log(1+np.exp(T-inversion_temperature))
+        else: delta_oxygen = 0
         delta_oxygen_list.append(delta_oxygen)
         K = np.exp(-delta_G/(R*T))
         a = (1-(1/K))

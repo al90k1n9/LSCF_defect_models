@@ -52,8 +52,9 @@ plt_element_case2, = ax.plot(T_range, ylist, label = "case 2")
 plt_element_case2_dG = ax2.plot(T_range, np.asarray(delta_G_list)/ev2J_p_mol, label="case 2")
 
 delta_oxygen_parameters = delta_oxygen_interpolater(plot=0)
+#delta_oxygen_parameters = np.asarray([0,0])
 delta_oxygen_inversion_temperature = -delta_oxygen_parameters[1]/delta_oxygen_parameters[0]
-#delta_oxygen_parameters = [0,0]
+
 
 ylist, delta_G_list, delta_oxygen_list = case3(T_range, x=0.4, delta_oxygen_parameters=delta_oxygen_parameters)
 plt_element_case3, =ax.plot(T_range, ylist, label ="case 3")

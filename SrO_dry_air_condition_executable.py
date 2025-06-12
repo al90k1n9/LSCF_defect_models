@@ -19,10 +19,10 @@ default_colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
 
 fig,ax = plt.subplots(layout='constrained')
 
-#axinset1 = ax.inset_axes([0.3,0.65,0.3,0.3])
-#axinset2 = ax.inset_axes([0.07,0.25,0.3,0.3])
-#axinset1.set_facecolor("none")
-#axinset2.set_facecolor("none")
+axinset1 = ax.inset_axes([0.07,0.43,0.3,0.3])
+axinset2 = ax.inset_axes([0.65,0.43,0.3,0.3])
+axinset1.set_facecolor("none")
+axinset2.set_facecolor("none")
 
 fig2, ax2 = plt.subplots(layout ="constrained")
 
@@ -36,7 +36,7 @@ fig6, ax6 = plt.subplots(layout="constrained")
 
 ylist, delta_G_list = case1(T_range, x, p_O2, P)
 plt_element_case1 = ax.plot(T_range, ylist, label ="case 1")
-#axinset1.plot(T_range, ylist)
+axinset1.plot(T_range, ylist)
 plt_element_case1_dG = ax2.plot(T_range, delta_G_list/ev2J_p_mol, label="case 1")
 
 index = np.where(T_range==973)[0][0]
@@ -48,7 +48,7 @@ ax5.plot(T_range, K_eq-np.exp(-delta_G_list/(R*T_range)), label="case1")
 
 ylist, delta_G_list = case2(T_range, x, p_O2, P)
 plt_element_case2, = ax.plot(T_range, ylist, label = "case 2")
-#axinset2.plot(T_range, ylist, color = default_colors[1])
+axinset2.plot(T_range, ylist, color = default_colors[1])
 plt_element_case2_dG = ax2.plot(T_range, np.asarray(delta_G_list)/ev2J_p_mol, label="case 2")
 
 delta_oxygen_parameters = delta_oxygen_interpolater(plot=0)
@@ -121,15 +121,15 @@ ax.legend(loc="upper left", facecolor="none")
 ax.xaxis.set_minor_locator(AutoMinorLocator())
 ax.yaxis.set_minor_locator(AutoMinorLocator())
 
-#axinset1.xaxis.set_minor_locator(AutoMinorLocator())
-#axinset1.yaxis.set_minor_locator(AutoMinorLocator())
-#axinset2.yaxis.set_minor_locator(AutoMinorLocator())
-#axinset2.xaxis.set_minor_locator(AutoMinorLocator())
+axinset1.xaxis.set_minor_locator(AutoMinorLocator())
+axinset1.yaxis.set_minor_locator(AutoMinorLocator())
+axinset2.yaxis.set_minor_locator(AutoMinorLocator())
+axinset2.xaxis.set_minor_locator(AutoMinorLocator())
 
-#axinset1.set_xlim(T_lower_bound, T_upper_bound+1)
-#axinset1.set_ylim(0,)
-#axinset2.set_xlim(T_lower_bound, T_upper_bound+1)
-#axinset2.set_ylim(0,)
+axinset1.set_xlim(T_lower_bound, T_upper_bound+1)
+axinset1.set_ylim(0,)
+axinset2.set_xlim(T_lower_bound, T_upper_bound+1)
+axinset2.set_ylim(0,)
 
 
 ax2.set_xlim(left=T_lower_bound,right=T_upper_bound+1)

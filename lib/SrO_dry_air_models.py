@@ -2,13 +2,13 @@ from lib.chemical_potentials import *
 from lib.dft_energies_0K import * #importing all the values of dft energies
 from lib.auxilliary_functions import *
 
-def case1(T_range, x=0.4, x_O2 = 0.21, P=1):
+def case1(T_range, x=0.4, x_O2 = 0.21, P=1, sensitivity_shift = 0):
     p_O2 = P*x_O2
     V_Sr= []
     delta_G_list = []
-    delta_E = (E_LSCF_slab_Sr_vac_surf + 2 * E_SrO_epitax - (E_LSCF_slab + E_DFT_O2))/2 + E_int
+    delta_E = (E_LSCF_slab_Sr_vac_surf + 2 * E_SrO_epitax - (E_LSCF_slab + E_DFT_O2))/2 + E_int + sensitivity_shift
     for T in T_range:
-        delta_G = (E_LSCF_slab_Sr_vac_surf + 2 * (chem_pot_SrO(T)) - (E_LSCF_slab + chem_pot_O2(T, E_DFT_O2, P=P)))/2 + E_int
+        delta_G = (E_LSCF_slab_Sr_vac_surf + 2 * (chem_pot_SrO(T)) - (E_LSCF_slab + chem_pot_O2(T, E_DFT_O2, P=P)))/2 + E_int + sensitivity_shift
         #if T==973: print("case 1", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T))
         #print(K)
@@ -28,12 +28,12 @@ def case1(T_range, x=0.4, x_O2 = 0.21, P=1):
         #print(solution[0])
     return (np.asarray(V_Sr),np.asarray(delta_G_list))
 
-def case2(T_range, x=0.4, x_O2 = 0.21, P=1):
+def case2(T_range, x=0.4, x_O2 = 0.21, P=1, sensitivity_shift = 0):
     p_O2 = x_O2*P
     delta_G_list =[]
     V_Sr= []
     for T in T_range:
-        delta_G = E_LSCF_slab_Sr_vac_bulk + chem_pot_SrO(T) - (E_LSCF_slab + 0.5*(chem_pot_O2(T, E_DFT_O2, P=P))) + E_int
+        delta_G = E_LSCF_slab_Sr_vac_bulk + chem_pot_SrO(T) - (E_LSCF_slab + 0.5*(chem_pot_O2(T, E_DFT_O2, P=P))) + E_int + sensitivity_shift
         if T==973: print("case 2", delta_G/ev2J_p_mol)
         delta_G_list.append(delta_G)
         K = np.exp(-delta_G/(R*T))
@@ -50,16 +50,16 @@ def case2(T_range, x=0.4, x_O2 = 0.21, P=1):
         V_Sr.append(solution[0])
     return (np.asarray(V_Sr),np.asarray(delta_G_list))
 
-def case3(T_range, x=0.4, delta_oxygen_parameters=np.asarray([0,0])):
+def case3(T_range, x=0.4, delta_oxygen_parameters=np.asarray([0,0]), sensitivity_shift = 0):
     delta_G_list = []
     delta_oxygen_list = []
     V_Sr=[]
-    delta_E = E_LSCF_slab_Sr_surf_O_sub_surf /2 +  E_SrO_epitax - (E_LSCF_slab/2) + E_int
+    delta_E = E_LSCF_slab_Sr_surf_O_sub_surf /2 +  E_SrO_epitax - (E_LSCF_slab/2) + E_int + sensitivity_shift
     delta_oxygen_parameter_condition = delta_oxygen_parameters[0] != 0 and delta_oxygen_parameters[1] != 0
     if delta_oxygen_parameter_condition: inversion_temperature = -delta_oxygen_parameters[1]/delta_oxygen_parameters[0]
     for T in T_range:
 
-        delta_G = E_LSCF_slab_Sr_surf_O_sub_surf /2 +  chem_pot_SrO(T) - (E_LSCF_slab/2) + E_int
+        delta_G = E_LSCF_slab_Sr_surf_O_sub_surf /2 +  chem_pot_SrO(T) - (E_LSCF_slab/2) + E_int + sensitivity_shift
         if T==973: print("case 3", delta_G/ev2J_p_mol)
         delta_G_list.append(delta_G)
         #delta_oxygen = delta_oxygen_parameters[0] * T + delta_oxygen_parameters[1]
@@ -75,15 +75,15 @@ def case3(T_range, x=0.4, delta_oxygen_parameters=np.asarray([0,0])):
         V_Sr.append(quadratic_model(a,b,c,x))
     return(np.asarray(V_Sr), np.asarray(delta_G_list), np.asarray(delta_oxygen_list))
 
-def case4(T_range, x=0.4, delta_oxygen_parameters = [0,0]):
+def case4(T_range, x=0.4, delta_oxygen_parameters = [0,0], sensitivity_shift = 0):
     delta_G_list = []
     V_Sr=[]
-    delta_E = E_LSCF_slab_SrO_bulk +  E_SrO_epitax - (E_LSCF_slab) + E_int
+    delta_E = E_LSCF_slab_SrO_bulk +  E_SrO_epitax - (E_LSCF_slab) + E_int + sensitivity_shift
     delta_oxygen_list = []
     delta_oxygen_parameter_condition = delta_oxygen_parameters[0] != 0 and delta_oxygen_parameters[1] != 0
     if delta_oxygen_parameter_condition: inversion_temperature = -delta_oxygen_parameters[1]/delta_oxygen_parameters[0]
     for T in T_range:
-        delta_G = E_LSCF_slab_SrO_bulk +  chem_pot_SrO(T) - (E_LSCF_slab) + E_int
+        delta_G = E_LSCF_slab_SrO_bulk +  chem_pot_SrO(T) - (E_LSCF_slab) + E_int + sensitivity_shift
         if T==973: print("case 4", delta_G/ev2J_p_mol)
         delta_G_list.append(delta_G)
         #delta_oxygen = delta_oxygen_parameters[0] * T + delta_oxygen_parameters[1]

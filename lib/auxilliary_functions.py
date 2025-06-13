@@ -20,7 +20,7 @@ def delta_oxygen_interpolater(plot=1, pO2 = 0.21):
     data873 = np.genfromtxt("./lib/bouwmeester_873.csv", delimiter=",", skip_header=1)
     data973 = np.genfromtxt("./lib/bouwmeester_973.csv", delimiter=",", skip_header=1)
     data1073 = np.genfromtxt("./lib/bouwmeester_1073.csv", delimiter=",", skip_header=1)
-    data1173 = np.genfromtxt("./lib/bouwmeester_1173.csv", delimiter=";", skip_header=1)
+    data1173 = np.genfromtxt("./lib/bouwmeester_1173.csv", delimiter=",", skip_header=1)
 
     
     popt, pcov = cf(linear_function, data873[:,0], data873[:,1], p0=[0,0])

@@ -7,7 +7,7 @@ from lib.auxilliary_functions import *
 def case1(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
     V_Sr= []
     delta_E = (E_LSCF_slab_Sr_vac_surf + 2*E_SrO_epitax + 2*E_DFT_H2- E_LSCF_hydroxilated )/2 + E_int
-    print(delta_E/ev2J_p_mol, " of case 1")
+    #print(delta_E/ev2J_p_mol, " of case 1")
     delta_G_list = []
     theta_list = []
     for T in T_range:
@@ -27,15 +27,15 @@ def case1(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
         theta_list.append(theta)
     return (V_Sr, np.asarray(delta_G_list), theta_list)
 
-def case2(T_range, x=0.4, p_H2O = 0.08, P=1):
+def case2(T_range, x=0.4, p_H2O = 0.08, P=1, sensitivity_shift = 0):
     V_Sr= []
-    delta_E = (E_LSCF_double_hydrogenated + 2*E_SrO_epitax - E_LSCF_hydroxilated )/2 + E_int
-    print(delta_E/ev2J_p_mol, " of case 2")
+    delta_E = (E_LSCF_double_hydrogenated + 2*E_SrO_epitax - E_LSCF_hydroxilated )/2 + E_int + sensitivity_shift
+    #print(delta_E/ev2J_p_mol, " of case 2")
     
     delta_G_list = []
     theta_list = []
     for T in T_range:
-        delta_G = (E_LSCF_double_hydrogenated + 2*chem_pot_SrO(T) - E_LSCF_hydroxilated )/2 + E_int
+        delta_G = (E_LSCF_double_hydrogenated + 2*chem_pot_SrO(T) - E_LSCF_hydroxilated )/2 + E_int + sensitivity_shift
         delta_G_list.append(delta_G)
         theta, chemical_potential_used = surface_coverage_H2O(T,p_H2O/P, E_ads, P)
         N = theta/(1-theta) * np.exp(-delta_G/(R*T))
@@ -46,7 +46,7 @@ def case2(T_range, x=0.4, p_H2O = 0.08, P=1):
 def case3(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
     V_Sr= []
     delta_E = (E_LSCF_single_hydrogenated + 2*E_SrO_epitax + E_DFT_H2 - E_LSCF_hydroxilated )/2 + E_int
-    print(delta_E/ev2J_p_mol, " of case 3")
+    #print(delta_E/ev2J_p_mol, " of case 3")
     delta_G_list = []
     theta_list= []
     for T in T_range:

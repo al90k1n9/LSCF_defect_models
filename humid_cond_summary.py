@@ -30,8 +30,9 @@ axinset1.plot(T_range, V_Sr/x, label="SrO using H$_2$O$_{(g)}$", color = default
 
 V_Sr, delta_G, p_H2 = humid_case1(T_range)
 ax.plot(T_range, V_Sr/x, label="SrO using H$_2$O$_{(g)}$ w H$_{2(g)}$")
+axinset2.plot(T_range, V_Sr/x, label="SrO using H$_2$O$_{(g)}$ w H$_{2(g)}$", color=default_colors[2])
 
-V_Sr, delta_G = sroh2_case(T_range)
+V_Sr, delta_G, delta_oxygen_list = sroh2_case(T_range)
 ax.plot(T_range, V_Sr/x, label="Sr(OH)$_{2(g)}$")
 axinset2.plot(T_range, V_Sr/x, label="Sr(OH)$_2$", color = default_colors[3])
 

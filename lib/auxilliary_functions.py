@@ -60,6 +60,8 @@ def delta_oxygen_interpolater(plot=1, pO2 = 0.21):
         ax.plot(artxlist, linear_function(artxlist, popt2[0], popt2[1]), color=default_colors[1], ls="dashed")
         ax.plot(artxlist, linear_function(artxlist, popt3[0], popt3[1]), color=default_colors[2], ls="dashed")
         ax.plot(artxlist, linear_function(artxlist, popt4[0], popt4[1]), color=default_colors[3], ls="dashed")
+
+        ax.axvline(x=np.log(0.21), color="black", ls="dotted")
         
         ax.set_xlabel("log pO$_2$")
         ax.set_ylabel("$\\delta$")
@@ -70,11 +72,14 @@ def delta_oxygen_interpolater(plot=1, pO2 = 0.21):
 
         fig2, ax2 = plt.subplots(layout="constrained")
         ax2.plot(T_range, delta_list,  marker="s", ls="", markerfacecolor="none", color="black")
-        artTlist = np.arange(min(T_range), max(T_range), (max(T_range)-min(T_range))/1000)
-        ax2.plot(artTlist, linear_function(artTlist, interpolated_param[0], interpolated_param[1]), color="black", ls="dashed", label="pO2 = " + str(pO2) + " Bouwmeester")
-        ax2.plot(artTlist, linear_function(artTlist, federico_delta_param[0], federico_delta_param[1]), ls="dashed", label="pO2 = " + str(pO2) + " Monaco electrode")
+        #artTlist = np.arange(min(T_range), max(T_range), (max(T_range)-min(T_range))/1000)
+        artTlist = np.arange(600, 1200)
+        ax2.plot(artTlist, linear_function(artTlist, interpolated_param[0], interpolated_param[1]), label="pO2 = " + str(pO2) + " Bouwmeester")
+        ax2.plot(artTlist, linear_function(artTlist, federico_delta_param[0], federico_delta_param[1]),  label="pO2 = " + str(pO2) + " Monaco electrode")
+        ax2.axvline(x=973, ls="dotted", color="black")
+        ax2.axhline(y=0.0227, ls="dotted", color = "black")
         
-        ax2.set_xlim(T_range[0], T_range[-1])
+        ax2.set_xlim(artTlist[0], artTlist[-1])
         ax2.legend()
         ax2.set_xlabel("T [K]")
         ax2.set_ylabel("$\\delta$")

@@ -15,8 +15,8 @@ def case1(T_range, x=0.4,  p_O2 = 0.21, p_H2O = 0.08, P=1):
     V_Sr = []
     delta_G_list=[]
     for T in T_range:
-        mu_H2O = cp_H2O(T, E_DFT_H2O)
-        mu_H2 = cp_H2(T, E_DFT_H2)
+        mu_H2O = chem_pot_H2O(T, E_DFT_H2O)
+        mu_H2 = chem_pot_H2(T, E_DFT_H2)
         p_H2 = pH2_giver(T, p_H2O, p_O2)
         delta_G = ((E_LSCF_slab_Sr_vac_surf + 2 * mu_H2 + E_SrOH2_bulk*2) - (E_LSCF_slab +  4*mu_H2O))/2
         delta_G_list.append(delta_G)
@@ -40,8 +40,8 @@ def case2(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
     V_Sr = []
     delta_G_list = []
     for T in T_range:
-        mu_H2O = cp_H2O(T, E_DFT_H2O)
-        mu_O2 = cp_O2(T, E_DFT_O2)
+        mu_H2O = chem_pot_H2O(T, E_DFT_H2O)
+        mu_O2 = chem_pot_O2(T, E_DFT_O2)
 
         delta_G = ((E_LSCF_slab_Sr_vac_surf + E_SrOH2_bulk *2 ) - (2*mu_H2O + mu_O2 + E_LSCF_slab))/2
         delta_G_list.append(delta_G)
@@ -63,7 +63,7 @@ def case3(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
     V_Sr = []
     delta_G_list=[]
     for T in T_range:
-        mu_H2O = cp_H2O(T, E_DFT_H2O)
+        mu_H2O = chem_pot_H2O(T, E_DFT_H2O)
         delta_G = ((E_LSCF_double_hydrogenated + 2* E_SrOH2_bulk) - (E_LSCF_slab + 4*mu_H2O))/2
         delta_G_list.append(delta_G)
         K = np.exp(-delta_G/(R*T))
@@ -78,8 +78,8 @@ def case4(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
     V_Sr = []
     delta_G_list=[]
     for T in T_range:
-        mu_H2 = cp_H2(T,E_DFT_H2)
-        mu_H2O = cp_H2O(T, E_DFT_H2O)
+        mu_H2 = chem_pot_H2(T,E_DFT_H2)
+        mu_H2O = chem_pot_H2O(T, E_DFT_H2O)
         p_H2 = pH2_giver(T, p_H2O, p_O2)
         delta_G = ((E_LSCF_single_hydrogenated + 2* E_SrOH2_bulk + mu_H2) - (E_LSCF_slab + 4*mu_H2O))/2
         delta_G_list.append(delta_G)
@@ -100,7 +100,7 @@ def case5(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
     V_Sr = []
     delta_G_list=[]
     for T in T_range:
-        mu_H2O = cp_H2O(T, E_DFT_H2O)
+        mu_H2O = chem_pot_H2O(T, E_DFT_H2O)
         delta_G = ((E_LSCF_slab_Sr_surf_O_sub_surf + 2*E_SrOH2_bulk) - (E_LSCF_slab + 2*mu_H2O))/2
         delta_G_list.append(delta_G)
         K = np.exp(-delta_G/(R*T))

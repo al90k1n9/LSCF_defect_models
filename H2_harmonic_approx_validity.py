@@ -1,5 +1,5 @@
 import numpy as np
-from lib.chemical_potentials import cp_H2, ev2J_p_mol, N_avagadro, R
+from lib.chemical_potentials import chem_pot_H2, ev2J_p_mol, N_avagadro, R
 from lib.dft_energies_0K import E_DFT_H2, E_DFT_H2O
 import matplotlib.pyplot as plt
 from lib.auxilliary_functions import pH2_giver
@@ -36,7 +36,7 @@ for n in range(0,4):
 
 F = -kB * T_range * np.log(Z) * N_avagadro # in J/mol
 
-delta_mu_H2 = cp_H2(T_range, E_DFT_H2) - E_DFT_H2
+delta_mu_H2 = chem_pot_H2(T_range, E_DFT_H2) - E_DFT_H2
 #partial_pressure_term = []
 #for T in T_range:
 #    partial_pressure_term.append(R*T*np.log(pH2_giver(T, 0.08, 0.21)))

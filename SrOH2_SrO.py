@@ -4,7 +4,7 @@ from matplotlib.ticker import AutoMinorLocator
 from lib.chemical_potentials import *
 
 
-E_SrOH2 = cp_SrOH2(1)
+E_SrOH2 = chem_pot_SrOH2(1)
 print("E SrOH2 in eV: ", E_SrOH2/ev2J_p_mol)
 
 delta_E = E_SrO + E_DFT_H2O - E_SrOH2
@@ -18,8 +18,8 @@ T_range = np.arange(T_lower_bound, T_upper_bound)
 delta_G_list = []
 
 for T in T_range:
-    mu_H2O = cp_H2O(T, E_DFT_H2O) + zpe_H2O
-    delta_G = E_SrO + mu_H2O - cp_SrOH2(T)
+    mu_H2O = chem_pot_H2O(T, E_DFT_H2O) + zpe_H2O
+    delta_G = E_SrO + mu_H2O - chem_pot_SrOH2(T)
     delta_G_list.append(delta_G)
 
 fig, ax = plt.subplots(layout="constrained")

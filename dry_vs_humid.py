@@ -19,7 +19,7 @@ p_O2 = x_O2 * P
 fig, ax = plt.subplots(layout="constrained")
 default_colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
 
-ylist, delta_G_list = dry_case4(T_range, x = 0.4)
+ylist, delta_G_list, delta_oxygen_list = dry_case4(T_range, x = 0.4)
 ax.plot(T_range, ylist, label="dry case 4")
 
 ylist, delta_G_list = dry_case1(T_range, x = 0.4)

@@ -1,21 +1,25 @@
+"""Chemical potentials used in the defect modelling. It is important to keep in that zpe should be added without failure.
+
+"""
 
 #delta mu is defined as follows => mu(T,p) = E_DFT(T=0, p~0) + delta_mu(T,p)
 #it's not the same delta mu as done in the derivation
 import sys
-sys.path.append("H:\Documents\SrO_defect_model")
-
 import numpy as np
 from lib.dft_energies_0K import E_DFT_H2O, E_DFT_CrO3, E_SrO, E_SrO_epitax, zpe_H2O, zpe_CrO3 ,zpe_O2, zpe_H2
+import os
 
+local_path = os.path.dirname(os.path.abspath(__file__))
+local_path += "/"
 
 N_avagadro = 6.0223*10**23
 ev2J = 1.60219*10**(-19)
 ev2J_p_mol = ev2J*N_avagadro
 R = 8.31446261815 #J.K.mol-1
 
-data_SrOH2 = np.genfromtxt("./lib/SrOH2_factsage_processed.csv", delimiter=";") #SrO (solid) +H2O (gas) gives SrOH2 (gas)
-data_CrO2OH2 = np.genfromtxt("./lib/CrO2OH2_factsage_processed.csv", delimiter=";") #SrO (solid) +H2O (gas) gives SrOH2 (gas)
-data_SrO_vibration = np.genfromtxt("./lib/sro_phonon_vibrational_free_energy.csv", delimiter =";") #results from dfpt
+data_SrOH2 = np.genfromtxt(local_path + "SrOH2_factsage_processed.csv", delimiter=";") #SrO (solid) +H2O (gas) gives SrOH2 (gas)
+data_CrO2OH2 = np.genfromtxt(local_path + "CrO2OH2_factsage_processed.csv", delimiter=";") #SrO (solid) +H2O (gas) gives SrOH2 (gas)
+data_SrO_vibration = np.genfromtxt(local_path + "sro_phonon_vibrational_free_energy.csv", delimiter =";") #results from dfpt
 
 def linear_interpolator(x, x_data, y_data):
     assert (x>=x_data[0] and x<=x_data[-1]), "requested data not in interpolation domain" + str(x)
@@ -73,12 +77,13 @@ def chem_pot_H2(T, E_DFT_H2, P=1):
 def chem_pot_SrOH2(T, P=1, data = data_SrOH2):
     delta_G_sroh2 = linear_interpolator(T,data[:,0], data[:,1])
     mu_H2O = chem_pot_H2O(T, E_DFT_H2O=E_DFT_H2O)
-    mu_SrOH2 = delta_G_sroh2 + mu_H2O + zpe_H2O + E_SrO + R*T*np.log(P) #J/mol
+    mu_SrOH2 = delta_G_sroh2 + mu_H2O + E_SrO + R*T*np.log(P) #J/mol
     return mu_SrOH2
 
 
 
 def chem_pot_CrO3(T, E_DFT_CrO3, P=1):
+    #TODO zpe
     T_0 = 298 #K
     cp = 56.025/N_avagadro #K J/atom
     P_0 = 1 #bar
@@ -92,6 +97,7 @@ def chem_pot_CrO3(T, E_DFT_CrO3, P=1):
 
 
 def chem_pot_CrO2OH2(T, P=1, data = data_CrO2OH2):
+    #TODO zpe of CrO3 affects this as well
     delta_Gf_CrO2OH2 = linear_interpolator(T, data[:,0],data[:,1])
     mu_CrO2OH2 = delta_Gf_CrO2OH2 + chem_pot_H2O(T, E_DFT_H2O=E_DFT_H2O) + chem_pot_CrO3(T, E_DFT_CrO3=E_DFT_CrO3) + R*T*np.log(P) #J/mol
     return mu_CrO2OH2

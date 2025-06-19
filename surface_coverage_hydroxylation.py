@@ -1,4 +1,3 @@
-
 from lib.dft_energies_0K import *
 from lib.chemical_potentials import *
 from lib.auxilliary_functions import *
@@ -6,6 +5,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import AutoMinorLocator, FormatStrFormatter
 from tqdm import tqdm
+import os
+
+local_path = os.path.dirname(os.path.abspath(__file__))
+local_path += "/"
 
 default_colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
 
@@ -19,7 +22,7 @@ m_O2 = 32 / (N_avagadro*1000) #in kg
 hbar = 1.054571817*10**(-34) #reduced planck's constant in J.s
 
 
-oxygen_adsorption = -2.2 #eV
+oxygen_adsorption = -0.6 #eV
 oxygen_adsorption *= ev2J_p_mol #J/mol
 
 print("oxygen adsorption ", oxygen_adsorption/ev2J_p_mol)
@@ -28,8 +31,8 @@ print("adsorption energy in eV ", E_ads/ev2J_p_mol)
 
 
 def comp_ads(T, x_H2O, x_O2, E_ads_H2O, E_ads_O2, P):
-	chemical_potential_O2 = cp_O2(T, E_DFT_O2 = 0, P=x_O2*P) + zpe_O2
-	chemical_potential_H2O = cp_H2O(T, E_DFT_H2O = 0, P=x_H2O*P) + zpe_H2O
+	chemical_potential_O2 = chem_pot_O2(T, E_DFT_O2 = 0, P=x_O2*P)
+	chemical_potential_H2O = chem_pot_H2O(T, E_DFT_H2O = 0, P=x_H2O*P)
 	exp_term_H2O = np.exp(-(E_ads_H2O - chemical_potential_H2O)/(R*T))
 	exp_term_O2 = np.exp(-(E_ads_O2 - chemical_potential_O2)/(R*T))
 	theta_O2 = 1/(1+1/exp_term_O2 + exp_term_H2O/exp_term_O2)
@@ -42,10 +45,10 @@ T_range = np.arange(400, 1301, 0.1)
 inversion_temp_list=[]
 half_coverage_temp_list=[]
 
-theta_list_def_model = surface_coverage_H2O(T_range, x_H2O=0.08, E_ads=E_ads, P=1)
+theta_list_def_model, chemical_potential = surface_coverage_H2O(T_range, x_H2O=0.08, E_ads=E_ads, P=1)
 fig0, ax0 = plt.subplots(layout="constrained")
 ax0.plot(T_range, theta_list_def_model)
-Delta_G = E_ads - cp_H2O(T_range,E_DFT_H2O = 0, P=x_H2O) - zpe_H2O
+Delta_G = E_ads - chem_pot_H2O(T_range,E_DFT_H2O = 0, P=x_H2O) - zpe_H2O
 energy_ax = ax0.twinx()
 
 energy_ax.plot(T_range, Delta_G/ev2J_p_mol, color="black")
@@ -56,8 +59,8 @@ fig,ax = plt.subplots(layout="constrained")
 #for x_H2O in [0.08, 0.2, 0.5]:
 x_H2O_range = np.linspace(0.01, 0.99, 200)
 for x_H2O in x_H2O_range:
-	theta_list_def_model = surface_coverage_H2O(T_range, x_H2O, E_ads, P=1)
-	Delta_G = E_ads - cp_H2O(T_range,E_DFT_H2O = 0, P=x_H2O) - zpe_H2O
+	theta_list_def_model, chemical_potential = surface_coverage_H2O(T_range, x_H2O, E_ads, P=1)
+	Delta_G = E_ads - chem_pot_H2O(T_range,E_DFT_H2O = 0, P=x_H2O) - zpe_H2O
 	#energy_axes = ax.twinx()
 	#ax.plot(T_range, theta_list_def_model, label="$x_{H_2O}=$"+str(x_H2O))
 	for index in range(1,len(T_range)):
@@ -201,13 +204,13 @@ item = 1
 #	ax6_alternate.yaxis.set_major_formatter(FormatStrFormatter('%.2e'))
 #
 #	ax6.set_title("E$_{O_2}^{ads}$ = " + str(round(oxygen_adsorption/ev2J_p_mol,2)) + " eV")
-#	fig6.savefig("figs/gif_comp_surf_coverage/"+str(item)+".png", dpi=300, format="png", transparent=True)
+#	fig6.savefig(local_path + "figs/gif_comp_surf_coverage/"+str(item)+".png", dpi=300, format="png", transparent=True)
 #	item += 1
 #	plt.close()
-#fig0.savefig("surface_coverage.png", dpi=300, transparent=True, format="png")
-#fig.savefig("surface_coverage_xH2O.png", dpi=300, transparent=True, format="png")
-#fig2.savefig("inversion_temp_half_coverage_temp.png", dpi=300, transparent=True, format="png")
-fig3.savefig("figs/inverstion_temp_xH2O.svg", dpi=300, transparent=True, format="png")
-#fig4.savefig("comp_adsorption.png", format="png", dpi=300, transparent=True)
-#fig5.savefig("comp_adsorption_delta_Gs.png", format="png", dpi=300, transparent=True)
+#fig0.savefig(local_path + "figs/surface_coverage.png", dpi=300, transparent=True, format="png")
+#fig.savefig(local_path + "figs/surface_coverage_xH2O.png", dpi=300, transparent=True, format="png")
+#fig2.savefig(local_path + "figs/inversion_temp_half_coverage_temp.png", dpi=300, transparent=True, format="png")
+fig3.savefig(local_path + "figs/inverstion_temp_xH2O.svg", dpi=300, transparent=True, format="png")
+#fig4.savefig(local_path + "figs/comp_adsorption.png", format="png", dpi=300, transparent=True)
+#fig5.savefig(local_path + "figs/comp_adsorption_delta_Gs.png", format="png", dpi=300, transparent=True)
 plt.show()

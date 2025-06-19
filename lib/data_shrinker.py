@@ -1,7 +1,11 @@
 import numpy as np
-from dft_energies_0K import ev2J_p_mol
+from lib.dft_energies_0K import ev2J_p_mol
+import os
 
-data = np.genfromtxt("./lib/sroh2_factsage.csv", delimiter=";")
+local_path = os.path.dirname(os.path.abspath(__file__))
+local_path += "/"
+
+data = np.genfromtxt(local_path + "sroh2_factsage.csv", delimiter=";")
 print("input data size: ", np.shape(data))
 print(data[0,0], data[-1, 0])
 
@@ -20,4 +24,4 @@ for index in range (1, np.shape(data)[0]):
 
 export_data = np.vstack((np.asarray(T_list), np.asarray(delta_G_list))).T
 print(np.shape(export_data))
-np.savetxt("./lib/"+output_filename, export_data, delimiter=";")
+np.savetxt(local_path + output_filename, export_data, delimiter=";")

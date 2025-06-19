@@ -2,6 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import AutoMinorLocator
 from scipy.optimize import curve_fit as cf
+import os
+
+local_path = os.path.dirname(os.path.abspath(__file__))
+local_path += "/"
 
 default_colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
 N_avagadro = 6.0223*10**23
@@ -17,10 +21,10 @@ def log_invert(x):
     return np.exp(x)
 
 def delta_oxygen_interpolater(plot=1, pO2 = 0.21):
-    data873 = np.genfromtxt("./lib/bouwmeester_873.csv", delimiter=",", skip_header=1)
-    data973 = np.genfromtxt("./lib/bouwmeester_973.csv", delimiter=",", skip_header=1)
-    data1073 = np.genfromtxt("./lib/bouwmeester_1073.csv", delimiter=",", skip_header=1)
-    data1173 = np.genfromtxt("./lib/bouwmeester_1173.csv", delimiter=",", skip_header=1)
+    data873 = np.genfromtxt(local_path + "bouwmeester_873.csv", delimiter=",", skip_header=1)
+    data973 = np.genfromtxt(local_path + "bouwmeester_973.csv", delimiter=",", skip_header=1)
+    data1073 = np.genfromtxt(local_path + "bouwmeester_1073.csv", delimiter=",", skip_header=1)
+    data1173 = np.genfromtxt(local_path + "bouwmeester_1173.csv", delimiter=",", skip_header=1)
 
     
     popt, pcov = cf(linear_function, data873[:,0], data873[:,1], p0=[0,0])

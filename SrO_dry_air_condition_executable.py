@@ -1,9 +1,18 @@
+"""SrO formation in dry air conditions
+
+Different cases can be run by passing only the temperature window as arguments, with the rest being the default values, to get the results in the manuscript.
+"""
+
 import matplotlib.pyplot as plt 
 
 from lib.SrO_dry_air_models import *
 #chemical potentials are imported in models
 #numpy imported chemical potentials
 from matplotlib.ticker import  AutoMinorLocator
+import os
+
+local_path = os.path.dirname(os.path.abspath(__file__))
+local_path += "/"
 
 x = 0.4 #molar fraction of Sr
 x_O2 = 0.21
@@ -196,9 +205,9 @@ secyax4.yaxis.set_minor_locator(AutoMinorLocator())
 
 plt.show()
 
-fig.savefig("figs/dry_air_conditions.svg", dpi=300, transparent=True)
-fig2.savefig("figs/dry_air_condition_deltaG.svg", dpi=300, transparent=True)
-#fig3.savefig("figs/dry_air_cond_po2_dep.svg", dpi=300, transparent=True)
-#fig4.savefig("figs/dry_air_cond_p_dep.svg", dpi=300, transparent=True)
+fig.savefig(local_path + "figs/dry_air_conditions.svg", dpi=300, transparent=True)
+fig2.savefig(local_path + "figs/dry_air_condition_deltaG.svg", dpi=300, transparent=True)
+#fig3.savefig(local_path + "figs/dry_air_cond_po2_dep.svg", dpi=300, transparent=True)
+#fig4.savefig(local_path + "figs/dry_air_cond_p_dep.svg", dpi=300, transparent=True)
 
 

@@ -3,6 +3,11 @@ import sys
 from lib.chemical_potentials import *
 from lib.dft_energies_0K import * 
 from lib.auxilliary_functions import * 
+import os
+
+local_path = os.path.dirname(os.path.abspath(__file__))
+local_path += "/"
+
 
 
 def case1(T_range, x=0.4, p_H2O = 0.08, P = 1, volume_fraction_gas= 0.5, delta_oxygen_parameters = [0,0]):
@@ -120,5 +125,5 @@ if __name__ == "__main__":
     #ax2.set_yscale("log")
     #ax2.set_xscale("log")
 
-    fig2.savefig("Ni_H2O_sensitivity.png", dpi=300, transparent=True, format="png")
+    fig2.savefig(local_path + "figs/Ni_H2O_sensitivity.png", dpi=300, transparent=True, format="png")
     plt.show()

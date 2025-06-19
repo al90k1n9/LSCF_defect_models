@@ -3,6 +3,10 @@ from lib.chemical_potentials import R
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import AutoMinorLocator, FuncFormatter
+import os
+
+local_path = os.path.dirname(os.path.abspath(__file__))
+local_path += "/"
 
 def case2(T, theta, x=0.4, p_H2O = 0.08, P=1):
     delta_E = (E_LSCF_double_hydrogenated + 2*E_SrO_epitax - E_LSCF_hydroxilated )/2 + E_int
@@ -68,7 +72,7 @@ secyax = ax.secondary_yaxis("right", functions=(yaxconvert, yaxinvert))
 secyax.set_ylabel("% of initial Sr content $\\frac{100 \cdot x_{eq}}{x_0}$")
 secyax.yaxis.set_minor_locator(AutoMinorLocator())
 
-fig.savefig("figs/surf_cov_sensitivity.svg", format="svg", dpi=300, transparent=True)
+fig.savefig(local_path + "figs/surf_cov_sensitivity.svg", format="svg", dpi=300, transparent=True)
 
 
 plt.show()

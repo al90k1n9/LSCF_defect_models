@@ -7,6 +7,10 @@ from matplotlib.ticker import FormatStrFormatter as fsf
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import AutoMinorLocator
+import os
+
+local_path = os.path.dirname(os.path.abspath(__file__))
+local_path += "/"
 
 x = 0.4 #molar fraction of Sr
 x_O2 = 0.21
@@ -61,6 +65,6 @@ axinset2.yaxis.set_major_formatter(fsf('%.0e'))
 ax.legend(loc="upper left", facecolor="none")
 
 
-fig.savefig("figs/humid_cond_summar.png", format="png", dpi=300, transparent=True)
+fig.savefig(local_path + "figs/humid_cond_summar.png", format="png", dpi=300, transparent=True)
 
 plt.show()

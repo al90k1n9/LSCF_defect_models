@@ -1,7 +1,10 @@
 from lib.SrOH2_volatile_models import *
 import matplotlib.pyplot as plt
 from matplotlib.ticker import AutoMinorLocator
+import os
 
+local_path = os.path.dirname(os.path.abspath(__file__))
+local_path += "/"
 
 
 x = 0.4 #molar fraction of Sr
@@ -52,7 +55,7 @@ ax5.xaxis.set_minor_locator(AutoMinorLocator())
 ax5.yaxis.set_minor_locator(AutoMinorLocator())
 
 
-fig.savefig("sroh2_volatile_case.png", format="png", dpi=300, transparent=True)
-fig5.savefig("sroh2_volatile_delta_G.png", format="png", dpi=300, transparent=True)
+fig.savefig(local_path + "figs/sroh2_volatile_case.png", format="png", dpi=300, transparent=True)
+fig5.savefig(local_path + "figs/sroh2_volatile_delta_G.png", format="png", dpi=300, transparent=True)
 
 plt.show()

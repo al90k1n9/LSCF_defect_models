@@ -1,6 +1,10 @@
 import matplotlib.pyplot as plt
 from lib.SrO_humid_models import *
 from matplotlib.ticker import  AutoMinorLocator
+import os
+
+local_path = os.path.dirname(os.path.abspath(__file__))
+local_path += "/"
 
 x0 = 0.4 #molar fraction of Sr
 x_O2 = 0.21
@@ -39,9 +43,6 @@ ax2.plot(T_range, np.asarray(delta_G_range)/ev2J_p_mol, label="(2H)$_{La}^{'}$")
 #ax2.plot(T_range, np.asarray(delta_G_range)/ev2J_p_mol, label="case 4")
 
 V_Sr, delta_G = case5(T_range)
-#ax.plot(T_range, V_Sr, label="case 4")
-#ax2.plot(T_range, delta_G/ev2J_p_mol, label="case 5")
-
 
 fig3, ax3 = plt.subplots(layout = "constrained")
 
@@ -114,8 +115,8 @@ secyax = ax.secondary_yaxis("right", functions=(yaxconvert, yaxinvert))
 secyax.set_ylabel("% of initial Sr content $\\frac{100 \cdot x_{eq}}{x_0}$")
 secyax.yaxis.set_minor_locator(AutoMinorLocator())
 
-fig.savefig("figs/humid_conditions_VSr.svg", format="svg", dpi=300, transparent=True)
-fig2.savefig("figs/humid_conditions_delta_G.svg", format="svg", dpi=300, transparent=True)
+fig.savefig(local_path + "figs/humid_conditions_VSr.svg", format="svg", dpi=300, transparent=True)
+fig2.savefig(local_path + "figs/humid_conditions_delta_G.svg", format="svg", dpi=300, transparent=True)
 
 
 fig4, ax4 = plt.subplots(layout="constrained")

@@ -2,13 +2,17 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import AutoMinorLocator
 from lib.SrO_hydroxylated_models import *
 from lib.auxilliary_functions import *
+import os
+
+local_path = os.path.dirname(os.path.abspath(__file__))
+local_path += "/"
 
 x0 = 0.4 #molar fraction of Sr
 x_O2 = 0.21
 x_H2O = 0.08
 P = 1 #atm
-T_lower_bound = 700
-T_upper_bound = 1099
+T_lower_bound = 400
+T_upper_bound = 1300
 T_range = np.arange(T_lower_bound,T_upper_bound,1) #K
 #numpy imported chemical potentials, which is imported in humid models
 
@@ -24,8 +28,8 @@ axinset.set_facecolor("none")
 
 fig3, ax3 = plt.subplots(layout="constrained")
 
-V_Sr, delta_G, theta_list = case1(T_range, x0, p_O2, p_H2O, P)
-ax.plot(T_range, V_Sr, label="H_2")
+#V_Sr, delta_G, theta_list = case1(T_range, x0, p_O2, p_H2O, P)
+#ax.plot(T_range, V_Sr, label="H_2")
 #axinset.plot(T_range, V_Sr, label="case 3.3")
 #ax2.plot(T_range, delta_G/ev2J_p_mol, label="case 3.3")
 #ax4.plot(T_range, theta_list, label="case1")
@@ -126,7 +130,7 @@ axinset.yaxis.set_minor_locator(AutoMinorLocator())
 #ax2.legend(loc="upper right", facecolor="none")
 #
 
-fig.savefig("figs/hydroxylated_cond_delta_G.svg", format="svg", dpi=300, transparent=True)
-#fig2.savefig("figs/hydroxylated_cond_VSr.svg", format="svg", dpi=300, transparent=True)
-fig3.savefig("figs/hydrox_decomp_coverage.png", format="png", dpi=300, transparent=True)
+fig.savefig(local_path + "figs/hydroxylated_cond_delta_G.svg", format="svg", dpi=300, transparent=True)
+#fig2.savefig(local_path + "figs/hydroxylated_cond_VSr.svg", format="svg", dpi=300, transparent=True)
+fig3.savefig(local_path + "figs/hydrox_decomp_coverage.png", format="png", dpi=300, transparent=True)
 plt.show()

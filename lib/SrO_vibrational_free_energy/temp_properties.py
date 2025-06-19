@@ -2,6 +2,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import AutoMinorLocator
 from scipy.optimize import curve_fit
+import os
+
+local_path = os.path.dirname(os.path.abspath(__file__))
+local_path += "/"
+
 
 N_avagadro = 6.0223*10**23
 ev2J = 1.60219*10**(-19)
@@ -151,10 +156,10 @@ ax6.set_xlim(T_range[0]-1, T_range[-1]+1)
 
 
 
-#fig.savefig("./figs/sro_phonon_lattice_expansion.svg", format="svg", dpi=300, transparent=True)
-#fig3.savefig("./figs/sro_phonon_static_energy.svg", format="svg", dpi=300, transparent=True)
-#fig6.savefig("./figs/sro_phonon_free_energy.svg", format="svg", dpi=300, transparent=True)
-#fig4.savefig("./figs/sro_phonon_feq_veq.svg", format="svg", dpi= 300, transparent=True)
+#fig.savefig(local_path + "./figs/sro_phonon_lattice_expansion.svg", format="svg", dpi=300, transparent=True)
+#fig3.savefig(local_path + "./figs/sro_phonon_static_energy.svg", format="svg", dpi=300, transparent=True)
+#fig6.savefig(local_path + "./figs/sro_phonon_free_energy.svg", format="svg", dpi=300, transparent=True)
+#fig4.savefig(local_path + "./figs/sro_phonon_feq_veq.svg", format="svg", dpi= 300, transparent=True)
 
 export_data = np.vstack((T_range, F_eq)).T
 np.savetxt("./lib/sro_phonon_vibrational_free_energy.csv", export_data, delimiter=";")

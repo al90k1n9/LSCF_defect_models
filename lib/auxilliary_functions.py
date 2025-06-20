@@ -1,3 +1,6 @@
+"""Functions that are called ubiquitously for many conditions, in all conditions.
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import AutoMinorLocator
@@ -21,6 +24,25 @@ def log_invert(x):
     return np.exp(x)
 
 def delta_oxygen_interpolater(plot=1, pO2 = 0.21):
+    """Function to interpolate oxygen understoichometry for a given temperature. The interpolation is valid only within temerature window set by the experimental data. In this case it is the data from Bouwmeester.
+
+    Parameters
+    ----------
+    plot : bool, optional
+        Activate to show plots
+    pO2 : float, optional
+        Oxygen partial pressure. Defaults to ambient gas composition of 0.21 atm.
+
+    Returns
+    -------
+    numpy array of size 1x2
+        Returns numpy array containing linear interpolation parameters: slope and offset.
+
+    Warnings
+    --------
+    The function here returns interpolation parameters for the oxygen understoichiometry data used by Federio Monaco for his theis work. The temperature dependance is taken from Bouwmeester. Using this function give you  the parmaeters for a linear function for oxygen understoichometry for temperature dependence that goes to zero at around 930K. This is unphysical. Needs to be changed. Include an assertion error somwhere to avoid extrapolating temperature dependance outside the window defined by Bouwmeester data.
+
+    """
     data873 = np.genfromtxt(local_path + "bouwmeester_873.csv", delimiter=",", skip_header=1)
     data973 = np.genfromtxt(local_path + "bouwmeester_973.csv", delimiter=",", skip_header=1)
     data1073 = np.genfromtxt(local_path + "bouwmeester_1073.csv", delimiter=",", skip_header=1)
@@ -95,6 +117,27 @@ def delta_oxygen_interpolater(plot=1, pO2 = 0.21):
     return federico_delta_param
 
 def pH2_giver(T,p_H2O, p_O2):
+    """To estimate hydrogen gas partial pressure assuming equilibrium between water vapour, oxygen gas and hydrogen gas.
+
+    Parameters
+    ----------
+    T : float
+        Temperature in Kelvin
+    p_H2O : float
+        Water vapour partial pressure
+    p_O2 : float
+        Oxygen partial presssure.
+
+    Returns
+    -------
+    float
+        Returns hydrogen gas partial pressure
+
+    Raises
+    ------
+    Uses Shomate equations and therefore Shomate coefficients and the coefficients are given only for range of temperature. If temperature out of this range, raises error!
+
+    """
     #delta mu calculation
     T_0 = 298 #K
     p_0 = 1 #bar
@@ -152,6 +195,32 @@ def cube_root_complex(z):
     return complex(norm*np.cos(phase), norm*np.sin(phase))
 
 def cubic_model(a:float,b:float,c:float,d:float, zero_threshold=0):
+    """Analytical solution to cubic functions. See wikipedia.
+
+    Parameters
+    ----------
+    zero_threshold : float, optional
+        To accept some leeway in equations with a threshold. Defaults to 0 to perfect analytical solution.
+    a : float
+        Polynomial coefficient $ax^3 + bx^2 + cx + d = 0$
+    b : float
+        Polynomial coefficient $ax^3 + bx^2 + cx + d = 0$
+    c : float
+        Polynomial coefficient $ax^3 + bx^2 + cx + d = 0$
+    d : float
+        Polynomial coefficient $ax^3 + bx^2 + cx + d = 0$
+
+    Returns
+    -------
+    numpy array of length 1x3
+        Returns an array containing all three solutions
+
+
+    Warnings
+    --------
+    Solutions are complex in general. There is no way to order them. You might end up extracting unphysical solution (complex, real outside physical meaning). When strange things are observed, think of this!
+
+    """
     #FUNCTION TO FIND CUBIC ROOTS
     determinant = 18 *a*b*c*d - 4*b**3*d + b**2 * c**2 - 4*a*c**3 - 27*a**2 * d**2
     #print(N, "N")
@@ -192,6 +261,29 @@ def cubic_model(a:float,b:float,c:float,d:float, zero_threshold=0):
 
 
 def quadratic_model(a:float,b:float,c:float,x0=0.4):
+    """Analytical solution of quadratic polynomial
+
+    Parameters
+    ----------
+    x0 : float, optional
+        Initial amounts of Sr in LSCF in mol per unit LSCF volume. Defaults to 0.4. Used to select the physical solution, postive and below max amount of Sr.
+    a : float
+        Polynomial coefficient $ax^2 + bx + c = 0$
+    b : float
+        Polynomial coefficient $ax^2 + bx + c = 0$
+    c : float
+        Polynomial coefficient $ax^2 + bx + c = 0$
+
+    Returns
+    -------
+    float
+        Returns the one physical solutions.
+
+    Warnings
+    --------
+    When both solutions are unphysical, it returns 2. This should be visible in graphs and return here in that case. Create an error otherwise maybe.
+
+    """
     delta = b**2 - 4*c*a
     solution1 = (-b + np.sqrt(delta))/(2*a)
     solution2 = (-b - np.sqrt(delta))/(2*a)
@@ -203,7 +295,28 @@ def quadratic_model(a:float,b:float,c:float,x0=0.4):
         print(solution1, solution2)
         return 2
 
-def bisection(xmin, xmax, func, maxiter=10000, tol=1e-20):
+def bisection(xmin:float, xmax:float, func, maxiter=10000, tol=1e-20):
+   """Bisection method for numerical resolution of an equation
+
+   Parameters
+   ----------
+   xmin : float
+       Lower bound of the window in which the solution is present.
+   xmax : float
+       Upper bouund of the window in which the solution is present.
+   func : function
+       Function for which the solution needs to be found.
+   maxiter : int
+       Maximum iteration to not exceed, to avoid infinite loops.
+   tol : float
+       Precision of the solution.
+
+   Returns
+   -------
+   float
+       Returns the solution.J
+
+   """
    fmin = func(xmin)
    fmax = func(xmax)
    if  fmin * fmax > 0:
@@ -227,6 +340,27 @@ hbar = 1.054571817*10**(-34) #reduced planck's constant in J.s
 
 
 def surface_coverage_H2O(T, x_H2O, E_ads, P, chem_pot = 0):
+    """Estimate surface coverage of adsborbed water molecules.
+
+    Parameters
+    ----------
+    T : float, numpy array
+        Temperature or temperature window in Kelvins
+    x_H2O : float
+        Molar fraction of water vapour.
+    E_ads : float
+        Adsorption energy water molecule onto LSCF surface in J/mol.
+    P : float
+        Total pressure of the system.
+    chem_pot : bool
+        Boolean to determine which water vapour chemical potential to use. Defaults to using experimental water vapour chemical potential. When passed 1, chemical potential with only translational degrees of freedom is considered.
+
+    Returns
+    -------
+    tuple of length 2
+        Returns a tuple containing two elements: surface coverage in the same type as passed T, water vapour chemical potential in J/mol used for the calculation.
+
+    """
     #chem_pot 0 for experimental chemical potential
     #chem_pot 1 for translational chemical potential
     if chem_pot == 0: 

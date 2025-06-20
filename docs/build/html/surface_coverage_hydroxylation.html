@@ -97,10 +97,30 @@
              
   <section id="module-surface_coverage_hydroxylation">
 <span id="surface-coverage-hydroxylation-module"></span><h1>surface_coverage_hydroxylation module<a class="headerlink" href="#module-surface_coverage_hydroxylation" title="Link to this heading"></a></h1>
+<p>All results related to adsorption models are presented here.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="surface_coverage_hydroxylation.comp_ads">
 <span class="sig-prename descclassname"><span class="pre">surface_coverage_hydroxylation.</span></span><span class="sig-name descname"><span class="pre">comp_ads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_H2O</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_O2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E_ads_H2O</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E_ads_O2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#surface_coverage_hydroxylation.comp_ads" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Competitive adsorption model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T</strong> (<em>float</em><em> or </em><em>numpy array</em>) – Temperature or temperature window in Kelvins.</p></li>
+<li><p><strong>x_H2O</strong> (<em>float</em>) – Water vapour partial pressure</p></li>
+<li><p><strong>x_O2</strong> (<em>float</em>) – Oxygen gas partial pressure</p></li>
+<li><p><strong>E_ads_H2O</strong> (<em>float</em>) – Water molecule energy in J/mol from DFT</p></li>
+<li><p><strong>E_ads_O2</strong> (<em>float</em>) – Oxygen molecule energy in J/mol from DFT</p></li>
+<li><p><strong>P</strong> (<em>float</em>) – Total pressure that defaults to the ambient total pressure of 1 atm/Bar</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns a tuple of four elements of same type as T: oxygen surface coverage, water surface coverage, oxygen gas chemical potential in J/mol, water vapour chemical potential in J/mol.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of length 4</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 

@@ -204,99 +204,431 @@
 </section>
 <section id="module-lib.SrO_dry_air_models">
 <span id="lib-sro-dry-air-models-module"></span><h2>lib.SrO_dry_air_models module<a class="headerlink" href="#module-lib.SrO_dry_air_models" title="Link to this heading"></a></h2>
+<p>Different cases of SrO formation in dry air conditions</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.SrO_dry_air_models.case1">
 <span class="sig-prename descclassname"><span class="pre">lib.SrO_dry_air_models.</span></span><span class="sig-name descname"><span class="pre">case1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_O2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.21</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitivity_shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_dry_air_models.case1" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Case with Sr from surface and oxygen from the atmosphere</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T_range</strong> (<em>numpy array</em>) – Temperature window in Kelvins.</p></li>
+<li><p><strong>x</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amount of Sr in mol per unit LSCF volume in the material. Defaults to 0.4 standard LSCF stoichiometry</p></li>
+<li><p><strong>x_O2</strong> (<em>float</em><em>, </em><em>optional</em>) – Oxygen gas molar fraction. Defaults to ambient gas composition of 0.21</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure. Defaults to ambient gas total pressure of 1 atm/Bar.</p></li>
+<li><p><strong>sensitivity_shift</strong> (<em>float</em><em>, </em><em>optional</em>) – Arbitrary shift in energy to add in delta_G for sensitivity analysis. Defaults to zero for meaninful results.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns two numpy arrays: Sr vacancies in unit LSCF volume, reference Gibbs free energy in J/mol as a function of temperature given in T_range</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of length 2</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Sensitivity analysis argument should be kept to its default value for physically relvant results.</p>
+</div>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.SrO_dry_air_models.case2">
 <span class="sig-prename descclassname"><span class="pre">lib.SrO_dry_air_models.</span></span><span class="sig-name descname"><span class="pre">case2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_O2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.21</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitivity_shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_dry_air_models.case2" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Case with Sr coming from LSCF bulk and oxygen from atmosphere.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T_range</strong> (<em>numpy array</em>) – Temperature window in Kelvins.</p></li>
+<li><p><strong>x</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amount of Sr in mol per unit LSCF volume in the material. Defaults to 0.4 standard LSCF stoichiometry</p></li>
+<li><p><strong>x_O2</strong> (<em>float</em><em>, </em><em>optional</em>) – Oxygen gas molar fraction. Defaults to ambient gas composition of 0.21</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure. Defaults to ambient gas total pressure of 1 atm/Bar.</p></li>
+<li><p><strong>sensitivity_shift</strong> (<em>float</em><em>, </em><em>optional</em>) – Arbitrary shift in energy to add in delta_G for sensitivity analysis. Defaults to zero for meaninful results.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns two numpy arrays: Sr vacancies in unit LSCF volume, reference Gibbs free energy in J/mol as a function of temperature given in T_range</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of length 2</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Sensitivity analysis argument should be kept to its default value for physically relvant results.</p>
+</div>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.SrO_dry_air_models.case3">
 <span class="sig-prename descclassname"><span class="pre">lib.SrO_dry_air_models.</span></span><span class="sig-name descname"><span class="pre">case3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_oxygen_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([0,</span> <span class="pre">0])</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitivity_shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_dry_air_models.case3" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Case with Sr from surface and oxygen from LSCF sub surface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T_range</strong> (<em>numpy array</em>) – Temperature window in Kelvins</p></li>
+<li><p><strong>x</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amount of Sr in mol per unit LSCF volume in LSCF. Defaults to 0.4</p></li>
+<li><p><strong>delta_oxygen_parameters</strong> (<em>numpy array for size 1x2</em><em>, </em><em>optional</em>) – Linear interpolation parameters; slope and the intercept, to calculate the oxygen understoichometry as a function of any given temperature, for a given oxygen partial pressure.</p></li>
+<li><p><strong>sensitivity_shift</strong> (<em>float</em><em>, </em><em>optional</em>) – Arbitrary shift in energy to add in delta_G for sensitivity analysis. Defaults to zero for meaninful results.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns 3 numpy arrays: Sr vacancies in mol per unit LSCF volume, delta_G in J/mol, oxygen understoichiometry in mol per unit LSCF volume as a function of temperature given in T_range.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of length 3</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Sensitivity analysis argument should be kept to its default value for physically relvant results.</p>
+</div>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.SrO_dry_air_models.case4">
 <span class="sig-prename descclassname"><span class="pre">lib.SrO_dry_air_models.</span></span><span class="sig-name descname"><span class="pre">case4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_oxygen_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0,</span> <span class="pre">0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitivity_shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_dry_air_models.case4" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Case with Sr coming from LSCF bulk and oxygen from LSCF sub surface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T_range</strong> (<em>numpy array</em>) – Temperature window in Kelvins</p></li>
+<li><p><strong>x</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amount of Sr in mol per unit LSCF volume in LSCF. Defaults to 0.4</p></li>
+<li><p><strong>delta_oxygen_parameters</strong> (<em>numpy array for size 1x2</em><em>, </em><em>optional</em>) – Linear interpolation parameters; slope and the intercept, to calculate the oxygen understoichometry as a function of any given temperature, for a given oxygen partial pressure.</p></li>
+<li><p><strong>sensitivity_shift</strong> (<em>float</em><em>, </em><em>optional</em>) – Arbitrary shift in energy to add in delta_G for sensitivity analysis. Defaults to zero for meaninful results.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns 3 numpy arrays: Sr vacancies in mol per unit LSCF volume, delta_G in J/mol, oxygen understoichiometry in mol per unit LSCF volume as a function of temperature given in T_range.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of length 3</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Sensitivity analysis argument should be kept to its default value for physically relvant results.</p>
+</div>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.SrO_dry_air_models.case5">
 <span class="sig-prename descclassname"><span class="pre">lib.SrO_dry_air_models.</span></span><span class="sig-name descname"><span class="pre">case5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_O2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.21</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_dry_air_models.case5" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Case where LSCF bulk systems are used instead of slabs. Oxygen comes from atmosphere.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T_range</strong> (<em>numpy array</em>) – Temperature window in Kelvins</p></li>
+<li><p><strong>x</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in mol per unit LSCF volume. Defaults to 0.4</p></li>
+<li><p><strong>x_O2</strong> (<em>float</em><em>, </em><em>optional</em>) – Oxygen gas molar fraction. Defaults to ambient gas composition of 0.21</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure of the system. Defaults to ambient gas pressure of 1 atm/Bar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Reuturns 2 numpy arrays: Sr vacancies in mol per unit LSCF volume, delta_G in J/mol as a function of temperature given in T_range.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of length 2</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The physical relevance of this case is shady, as vacancies resulting from SrO formation is in the bulk of the system and not near the surface.</p>
+</div>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.SrO_dry_air_models.case6">
 <span class="sig-prename descclassname"><span class="pre">lib.SrO_dry_air_models.</span></span><span class="sig-name descname"><span class="pre">case6</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_dry_air_models.case6" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Case where LSCF bulk system is used instead of slab systems. Oxygen comes from the LSCF.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T_range</strong> (<em>numpy array</em>) – Temperature window in Kelvins</p></li>
+<li><p><strong>x</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amount of Sr present in LSCF, in mol per unit LSCF volume. Defaults to standard LSCF composition of 0.4.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns two arrays: Sr vacacnies in mols per unit LSCF volume, delta_G in J/mol as a function of temperature given in T_range.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of length 2</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The physical relevance of this case is shady, as vacancies resulting from SrO formation is in the bulk of the system and not near the surface.</p>
+</div>
+</dd></dl>
 
 </section>
 <section id="module-lib.SrO_humid_models">
 <span id="lib-sro-humid-models-module"></span><h2>lib.SrO_humid_models module<a class="headerlink" href="#module-lib.SrO_humid_models" title="Link to this heading"></a></h2>
+<p>SrO formation models in humid air conditions, using hydrogen gas.
+All of the cases presented in this file correspond to Sr coming from the LSCF surface, unless mentioned otherwise.
+See lib.SrO_hydroxylated_models for cases used adsorbed water molecules.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.SrO_humid_models.case1">
 <span class="sig-prename descclassname"><span class="pre">lib.SrO_humid_models.</span></span><span class="sig-name descname"><span class="pre">case1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_O2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.21</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_H2O</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_humid_models.case1" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Case where the remanining hydrogen atoms are recombined to form hydrogen gas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T_range</strong> (<em>numpy array</em>) – Temperature window in Kelvins</p></li>
+<li><p><strong>x0</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in mols per unit LSCF volume. Defaults to standard LSCF composition 0.4.</p></li>
+<li><p><strong>x_O2</strong> (<em>float</em><em>, </em><em>optional</em>) – Molar fraction of oxygen gas. Defaults to ambient gas composition of 0.21.</p></li>
+<li><p><strong>x_H2O</strong> (<em>float</em><em>, </em><em>optional</em>) – Water vapour molar fraction. Defaults to 0.08, the experimental reference used by Sasson et al.</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure of the system. Defaults to ambient gas total pressure of 1 atm/Bar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple of three elements: all numpy arrays : Sr vancancies in mols per unit LSCF volume, delta_G in J/mol, hydrogen gas partial pressure in atm as a function of temperature.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>typle of length 3</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.SrO_humid_models.case2">
 <span class="sig-prename descclassname"><span class="pre">lib.SrO_humid_models.</span></span><span class="sig-name descname"><span class="pre">case2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_H2O</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_humid_models.case2" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Case where the remaining two hydrogen are stablised in the Sr vacancy created by SrO formation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T_range</strong> (<em>numpy array</em>) – Temperature window in Kelvins.</p></li>
+<li><p><strong>x0</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in mol per unit LSCF volume. Defaults to standard LSCF composition of 0.4.</p></li>
+<li><p><strong>x_H2O</strong> (<em>float</em><em>, </em><em>optional</em>) – Water vapour molar fraction. Defaults to 0.08, value used experimentally by Sassone et al.</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure in the gas. Defaults to ambient total pressure of 1 atm/Bar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns a tuple containing 2 numpy array: Sr vacancies in mol per unit LSCF volume, delta_G n J/mol as a function of temperature given in T_range.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of length 2</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.SrO_humid_models.case3">
 <span class="sig-prename descclassname"><span class="pre">lib.SrO_humid_models.</span></span><span class="sig-name descname"><span class="pre">case3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_O2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.21</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_H2O</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_humid_models.case3" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Case where one of the hydrogen in stabilised in the Sr vacancy left by Sr formation and other hydrogen atom forms hydrogen gas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T_range</strong> (<em>numpy array</em>) – Temperature window in Kelvins.</p></li>
+<li><p><strong>x0</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in mols per unit LSCF volume. Defaults to standard LSCF composition of 0.4.</p></li>
+<li><p><strong>x_O2</strong> (<em>float</em><em>, </em><em>optional</em>) – Oxygen  gas molar fraction. Defaults to ambient gas composition of 0.21.</p></li>
+<li><p><strong>x_H2O</strong> (<em>float</em><em>, </em><em>optional</em>) – Water vapour partial pressure. Defaults to 0.08, one used by Sassone et al.</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure. Defaults to 1 atm/Bar, ambient gas total pressure.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns a tuple containing 2 numpy arrays: Sr vacancies in mols per unit LSCF volume, delta_G in J/mol as a function of temperature.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple of length 2</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.SrO_humid_models.case4">
 <span class="sig-prename descclassname"><span class="pre">lib.SrO_humid_models.</span></span><span class="sig-name descname"><span class="pre">case4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_O2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.21</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_H2O</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_humid_models.case4" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Same as case 1 but with Sr coming from the bulk of LSCF.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T_range</strong> (<em>numpy array</em>) – Temperature window in Kelvins</p></li>
+<li><p><strong>x0</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in mols per unit LSCF volume. Defaults to standard LSCF composition 0.4.</p></li>
+<li><p><strong>x_O2</strong> (<em>float</em><em>, </em><em>optional</em>) – Molar fraction of oxygen gas. Defaults to ambient gas composition of 0.21.</p></li>
+<li><p><strong>x_H2O</strong> (<em>float</em><em>, </em><em>optional</em>) – Water vapour molar fraction. Defaults to 0.08, the experimental reference used by Sasson et al.</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure of the system. Defaults to ambient gas total pressure of 1 atm/Bar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple of three elements: all numpy arrays : Sr vancancies in mols per unit LSCF volume, delta_G in J/mol, hydrogen gas partial pressure in atm as a function of temperature.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>typle of length 3</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.SrO_humid_models.case5">
 <span class="sig-prename descclassname"><span class="pre">lib.SrO_humid_models.</span></span><span class="sig-name descname"><span class="pre">case5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_H2O</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_humid_models.case5" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Same as case 1 but here the hydrogen partial pressure is deduced by assuming a fixed volume of gas, that is the pores of LSCF.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T_range</strong> (<em>numpy array</em>) – Temperature window in Kelvins</p></li>
+<li><p><strong>x0</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in mols per unit LSCF volume. Defaults to 0.4, the standard LSCF composition</p></li>
+<li><p><strong>x_H2O</strong> (<em>float</em><em>, </em><em>optional</em>) – Water vapour molar fraction. Defaults to 0.08, value used experimentally in Sassone et al.</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure. Defaults to ambient gas total pressure of 1 atm/bar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple containing 2 numpy arrays: Sr vacancies in mols per unit LSCF volume, delta_G in J/mol as a function of temperature.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of length 2</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.SrO_humid_models.ph2_sensitivity_case1">
 <span class="sig-prename descclassname"><span class="pre">lib.SrO_humid_models.</span></span><span class="sig-name descname"><span class="pre">ph2_sensitivity_case1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_H2_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_H2O</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_humid_models.ph2_sensitivity_case1" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Sensitivity analysis to see the effect of hydrogen partial pressure in case 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_H2_range</strong> (<em>numpy array</em>) – Hydrogen gas molar fraction array.</p></li>
+<li><p><strong>T</strong> (<em>float</em><em>, </em><em>optional</em>) – Temperature in Kelvin. Defaults to 1000K.</p></li>
+<li><p><strong>x0</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in mol per unit LSCF volume. Defaults to standard LSCF composition of 0.4.</p></li>
+<li><p><strong>x_H2O</strong> (<em>float</em><em>, </em><em>optional</em>) – Water vapour molar fraction. Defaults to 0.08, value used experimentally by Sassone et al.</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressures. Defaults to 1 atm/Bar as in ambient gas total pressure.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns Sr vacancies in mols per unit LSCF volume</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-lib.SrO_hydroxylated_models">
 <span id="lib-sro-hydroxylated-models-module"></span><h2>lib.SrO_hydroxylated_models module<a class="headerlink" href="#module-lib.SrO_hydroxylated_models" title="Link to this heading"></a></h2>
+<p>SrO formation in humid conditions, now with starting hydroxylated surfaces i.e. water adsorbed onto LSCF surfaces.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.SrO_hydroxylated_models.case1">
-<span class="sig-prename descclassname"><span class="pre">lib.SrO_hydroxylated_models.</span></span><span class="sig-name descname"><span class="pre">case1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_O2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.21</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_H2O</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_hydroxylated_models.case1" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">lib.SrO_hydroxylated_models.</span></span><span class="sig-name descname"><span class="pre">case1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_O2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.21</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_H2O</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_hydroxylated_models.case1" title="Link to this definition"></a></dt>
+<dd><p>Case where the remaining two hydrogen atoms are recombined to form hydrogen gas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T_range</strong> (<em>numpy array</em>) – Temperature window in Kelvins</p></li>
+<li><p><strong>x</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in mols per unit LSCF volume. Defaults to 0.4.</p></li>
+<li><p><strong>x_O2</strong> (<em>float</em><em>, </em><em>optional</em>) – Oxygen gas molar fraction. Defaults to ambient gas composition of 0.21.</p></li>
+<li><p><strong>x_H2O</strong> (<em>float</em><em>, </em><em>optional</em>) – Water vapour molar fraction. Defaults to 0.08 that is used experimentally by Sassone et al.</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure. Defaults to 1 atm/Bar that is ambient gas total pressure.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns a tuple containing 3 numpy arrays: Sr vacancies in mols per unit LSCF volume, delta_G in J/mol, surface coverage as a function of temperature given in T_range.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of length 3</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.SrO_hydroxylated_models.case2">
-<span class="sig-prename descclassname"><span class="pre">lib.SrO_hydroxylated_models.</span></span><span class="sig-name descname"><span class="pre">case2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_H2O</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitivity_shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_hydroxylated_models.case2" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">lib.SrO_hydroxylated_models.</span></span><span class="sig-name descname"><span class="pre">case2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_H2O</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitivity_shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_hydroxylated_models.case2" title="Link to this definition"></a></dt>
+<dd><p>Case where the two remaining hydrogen atoms are stabilised in Sr vacancy left by SrO formation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T_range</strong> (<em>numpy array</em>) – Temperature window in Kelvins</p></li>
+<li><p><strong>x</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in mols per unit LSCF volume. Defaults to 0.4, the standard composition of LSCF.</p></li>
+<li><p><strong>x_H2O</strong> (<em>float</em><em>, </em><em>optional</em>) – Water vapour molar fraction. Defaults to 0.08, value experimentally used by Sassone et al</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure. Defaults to ambient gas total pressure 1 atm/Bar.</p></li>
+<li><p><strong>sensitivity_shift</strong> (<em>float</em>) – Arbitrary shift in J/mol introduced in delta_G to do sensitivity analysis.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns a tuple containing 3 numpy arrays: Sr vacancies in mols per unit LSCF volume, delta_G in J/mol, surface coverage of water molecules as a function of temperature.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of length 3</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Keep the sensitivity_shift value to its default value of 0 for physically meaningful results.</p>
+</div>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.SrO_hydroxylated_models.case3">
-<span class="sig-prename descclassname"><span class="pre">lib.SrO_hydroxylated_models.</span></span><span class="sig-name descname"><span class="pre">case3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_O2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.21</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_H2O</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_hydroxylated_models.case3" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">lib.SrO_hydroxylated_models.</span></span><span class="sig-name descname"><span class="pre">case3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_O2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.21</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_H2O</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_hydroxylated_models.case3" title="Link to this definition"></a></dt>
+<dd><p>One of the reamining hydrogen atoms is stabilised in the Sr vacancy and the other one is used to produce hydrogen gas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T_range</strong> (<em>numpy array</em>) – Temperature window in Kelvins</p></li>
+<li><p><strong>x</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in mols per unit LSCF volume. Defaults to standard LSCF composition of 0.4.</p></li>
+<li><p><strong>x_O2</strong> (<em>float</em><em>, </em><em>optional</em>) – Oxygen gas molar fraction. Defaults to ambient gas composition of 0.21.</p></li>
+<li><p><strong>x_H2O</strong> (<em>float</em><em>, </em><em>optional</em>) – Water vapour molar fracation. Defaults to 0.08, experimentally used value by Sassone et al.</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure. Defaults to 1, ambient gas total pressure.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns a tuple containing 3 numpy arrays: Sr vacacnies in mols per unit LSCF volume, delta_G in J/mol, surface coverage as a function of temperature given in T_range.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of length 3</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.SrO_hydroxylated_models.ph2_sensitivity_case1">
 <span class="sig-prename descclassname"><span class="pre">lib.SrO_hydroxylated_models.</span></span><span class="sig-name descname"><span class="pre">ph2_sensitivity_case1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_H2_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_H2O</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_hydroxylated_models.ph2_sensitivity_case1" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Enables the sensitivity analysis of hydrgen partial pressure on case1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_H2_range</strong> (<em>numpy array</em>) – Range of hydrogen gas molar fractions.</p></li>
+<li><p><strong>T</strong> (<em>float</em><em>, </em><em>optional</em>) – Temperature in Kelvin. Defaults to 1000K</p></li>
+<li><p><strong>x0</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in mols per unit LSCF volume. Defaults to standard LSCF composition of 0.4.</p></li>
+<li><p><strong>x_H2O</strong> (<em>float</em><em>, </em><em>optional</em>) – Water vapour molar fraction. Defaults to 0.08, experimental value used by Sassone et al.</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressures. Defaults to ambient gas total pressure of 1 atm/Bar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Sr vacancies in mols per unit LSCF volume as a function of temperature provided in T_range.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-lib.auxilliary_functions">
 <span id="lib-auxilliary-functions-module"></span><h2>lib.auxilliary_functions module<a class="headerlink" href="#module-lib.auxilliary_functions" title="Link to this heading"></a></h2>
+<p>Functions that are called ubiquitously for many conditions, in all conditions.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.auxilliary_functions.bisection">
-<span class="sig-prename descclassname"><span class="pre">lib.auxilliary_functions.</span></span><span class="sig-name descname"><span class="pre">bisection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxiter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.auxilliary_functions.bisection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">lib.auxilliary_functions.</span></span><span class="sig-name descname"><span class="pre">bisection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xmin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxiter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.auxilliary_functions.bisection" title="Link to this definition"></a></dt>
+<dd><p>Bisection method for numerical resolution of an equation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xmin</strong> (<em>float</em>) – Lower bound of the window in which the solution is present.</p></li>
+<li><p><strong>xmax</strong> (<em>float</em>) – Upper bouund of the window in which the solution is present.</p></li>
+<li><p><strong>func</strong> (<em>function</em>) – Function for which the solution needs to be found.</p></li>
+<li><p><strong>maxiter</strong> (<em>int</em>) – Maximum iteration to not exceed, to avoid infinite loops.</p></li>
+<li><p><strong>tol</strong> (<em>float</em>) – Precision of the solution.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns the solution.J</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.auxilliary_functions.cube_root_complex">
@@ -306,12 +638,53 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.auxilliary_functions.cubic_model">
 <span class="sig-prename descclassname"><span class="pre">lib.auxilliary_functions.</span></span><span class="sig-name descname"><span class="pre">cubic_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.auxilliary_functions.cubic_model" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Analytical solution to cubic functions. See wikipedia.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>zero_threshold</strong> (<em>float</em><em>, </em><em>optional</em>) – To accept some leeway in equations with a threshold. Defaults to 0 to perfect analytical solution.</p></li>
+<li><p><strong>a</strong> (<em>float</em>) – Polynomial coefficient $ax^3 + bx^2 + cx + d = 0$</p></li>
+<li><p><strong>b</strong> (<em>float</em>) – Polynomial coefficient $ax^3 + bx^2 + cx + d = 0$</p></li>
+<li><p><strong>c</strong> (<em>float</em>) – Polynomial coefficient $ax^3 + bx^2 + cx + d = 0$</p></li>
+<li><p><strong>d</strong> (<em>float</em>) – Polynomial coefficient $ax^3 + bx^2 + cx + d = 0$</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns an array containing all three solutions</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy array of length 1x3</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Solutions are complex in general. There is no way to order them. You might end up extracting unphysical solution (complex, real outside physical meaning). When strange things are observed, think of this!</p>
+</div>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.auxilliary_functions.delta_oxygen_interpolater">
 <span class="sig-prename descclassname"><span class="pre">lib.auxilliary_functions.</span></span><span class="sig-name descname"><span class="pre">delta_oxygen_interpolater</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pO2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.21</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.auxilliary_functions.delta_oxygen_interpolater" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Function to interpolate oxygen understoichometry for a given temperature. The interpolation is valid only within temerature window set by the experimental data. In this case it is the data from Bouwmeester.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – Activate to show plots</p></li>
+<li><p><strong>pO2</strong> (<em>float</em><em>, </em><em>optional</em>) – Oxygen partial pressure. Defaults to ambient gas composition of 0.21 atm.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns numpy array containing linear interpolation parameters: slope and offset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy array of size 1x2</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The function here returns interpolation parameters for the oxygen understoichiometry data used by Federio Monaco for his theis work. The temperature dependance is taken from Bouwmeester. Using this function give you  the parmaeters for a linear function for oxygen understoichometry for temperature dependence that goes to zero at around 930K. This is unphysical. Needs to be changed. Include an assertion error somwhere to avoid extrapolating temperature dependance outside the window defined by Bouwmeester data.</p>
+</div>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.auxilliary_functions.linear_function">
@@ -331,17 +704,75 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.auxilliary_functions.pH2_giver">
 <span class="sig-prename descclassname"><span class="pre">lib.auxilliary_functions.</span></span><span class="sig-name descname"><span class="pre">pH2_giver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_H2O</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_O2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.auxilliary_functions.pH2_giver" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>To estimate hydrogen gas partial pressure assuming equilibrium between water vapour, oxygen gas and hydrogen gas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T</strong> (<em>float</em>) – Temperature in Kelvin</p></li>
+<li><p><strong>p_H2O</strong> (<em>float</em>) – Water vapour partial pressure</p></li>
+<li><p><strong>p_O2</strong> (<em>float</em>) – Oxygen partial presssure.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns hydrogen gas partial pressure</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Uses Shomate equations and therefore Shomate coefficients and the coefficients are given only for range</strong><strong> of </strong><strong>temperature. If temperature out</strong><strong> of </strong><strong>this range</strong><strong>, </strong><strong>raises error!</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.auxilliary_functions.quadratic_model">
 <span class="sig-prename descclassname"><span class="pre">lib.auxilliary_functions.</span></span><span class="sig-name descname"><span class="pre">quadratic_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.auxilliary_functions.quadratic_model" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Analytical solution of quadratic polynomial</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x0</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in LSCF in mol per unit LSCF volume. Defaults to 0.4. Used to select the physical solution, postive and below max amount of Sr.</p></li>
+<li><p><strong>a</strong> (<em>float</em>) – Polynomial coefficient $ax^2 + bx + c = 0$</p></li>
+<li><p><strong>b</strong> (<em>float</em>) – Polynomial coefficient $ax^2 + bx + c = 0$</p></li>
+<li><p><strong>c</strong> (<em>float</em>) – Polynomial coefficient $ax^2 + bx + c = 0$</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns the one physical solutions.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When both solutions are unphysical, it returns 2. This should be visible in graphs and return here in that case. Create an error otherwise maybe.</p>
+</div>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.auxilliary_functions.surface_coverage_H2O">
 <span class="sig-prename descclassname"><span class="pre">lib.auxilliary_functions.</span></span><span class="sig-name descname"><span class="pre">surface_coverage_H2O</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_H2O</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E_ads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chem_pot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.auxilliary_functions.surface_coverage_H2O" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Estimate surface coverage of adsborbed water molecules.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T</strong> (<em>float</em><em>, </em><em>numpy array</em>) – Temperature or temperature window in Kelvins</p></li>
+<li><p><strong>x_H2O</strong> (<em>float</em>) – Molar fraction of water vapour.</p></li>
+<li><p><strong>E_ads</strong> (<em>float</em>) – Adsorption energy water molecule onto LSCF surface in J/mol.</p></li>
+<li><p><strong>P</strong> (<em>float</em>) – Total pressure of the system.</p></li>
+<li><p><strong>chem_pot</strong> (<em>bool</em>) – Boolean to determine which water vapour chemical potential to use. Defaults to using experimental water vapour chemical potential. When passed 1, chemical potential with only translational degrees of freedom is considered.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns a tuple containing two elements: surface coverage in the same type as passed T, water vapour chemical potential in J/mol used for the calculation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of length 2</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-lib.chemical_potentials">
@@ -349,43 +780,184 @@
 <p>Chemical potentials used in the defect modelling. It is important to keep in that zpe should be added without failure.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.chemical_potentials.chem_pot_CrO2OH2">
-<span class="sig-prename descclassname"><span class="pre">lib.chemical_potentials.</span></span><span class="sig-name descname"><span class="pre">chem_pot_CrO2OH2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([[3.100000e+01,</span> <span class="pre">-1.807535e+05],</span> <span class="pre">[6.100000e+01,</span> <span class="pre">-1.782027e+05],</span> <span class="pre">[9.100000e+01,</span> <span class="pre">-1.749712e+05],</span> <span class="pre">[1.210000e+02,</span> <span class="pre">-1.716560e+05],</span> <span class="pre">[1.510000e+02,</span> <span class="pre">-1.683638e+05],</span> <span class="pre">[1.810000e+02,</span> <span class="pre">-1.651210e+05],</span> <span class="pre">[2.110000e+02,</span> <span class="pre">-1.619330e+05],</span> <span class="pre">[2.410000e+02,</span> <span class="pre">-1.587987e+05],</span> <span class="pre">[2.710000e+02,</span> <span class="pre">-1.557150e+05],</span> <span class="pre">[3.010000e+02,</span> <span class="pre">-1.526782e+05],</span> <span class="pre">[3.310000e+02,</span> <span class="pre">-1.496846e+05],</span> <span class="pre">[3.610000e+02,</span> <span class="pre">-1.467308e+05],</span> <span class="pre">[3.910000e+02,</span> <span class="pre">-1.438137e+05],</span> <span class="pre">[4.210000e+02,</span> <span class="pre">-1.409305e+05],</span> <span class="pre">[4.510000e+02,</span> <span class="pre">-1.380786e+05],</span> <span class="pre">[4.810000e+02,</span> <span class="pre">-1.352558e+05],</span> <span class="pre">[5.110000e+02,</span> <span class="pre">-1.324602e+05],</span> <span class="pre">[5.410000e+02,</span> <span class="pre">-1.296899e+05],</span> <span class="pre">[5.710000e+02,</span> <span class="pre">-1.269432e+05],</span> <span class="pre">[6.010000e+02,</span> <span class="pre">-1.242187e+05],</span> <span class="pre">[6.310000e+02,</span> <span class="pre">-1.215152e+05],</span> <span class="pre">[6.610000e+02,</span> <span class="pre">-1.188313e+05],</span> <span class="pre">[6.910000e+02,</span> <span class="pre">-1.161661e+05],</span> <span class="pre">[7.210000e+02,</span> <span class="pre">-1.135186e+05],</span> <span class="pre">[7.510000e+02,</span> <span class="pre">-1.108878e+05],</span> <span class="pre">[7.810000e+02,</span> <span class="pre">-1.082730e+05],</span> <span class="pre">[8.110000e+02,</span> <span class="pre">-1.056734e+05],</span> <span class="pre">[8.410000e+02,</span> <span class="pre">-1.030884e+05],</span> <span class="pre">[8.710000e+02,</span> <span class="pre">-1.005173e+05],</span> <span class="pre">[9.010000e+02,</span> <span class="pre">-9.795970e+04],</span> <span class="pre">[9.310000e+02,</span> <span class="pre">-9.541490e+04],</span> <span class="pre">[9.610000e+02,</span> <span class="pre">-9.288260e+04],</span> <span class="pre">[9.910000e+02,</span> <span class="pre">-9.036220e+04],</span> <span class="pre">[1.021000e+03,</span> <span class="pre">-8.785350e+04],</span> <span class="pre">[1.051000e+03,</span> <span class="pre">-8.535590e+04],</span> <span class="pre">[1.081000e+03,</span> <span class="pre">-8.286920e+04],</span> <span class="pre">[1.111000e+03,</span> <span class="pre">-8.039300e+04],</span> <span class="pre">[1.141000e+03,</span> <span class="pre">-7.792690e+04],</span> <span class="pre">[1.171000e+03,</span> <span class="pre">-7.547070e+04],</span> <span class="pre">[1.200000e+03,</span> <span class="pre">-7.310550e+04]])</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.chemical_potentials.chem_pot_CrO2OH2" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">lib.chemical_potentials.</span></span><span class="sig-name descname"><span class="pre">chem_pot_CrO2OH2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.chemical_potentials.chem_pot_CrO2OH2" title="Link to this definition"></a></dt>
+<dd><p>Chemical potential of CrO2OH2 from formation Gibbs energies taken from free version of Factsage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T</strong> (<em>float</em>) – Temperature in Kelvin</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure that defaults to ambient total pressure of 1 atm/Bar.</p></li>
+<li><p><strong>data</strong> (<em>None</em>) – Reinitialised to formation Gibbs free energies of CrO2OH2. Defaults to None for sphinx.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Chemical potential of CrO2OH2</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>ZPE of CrO3 will affect this chemical potential too.</p>
+</div>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.chemical_potentials.chem_pot_CrO3">
 <span class="sig-prename descclassname"><span class="pre">lib.chemical_potentials.</span></span><span class="sig-name descname"><span class="pre">chem_pot_CrO3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E_DFT_CrO3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.chemical_potentials.chem_pot_CrO3" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Chemical potential of CrO3 gas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T</strong> (<em>numpy array</em><em> or </em><em>float</em>) – Temperature or temperature window in Kelvins</p></li>
+<li><p><strong>E_DFT_CrO3</strong> (<em>float</em>) – CrO3 molecule energy in J/mol from DFT.</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure. Defaults to ambient total pressure of 1 atm/Bar</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Chemical potential of CrO3 gas.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>same type as T</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>ZPE of this molecule needs to be calculated.</p>
+</div>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.chemical_potentials.chem_pot_H2">
 <span class="sig-prename descclassname"><span class="pre">lib.chemical_potentials.</span></span><span class="sig-name descname"><span class="pre">chem_pot_H2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E_DFT_H2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.chemical_potentials.chem_pot_H2" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Chemical potential of hydrogen gas at reference condition.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T</strong> (<em>float</em><em> or </em><em>numpy array</em>) – Temperature or temperature window in Kelvins</p></li>
+<li><p><strong>E_DFT_O2</strong> (<em>float</em>) – Hydrogen molecule energy in J/mol from DFT.</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure of the system. Defaults to ambient total pressure of 1 atm.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>chemical potential of hydrogen gas in J/mol with zpe included.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>same type as T</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.chemical_potentials.chem_pot_H2O">
 <span class="sig-prename descclassname"><span class="pre">lib.chemical_potentials.</span></span><span class="sig-name descname"><span class="pre">chem_pot_H2O</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E_DFT_H2O</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.chemical_potentials.chem_pot_H2O" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Chemical potential of water vapour at reference condition.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T</strong> (<em>float</em><em> or </em><em>numpy array</em>) – Temperature or temperature window in Kelvins</p></li>
+<li><p><strong>E_DFT_O2</strong> (<em>float</em>) – Water molecule energy in J/mol from DFT.</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure of the system. Defaults to ambient total pressure of 1 atm.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>chemical potential of water vapour in J/mol with zpe included.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>same type as T</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.chemical_potentials.chem_pot_O2">
 <span class="sig-prename descclassname"><span class="pre">lib.chemical_potentials.</span></span><span class="sig-name descname"><span class="pre">chem_pot_O2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E_DFT_O2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.chemical_potentials.chem_pot_O2" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Chemical potential of oxygen gas at reference condition.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T</strong> (<em>float</em><em> or </em><em>numpy array</em>) – Temperature or temperature window in Kelvins</p></li>
+<li><p><strong>E_DFT_O2</strong> (<em>float</em>) – Oxygen molecule energy in J/mol from DFT.</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure of the system. Defaults to ambient total pressure of 1 atm.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>chemical potential of oxygen gas in J/mol with zpe included.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>same type as T</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.chemical_potentials.chem_pot_SrO">
-<span class="sig-prename descclassname"><span class="pre">lib.chemical_potentials.</span></span><span class="sig-name descname"><span class="pre">chem_pot_SrO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E_DFT_SrO</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-124209168.6541474</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([[1.00000000e+00,</span> <span class="pre">3.55199007e-02],</span> <span class="pre">[2.00000000e+00,</span> <span class="pre">3.55198930e-02],</span> <span class="pre">[3.00000000e+00,</span> <span class="pre">3.55198818e-02],</span> <span class="pre">...,</span> <span class="pre">[1.29700000e+03,</span> <span class="pre">-5.31141527e-01],</span> <span class="pre">[1.29800000e+03,</span> <span class="pre">-5.31812568e-01],</span> <span class="pre">[1.29900000e+03,</span> <span class="pre">-5.32483813e-01]])</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.chemical_potentials.chem_pot_SrO" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">lib.chemical_potentials.</span></span><span class="sig-name descname"><span class="pre">chem_pot_SrO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E_DFT_SrO</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-124209168.6541474</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.chemical_potentials.chem_pot_SrO" title="Link to this definition"></a></dt>
+<dd><p>Chemical potential of SrO</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T</strong> (<em>float</em>) – Temperature in Kelvin</p></li>
+<li><p><strong>E_DFT_SrO</strong> (<em>float</em><em>, </em><em>optional</em>) – Static lattice energy of SrO from DFT in J/mol</p></li>
+<li><p><strong>data</strong> (<em>None</em>) – Reinitialised with vibrational Helmholtz free energy in eV</p></li>
+<li><p><strong>vib</strong> (<em>bool</em><em>, </em><em>optional</em>) – Bool to include vibrational properties or not. Defaults to 0, to not include.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Chemical potential of SrO</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.chemical_potentials.chem_pot_SrOH2">
-<span class="sig-prename descclassname"><span class="pre">lib.chemical_potentials.</span></span><span class="sig-name descname"><span class="pre">chem_pot_SrOH2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([[1.000000e+00,</span> <span class="pre">1.584086e+05],</span> <span class="pre">[1.100000e+00,</span> <span class="pre">1.695376e+05],</span> <span class="pre">[1.200000e+00,</span> <span class="pre">1.786659e+05],</span> <span class="pre">...,</span> <span class="pre">[1.199500e+03,</span> <span class="pre">1.665024e+05],</span> <span class="pre">[1.199700e+03,</span> <span class="pre">1.664909e+05],</span> <span class="pre">[1.199900e+03,</span> <span class="pre">1.664794e+05]])</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.chemical_potentials.chem_pot_SrOH2" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">lib.chemical_potentials.</span></span><span class="sig-name descname"><span class="pre">chem_pot_SrOH2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.chemical_potentials.chem_pot_SrOH2" title="Link to this definition"></a></dt>
+<dd><p>Determinaton of SrOH2 chemical_potential from formation Gibbs free energies taken from free version of Factsage</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T</strong> (<em>float</em>) – Temperature in Kelvin</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure. Defaults to 1 ambient gas pressure</p></li>
+<li><p><strong>data</strong> (<em>None</em>) – Initialised to formation Gibbs free energy from factsage. Defaulted to none for sphinx.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Chemical potential of SrOH2 in J/mol</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.chemical_potentials.linear_interpolator">
 <span class="sig-prename descclassname"><span class="pre">lib.chemical_potentials.</span></span><span class="sig-name descname"><span class="pre">linear_interpolator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.chemical_potentials.linear_interpolator" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Function to interpolate data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>float</em>) – x for which you want to determine y</p></li>
+<li><p><strong>x_data</strong> (<em>numpy array</em>) – data</p></li>
+<li><p><strong>y_data</strong> (<em>numpy array</em>) – data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>interpolated value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This function cannot be moved to auxilliary functions due to circular imports. auxilliary modules imports this module to get some for surface_coverage. Maybe put surface coverage in hydroxylated_case and move this to auxilliary function for a neater structure.</p>
+</div>
+</dd></dl>
 
 </section>
 <section id="module-lib.data_shrinker">

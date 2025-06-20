@@ -1,3 +1,6 @@
+"""All results related to adsorption models are presented here.
+"""
+
 from lib.dft_energies_0K import *
 from lib.chemical_potentials import *
 from lib.auxilliary_functions import *
@@ -31,13 +34,36 @@ print("adsorption energy in eV ", E_ads/ev2J_p_mol)
 
 
 def comp_ads(T, x_H2O, x_O2, E_ads_H2O, E_ads_O2, P):
-	chemical_potential_O2 = chem_pot_O2(T, E_DFT_O2 = 0, P=x_O2*P)
-	chemical_potential_H2O = chem_pot_H2O(T, E_DFT_H2O = 0, P=x_H2O*P)
-	exp_term_H2O = np.exp(-(E_ads_H2O - chemical_potential_H2O)/(R*T))
-	exp_term_O2 = np.exp(-(E_ads_O2 - chemical_potential_O2)/(R*T))
-	theta_O2 = 1/(1+1/exp_term_O2 + exp_term_H2O/exp_term_O2)
-	theta_H2O = 1/(1+1/exp_term_H2O + exp_term_O2/exp_term_H2O)
-	return (theta_O2, theta_H2O, chemical_potential_O2, chemical_potential_H2O)
+    """Competitive adsorption model
+
+    Parameters
+    ----------
+    T : float or numpy array
+        Temperature or temperature window in Kelvins.
+    x_H2O : float
+        Water vapour partial pressure
+    x_O2 : float
+        Oxygen gas partial pressure
+    E_ads_H2O : float
+        Water molecule energy in J/mol from DFT
+    E_ads_O2 : float
+        Oxygen molecule energy in J/mol from DFT
+    P : float
+        Total pressure that defaults to the ambient total pressure of 1 atm/Bar
+
+    Returns
+    -------
+    tuple of length 4
+        Returns a tuple of four elements of same type as T: oxygen surface coverage, water surface coverage, oxygen gas chemical potential in J/mol, water vapour chemical potential in J/mol.
+
+    """
+    chemical_potential_O2 = chem_pot_O2(T, E_DFT_O2 = 0, P=x_O2*P)
+    chemical_potential_H2O = chem_pot_H2O(T, E_DFT_H2O = 0, P=x_H2O*P)
+    exp_term_H2O = np.exp(-(E_ads_H2O - chemical_potential_H2O)/(R*T))
+    exp_term_O2 = np.exp(-(E_ads_O2 - chemical_potential_O2)/(R*T))
+    theta_O2 = 1/(1+1/exp_term_O2 + exp_term_H2O/exp_term_O2)
+    theta_H2O = 1/(1+1/exp_term_H2O + exp_term_O2/exp_term_H2O)
+    return (theta_O2, theta_H2O, chemical_potential_O2, chemical_potential_H2O)
 
 T_range = np.arange(400, 1301, 0.1)
 
@@ -56,7 +82,13 @@ energy_ax.axhline(y=0, color="black", linestyle="dashed")
 
 
 fig,ax = plt.subplots(layout="constrained")
-#for x_H2O in [0.08, 0.2, 0.5]:
+for x_H2O in [0.08, 0.2, 0.5]:
+	theta_list_def_model, chemical_potential = surface_coverage_H2O(T_range, x_H2O, E_ads, P=1)
+	Delta_G = E_ads - chem_pot_H2O(T_range,E_DFT_H2O = 0, P=x_H2O) - zpe_H2O
+	#energy_axes = ax.twinx()
+	ax.plot(T_range, theta_list_def_model, label="$x_{H_2O}=$"+str(x_H2O))
+
+
 x_H2O_range = np.linspace(0.01, 0.99, 200)
 for x_H2O in x_H2O_range:
 	theta_list_def_model, chemical_potential = surface_coverage_H2O(T_range, x_H2O, E_ads, P=1)
@@ -66,7 +98,7 @@ for x_H2O in x_H2O_range:
 	for index in range(1,len(T_range)):
 		if Delta_G[index-1]<0 and Delta_G[index]>=0: inversion_temp_list.append(T_range[index])
 		if theta_list_def_model[index-1]>0.5 and theta_list_def_model[index]<=0.5: half_coverage_temp_list.append(T_range[index])
-#
+
 #x_H2O_range = np.linspace(0.02,1,5)
 #for x_H2O in x_H2O_range:
 #    theta_list = surface_coverage_H2O(T_range, x_H2O, E_ads, P=1)
@@ -118,7 +150,7 @@ ax3.set_xlabel("$x_{H_2O}$")
 ax3.set_ylabel("Inversion temperature [K]")
 
 ax3.set_xlim(0.01, 0.1)
-ax3.set_ylim(870, 950)
+ax3.set_ylim(1075, 1165)
 
 ax3.xaxis.set_minor_locator(AutoMinorLocator())
 ax3.yaxis.set_minor_locator(AutoMinorLocator())

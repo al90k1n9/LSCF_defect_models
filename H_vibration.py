@@ -1,3 +1,6 @@
+"""Harmonic approximation to  determine the virbational energy of hydrogen adorbed on LSCF surface.
+"""
+
 from lib.dft_energies_0K import *
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit

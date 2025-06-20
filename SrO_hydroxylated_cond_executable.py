@@ -28,13 +28,13 @@ axinset.set_facecolor("none")
 
 fig3, ax3 = plt.subplots(layout="constrained")
 
-#V_Sr, delta_G, theta_list = case1(T_range, x0, p_O2, p_H2O, P)
+#V_Sr, delta_G, theta_list = case1(T_range, x0, x_O2, x_H2O, P)
 #ax.plot(T_range, V_Sr, label="H_2")
 #axinset.plot(T_range, V_Sr, label="case 3.3")
 #ax2.plot(T_range, delta_G/ev2J_p_mol, label="case 3.3")
 #ax4.plot(T_range, theta_list, label="case1")
 
-V_Sr, delta_G, theta_list = case2(T_range, x0, p_H2O, P)
+V_Sr, delta_G, theta_list = case2(T_range, x0, x_H2O, P)
 ax.plot(T_range, V_Sr, label="case 3.3")
 axinset.plot(T_range, V_Sr/x0)
 axinset.plot(T_range, theta_list, label="$\\theta_{H_2O}$")

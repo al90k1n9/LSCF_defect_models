@@ -6,12 +6,26 @@
 Welcome to LSCF defect models's documentation!
 ==============================================
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
 
-   modules
-   lib
+.. toctree::
+   :maxdepth: 1
+   :caption: program files:
+
+   SrO_dry_air_condition_executable
+   SrO_humid_air_condition_executable
+   SrO_hydroxylated_cond_executable
+   surface_coverage_hydroxylation
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: library files:
+
+   lib.auxilliary_functions
+   lib.chemical_potentials
+   lib.SrO_dry_air_models
+   lib.SrO_humid_models
+   lib.SrO_hydroxylated_models
 
 Indices and tables
 ==================

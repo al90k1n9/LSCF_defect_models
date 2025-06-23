@@ -257,6 +257,7 @@ def chem_pot_SrO(T, E_DFT_SrO=E_SrO_epitax, data = None, vib=0):
 
     """
     data = data_SrO_vibration
-    F_vib = linear_interpolator(T, data[:,0], data[:,1]) * ev2J_p_mol
-    if vib: return F_vib + E_DFT_SrO
+    if vib:
+        F_vib = linear_interpolator(T, data[:,0], data[:,1]) * ev2J_p_mol
+        return F_vib + E_DFT_SrO
     return E_DFT_SrO

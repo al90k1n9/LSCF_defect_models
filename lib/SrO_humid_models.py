@@ -10,7 +10,7 @@ from lib.dft_energies_0K import * #importing all the values of dft energies
 from lib.auxilliary_functions import *
 from H_vibration import *
 
-def case1(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1):
+def case1(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1, sensitivity_shift = 0):
     """Case where the remanining hydrogen atoms are recombined to form hydrogen gas.
 
     Parameters
@@ -35,7 +35,7 @@ def case1(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1):
     p_O2 = x_O2 * P
     p_H2O = x_H2O * P
     V_Sr= []
-    delta_E = (E_LSCF_slab_Sr_vac_surf + 2*E_SrO_epitax + 2*E_DFT_H2- (E_LSCF_slab + 2*E_DFT_H2O))/2 + E_int
+    delta_E = (E_LSCF_slab_Sr_vac_surf + 2*E_SrO_epitax + 2*E_DFT_H2- (E_LSCF_slab + 2*E_DFT_H2O))/2 + E_int + sensitivity_shift
     print(delta_E/ev2J_p_mol, " delta_E of case 1")
     delta_G_range = []
     p_H2_list = []
@@ -43,7 +43,7 @@ def case1(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1):
         p_H2 = pH2_giver(T, p_H2O, p_O2)
         p_H2_list.append(p_H2)
 
-        delta_G = (E_LSCF_slab_Sr_vac_surf + 2*chem_pot_SrO(T) + 2*chem_pot_H2(T, E_DFT_H2, P=P)- (E_LSCF_slab + 2*chem_pot_H2O(T, E_DFT_H2O, P=P)))/2 + E_int
+        delta_G = (E_LSCF_slab_Sr_vac_surf + 2*chem_pot_SrO(T) + 2*chem_pot_H2(T, E_DFT_H2, P=P)- (E_LSCF_slab + 2*chem_pot_H2O(T, E_DFT_H2O, P=P)))/2 + E_int + sensitivity_shift
         delta_G_range.append(delta_G)
         if T == 1000: print("delta G at T = 1000", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T))
@@ -62,7 +62,7 @@ def case1(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1):
         #print(solution[0])
     return (np.asarray(V_Sr), np.asarray(delta_G_range), np.asarray(p_H2_list))
 
-def case2(T_range, x0=0.4, x_H2O = 0.08, P=1):
+def case2(T_range, x0=0.4, x_H2O = 0.08, P=1,sensitivity_shift = 0):
     """Case where the remaining two hydrogen are stablised in the Sr vacancy created by SrO formation.
 
     Parameters
@@ -84,13 +84,13 @@ def case2(T_range, x0=0.4, x_H2O = 0.08, P=1):
     """
     p_H2O = x_H2O * P
     V_Sr= []
-    delta_E = (2*E_SrO_epitax + E_LSCF_double_hydrogenated - (E_LSCF_slab+ 2 * E_DFT_H2O)) / 2 + E_int
-    print(delta_E/ev2J_p_mol, " delta_E of case 2")
+    delta_E = (2*E_SrO_epitax + E_LSCF_double_hydrogenated - (E_LSCF_slab+ 2 * E_DFT_H2O)) / 2 + E_int + sensitivity_shift
+    #print(delta_E/ev2J_p_mol, " delta_E of case 2")
     delta_G_range = []
     for T in T_range:
-        delta_G = (2*chem_pot_SrO(T) + E_LSCF_double_hydrogenated - (E_LSCF_slab+ 2 *chem_pot_H2O(T, E_DFT_H2O, P=P))) / 2  + E_int + 2*OH_bond_vibration
+        delta_G = (2*chem_pot_SrO(T) + E_LSCF_double_hydrogenated - (E_LSCF_slab+ 2 *chem_pot_H2O(T, E_DFT_H2O, P=P))) / 2  + E_int + 2*OH_bond_vibration + sensitivity_shift
         delta_G_range.append(delta_G)
-        if T == 1000: print("case 2: delta G at T = 1000", delta_G/ev2J_p_mol)
+        #if T == 1000: print("case 2: delta G at T = 1000", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T)) 
         N = K * p_H2O/P 
         V_Sr.append(N/(1+N)*x0)

@@ -1,7 +1,12 @@
 import matplotlib.pyplot as plt
 from lib.SrO_hydroxylated_models import case2 as hydrox
+from lib.SrO_humid_models import case2 as humid
 from lib.SrO_dry_air_models import *
 from matplotlib.ticker import  AutoMinorLocator
+import os
+
+local_path = os.path.dirname(os.path.abspath(__file__))
+local_path += "/"
 
 x_O2 = 0.21
 P = 1 #atm
@@ -40,21 +45,32 @@ for shift in -np.arange(0.1, 1, 0.2):
     ax3.plot(T_range, V_Sr, label="shift = " + str(round(shift, 2)) + " ev")
 
 fix_T = [1000]
-ylist, delta_G_list, delta_oxygen_list = case4([1000], x = 0.4, delta_oxygen_parameters=delta_oxygen_parameters)
+ylist, delta_G_list, delta_oxygen_list = case4([1000], x = 0.4)
 dry_case = [ylist[0]]
 V_Sr, delta_G, theta_list =  hydrox([1000])
 hydrox_case = [V_Sr[0]]
+V_Sr, delta_G_range = humid([1000])
+humid_case = [V_Sr[0]]
+print(dry_case, humid_case, hydrox_case)
+
+
 shift_step = 0.01
 shift_range = -np.arange(shift_step, 1,shift_step)
 for shift in shift_range:
     shift_value = shift *ev2J_p_mol
+
     V_Sr, delta_G, delta_oxygen_list = case4(fix_T, sensitivity_shift= shift_value)
     dry_case.append(V_Sr[0])
+
     V_Sr, delta_G, theta_list = hydrox(fix_T, sensitivity_shift= shift_value)
     hydrox_case.append(V_Sr[0])
+
+    V_Sr, delta_G_range = humid(fix_T, sensitivity_shift = shift_value)
+    humid_case.append(V_Sr[0])
 shift_range = np.insert(shift_range, 0, 0)
-ax4.plot(shift_range, dry_case, label="case 4 dry air")
-ax4.plot(shift_range, hydrox_case, label="hydrox hydrogenation")
+ax4.plot(shift_range, dry_case, label="C4")
+ax4.plot(shift_range, hydrox_case, label="R3.2")
+ax4.plot(shift_range, humid_case, label="R3.3")
 
 ax.set_xlabel("T")
 ax.set_ylabel("$[V\'\'\'_{La}]_{eq}=x_{eq}$")
@@ -105,9 +121,10 @@ ax4.yaxis.set_minor_locator(AutoMinorLocator())
 
 secyax4 = ax4.secondary_yaxis("right", functions=(yaxconvert, yaxinvert))
 secyax4.set_ylabel("% of initial Sr content $\\frac{100 \\cdot x_{eq}}{x_0}$")
+secyax4.yaxis.set_minor_locator(AutoMinorLocator())
 
 
-
+fig4.savefig(local_path + "figs/delta_G_sensitivity.svg", format = "svg", transparent = True, dpi = 300)
 
 plt.show()
 

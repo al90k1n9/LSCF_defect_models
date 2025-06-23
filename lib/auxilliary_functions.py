@@ -360,6 +360,10 @@ def surface_coverage_H2O(T, x_H2O, E_ads, P, chem_pot = 0):
     tuple of length 2
         Returns a tuple containing two elements: surface coverage in the same type as passed T, water vapour chemical potential in J/mol used for the calculation.
 
+    Warnings
+    --------
+    If using experimental chemical potential, instead of a model chemical potential that considers only the translational degrees of freedom of an ideal gas, make sure to include configurational entropy of water vapour in the Gibbs free energy term, by passing an argument to the pressure in the chemical potential term, instead of keeping it at the default value of 1 atm (reference state).
+
     """
     #chem_pot 0 for experimental chemical potential
     #chem_pot 1 for translational chemical potential

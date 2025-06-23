@@ -18,7 +18,7 @@ def case1(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1):
     T_range : numpy array
         Temperature window in Kelvins
     x0 : float, optional
-        Initial amounts of Sr in mols per unit LSCF volume. Defaults to standard LSCF composition 0.4.
+        Initial amounts of Sr in moles per unit LSCF volume. Defaults to standard LSCF composition 0.4.
     x_O2 : float, optional
         Molar fraction of oxygen gas. Defaults to ambient gas composition of 0.21.
     x_H2O : float, optional
@@ -29,7 +29,7 @@ def case1(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1):
     Returns
     -------
     typle of length 3
-        Tuple of three elements: all numpy arrays : Sr vancancies in mols per unit LSCF volume, delta_G in J/mol, hydrogen gas partial pressure in atm as a function of temperature.
+        Tuple of three elements: all numpy arrays : Sr vancancies in moles per unit LSCF volume, delta_G in J/mol, hydrogen gas partial pressure in atm as a function of temperature.
 
     """
     p_O2 = x_O2 * P
@@ -105,7 +105,7 @@ def case3(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1):
     T_range : numpy array
         Temperature window in Kelvins.
     x0 : float, optional
-        Initial amounts of Sr in mols per unit LSCF volume. Defaults to standard LSCF composition of 0.4.
+        Initial amounts of Sr in moles per unit LSCF volume. Defaults to standard LSCF composition of 0.4.
     x_O2 : float, optional
         Oxygen  gas molar fraction. Defaults to ambient gas composition of 0.21.
     x_H2O : float, optional
@@ -116,7 +116,7 @@ def case3(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1):
     Returns
     -------
     Tuple of length 2
-        Returns a tuple containing 2 numpy arrays: Sr vacancies in mols per unit LSCF volume, delta_G in J/mol as a function of temperature.
+        Returns a tuple containing 2 numpy arrays: Sr vacancies in moles per unit LSCF volume, delta_G in J/mol as a function of temperature.
 
     """
     p_O2 = x_O2 * P
@@ -150,7 +150,7 @@ def case4(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1):
     T_range : numpy array
         Temperature window in Kelvins
     x0 : float, optional
-        Initial amounts of Sr in mols per unit LSCF volume. Defaults to standard LSCF composition 0.4.
+        Initial amounts of Sr in moles per unit LSCF volume. Defaults to standard LSCF composition 0.4.
     x_O2 : float, optional
         Molar fraction of oxygen gas. Defaults to ambient gas composition of 0.21.
     x_H2O : float, optional
@@ -161,7 +161,7 @@ def case4(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1):
     Returns
     -------
     typle of length 3
-        Tuple of three elements: all numpy arrays : Sr vancancies in mols per unit LSCF volume, delta_G in J/mol, hydrogen gas partial pressure in atm as a function of temperature.
+        Tuple of three elements: all numpy arrays : Sr vancancies in moles per unit LSCF volume, delta_G in J/mol, hydrogen gas partial pressure in atm as a function of temperature.
 
     """
     p_O2 = x_O2 * P
@@ -201,7 +201,7 @@ def case5(T_range, x0 = 0.4, x_H2O = 0.08, P = 1):
     T_range : numpy array
         Temperature window in Kelvins
     x0 : float, optional
-        Initial amounts of Sr in mols per unit LSCF volume. Defaults to 0.4, the standard LSCF composition
+        Initial amounts of Sr in moles per unit LSCF volume. Defaults to 0.4, the standard LSCF composition
     x_H2O : float, optional
         Water vapour molar fraction. Defaults to 0.08, value used experimentally in Sassone et al.
     P : float, optional
@@ -210,7 +210,7 @@ def case5(T_range, x0 = 0.4, x_H2O = 0.08, P = 1):
     Returns
     -------
     tuple of length 2
-        Tuple containing 2 numpy arrays: Sr vacancies in mols per unit LSCF volume, delta_G in J/mol as a function of temperature.
+        Tuple containing 2 numpy arrays: Sr vacancies in moles per unit LSCF volume, delta_G in J/mol as a function of temperature.
 
     """
     #case similar to 1 in KV notation. but the activity is expressed differently
@@ -244,7 +244,7 @@ def ph2_sensitivity_case1(x_H2_range, T=1000, x0 = 0.4, x_H2O=0.08, P=1):
     Returns
     -------
     numpy array
-        Returns Sr vacancies in mols per unit LSCF volume
+        Returns Sr vacancies in moles per unit LSCF volume
 
     """
     p_H2O = x_H2O * P

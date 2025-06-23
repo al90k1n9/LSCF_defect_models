@@ -260,7 +260,7 @@ def case6(T_range, x= 0.4):
     Returns
     -------
     tuple of length 2
-        Returns two arrays: Sr vacacnies in mols per unit LSCF volume, delta_G in J/mol as a function of temperature given in T_range.
+        Returns two arrays: Sr vacacnies in moles per unit LSCF volume, delta_G in J/mol as a function of temperature given in T_range.
 
     Warnings
     --------

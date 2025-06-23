@@ -71,7 +71,7 @@ T_range = np.arange(400, 1301, 0.1)
 inversion_temp_list=[]
 half_coverage_temp_list=[]
 
-theta_list_def_model, chemical_potential = surface_coverage_H2O(T_range, x_H2O=0.08, E_ads=E_ads, P=1)
+theta_list_def_model, chemical_potential = surface_coverage_H2O(T_range, x_H2O=0.08, E_ads=E_ads, P=1, chem_pot = 0)
 fig0, ax0 = plt.subplots(layout="constrained")
 ax0.plot(T_range, theta_list_def_model)
 Delta_G = E_ads - chem_pot_H2O(T_range,E_DFT_H2O = 0, P=x_H2O) - zpe_H2O

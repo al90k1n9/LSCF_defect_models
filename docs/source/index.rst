@@ -15,6 +15,7 @@ Welcome to LSCF defect models's documentation!
    SrO_humid_air_condition_executable
    SrO_hydroxylated_cond_executable
    surface_coverage_hydroxylation
+   H_vibration
 
 
 .. toctree::

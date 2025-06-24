@@ -11,6 +11,12 @@ acell_SrO_slab = 5.16756734063135E-10 #meters #this is with standard SrO lattice
 acell_LSCF_slab = 7.74799694590908E-10 #meters
 acell_LSCF_slab_expaned =  7.84E-10 #meters
 
+#atoms in isolation
+E_Sr =  -8.46031896932468E+02 #eV
+E_O = -4.32296299818140E+02 #eV
+
+E_Sr *= ev2J_p_mol
+E_O *= ev2J_p_mol
 
 E_SrO = -1.28749128492132E+03 #eV
 E_SrO = E_SrO * ev2J_p_mol #in J/mol
@@ -25,7 +31,7 @@ E_SrO_expanded_substrate *= ev2J_p_mol
 E_SrO_slab_expanded_substrate = -1.28711321076406E+04 #eV
 E_SrO_slab_expanded_substrate *= ev2J_p_mol
 
-#print((E_SrO_expanded_substrate-E_SrO_epitax)/ev2J_p_mol, " difference in unit cell energy")
+
 
 E_DFT_O2 = -874.671000 #eV
 E_DFT_O2 = E_DFT_O2 * ev2J_p_mol #J/mol
@@ -69,20 +75,12 @@ gamma_SrO_epitax = (E_SrO_slab_epitax - 10* E_SrO_epitax)/(2 * 0.5* acell_LSCF_s
 gamma_SrO_expanded_substrate = (E_SrO_slab_expanded_substrate - 10* E_SrO_expanded_substrate)/(2 * 0.5* acell_LSCF_slab**2) #J/mol/m**2
 
 
-#print("SrO free surface energies in eV/[1x1]")
-#print(gamma_SrO/ev2J_p_mol*acell_SrO_slab**2/2)
-#print(gamma_SrO_epitax/ev2J_p_mol*acell_LSCF_slab**2*0.25)
-#print(gamma_SrO_expanded_substrate/ev2J_p_mol*acell_LSCF_slab_expaned**2*0.25)
 
 adhesion_work = (E_LSCF_slab + 20 * E_SrO_epitax + 2* gamma_SrO_epitax * acell_LSCF_slab**2 - E_LSCF_SrO_interface)/(2*acell_LSCF_slab**2) #J/mol/m**2
 
 
 E_int = (acell_LSCF_slab/2)**2/2 * (2*gamma_SrO_epitax - adhesion_work) #J/mol
 E_int_expanded_substrate = (acell_LSCF_slab/2)**2/2 * (2*gamma_SrO_expanded_substrate - adhesion_work) #J/mol
-
-#print("interface energy contribution in eV")
-print(E_int/ev2J_p_mol, " E_int")
-#print(E_int_expanded_substrate/ev2J_p_mol)
 
 
 E_LSCF_slab_Sr_vac_bulk = -94551.83065 #eV
@@ -143,7 +141,24 @@ single_hydrogenation_energy = (E_LSCF_single_hydrogenated-(E_LSCF_slab_Sr_vac_su
 
 second_hydrogenation_energy = (E_LSCF_double_hydrogenated - (E_LSCF_single_hydrogenated + E_DFT_H2))/2
 
-print(single_hydrogenation_energy/ev2J_p_mol, " single hydrogenation_energy")
-print(double_hydrogenation_energy/ev2J_p_mol, " double hydrogenation_energy")
-print(second_hydrogenation_energy/ev2J_p_mol, " second hydrogenation_energy")
-print((second_hydrogenation_energy+single_hydrogenation_energy)/ev2J_p_mol, " sum of first and second")
+
+if __name__ == "__main__":
+    print(single_hydrogenation_energy/ev2J_p_mol, " single hydrogenation_energy")
+    print(double_hydrogenation_energy/ev2J_p_mol, " double hydrogenation_energy")
+    print(second_hydrogenation_energy/ev2J_p_mol, " second hydrogenation_energy")
+    print((second_hydrogenation_energy+single_hydrogenation_energy)/ev2J_p_mol, " sum of first and second")
+    
+    print("interface energy contribution in eV")
+    print(E_int/ev2J_p_mol, " E_int")
+    print((E_SrO - (E_Sr + E_O))/ev2J_p_mol, " cohesive energy SrO")
+    print((E_SrO_epitax + E_int - (E_Sr + E_O))/ev2J_p_mol, " energy to put SrO on lscf surface")
+    print((E_SrO-E_SrO_epitax)/ev2J_p_mol, " difference in energy hen lattice contracted")
+    print(E_int_expanded_substrate/ev2J_p_mol)
+    
+    
+    print("SrO free surface energies in eV/[1x1]")
+    print(gamma_SrO/ev2J_p_mol*acell_SrO_slab**2/2, " SrO lattice parameter at room temperature")
+    print(gamma_SrO_epitax/ev2J_p_mol*acell_LSCF_slab**2*0.25, " SrO lattice parameter matching LSCF lattice parameter from calculations")
+    print(gamma_SrO_expanded_substrate/ev2J_p_mol*acell_LSCF_slab_expaned**2*0.25, " LSCF lattice parameter expanded for temperature effects and then SrO lattice parameter matched\n")
+    
+    print((E_SrO_expanded_substrate-E_SrO_epitax)/ev2J_p_mol, " difference in unit cell energy")

@@ -152,6 +152,7 @@ if __name__ == "__main__":
     print(E_int/ev2J_p_mol, " E_int")
     print((E_SrO - (E_Sr + E_O))/ev2J_p_mol, " cohesive energy SrO")
     print((E_SrO_epitax + E_int - (E_Sr + E_O))/ev2J_p_mol, " energy to put SrO on lscf surface")
+    print((E_SrO_expanded_substrate + E_int - (E_Sr + E_O))/ev2J_p_mol, "energy to put SrO on lscf substrate, with lscf exapnded due to high temperatures")
     print((E_SrO-E_SrO_epitax)/ev2J_p_mol, " difference in energy hen lattice contracted")
     print(E_int_expanded_substrate/ev2J_p_mol)
     

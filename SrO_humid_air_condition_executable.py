@@ -11,13 +11,13 @@ x_O2 = 0.21
 x_H2O = 0.08
 P = 1 #atm
 T_lower_bound = 700
-T_upper_bound = 1299
+T_upper_bound = 1300
 T_range = np.arange(T_lower_bound,T_upper_bound,1) #K
 #numpy imported chemical potentials, which is imported in humid models
 
 
 fig,ax = plt.subplots(layout='constrained')
-axinset = ax.inset_axes([0.45,0.1,0.5,0.5])
+axinset = ax.inset_axes([0.45,0.1,0.5,0.5], facecolor="none")
 fig2, ax2 = plt.subplots(layout="constrained")
 
 
@@ -120,7 +120,7 @@ fig2.savefig(local_path + "figs/humid_conditions_delta_G.svg", format="svg", dpi
 
 
 fig4, ax4 = plt.subplots(layout="constrained")
-ax4.plot(T_range, pH2)
+#ax4.plot(T_range, pH2)
 
 ax4.set_xlabel("T [K]")
 ax4.set_ylabel("$p_{H_2}$ [atm]")

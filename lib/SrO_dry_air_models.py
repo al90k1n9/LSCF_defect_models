@@ -185,7 +185,7 @@ def case4(T_range, x=0.4, delta_oxygen_parameters = [0,0], sensitivity_shift = 0
     if delta_oxygen_parameter_condition: inversion_temperature = -delta_oxygen_parameters[1]/delta_oxygen_parameters[0]
     for T in T_range:
         delta_G = E_LSCF_slab_SrO_bulk +  chem_pot_SrO(T) - (E_LSCF_slab) + E_int + sensitivity_shift
-        if T==973: print("case 4", delta_G/ev2J_p_mol)
+        #if T==973: print("case 4", delta_G/ev2J_p_mol)
         delta_G_list.append(delta_G)
         #delta_oxygen = delta_oxygen_parameters[0] * T + delta_oxygen_parameters[1]
         #if delta_oxygen<0: delta_oxygen = 0 #understoichiometry cannot be negative.

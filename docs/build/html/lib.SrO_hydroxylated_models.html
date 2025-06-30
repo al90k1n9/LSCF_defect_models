@@ -40,9 +40,17 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">program files:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="SrO_dry_air_condition_executable.html">SrO_dry_air_condition_executable module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SrO_humid_air_condition_executable.html">SrO_humid_air_condition_executable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SrO_hydroxylated_cond_executable.html">SrO_hydroxylated_cond_executable module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_coverage_hydroxylation.html">surface_coverage_hydroxylation module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="H_vibration.html">H_vibration module</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">library files:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="modules.html">SrO_defect_model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib.auxilliary_functions.html">lib.auxilliary_functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lib.chemical_potentials.html">lib.chemical_potentials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lib.SrO_dry_air_models.html">lib.SrO_dry_air_models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lib.SrO_humid_models.html">lib.SrO_humid_models</a></li>
@@ -90,14 +98,14 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>T_range</strong> (<em>numpy array</em>) – Temperature window in Kelvins</p></li>
-<li><p><strong>x</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in mols per unit LSCF volume. Defaults to 0.4.</p></li>
+<li><p><strong>x</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in moles per unit LSCF volume. Defaults to 0.4.</p></li>
 <li><p><strong>x_O2</strong> (<em>float</em><em>, </em><em>optional</em>) – Oxygen gas molar fraction. Defaults to ambient gas composition of 0.21.</p></li>
 <li><p><strong>x_H2O</strong> (<em>float</em><em>, </em><em>optional</em>) – Water vapour molar fraction. Defaults to 0.08 that is used experimentally by Sassone et al.</p></li>
 <li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure. Defaults to 1 atm/Bar that is ambient gas total pressure.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Returns a tuple containing 3 numpy arrays: Sr vacancies in mols per unit LSCF volume, delta_G in J/mol, surface coverage as a function of temperature given in T_range.</p>
+<dd class="field-even"><p>Returns a tuple containing 3 numpy arrays: Sr vacancies in moles per unit LSCF volume, delta_G in J/mol, surface coverage as a function of temperature given in T_range.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>tuple of length 3</p>
@@ -113,14 +121,14 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>T_range</strong> (<em>numpy array</em>) – Temperature window in Kelvins</p></li>
-<li><p><strong>x</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in mols per unit LSCF volume. Defaults to 0.4, the standard composition of LSCF.</p></li>
+<li><p><strong>x</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in moles per unit LSCF volume. Defaults to 0.4, the standard composition of LSCF.</p></li>
 <li><p><strong>x_H2O</strong> (<em>float</em><em>, </em><em>optional</em>) – Water vapour molar fraction. Defaults to 0.08, value experimentally used by Sassone et al</p></li>
 <li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure. Defaults to ambient gas total pressure 1 atm/Bar.</p></li>
 <li><p><strong>sensitivity_shift</strong> (<em>float</em>) – Arbitrary shift in J/mol introduced in delta_G to do sensitivity analysis.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Returns a tuple containing 3 numpy arrays: Sr vacancies in mols per unit LSCF volume, delta_G in J/mol, surface coverage of water molecules as a function of temperature.</p>
+<dd class="field-even"><p>Returns a tuple containing 3 numpy arrays: Sr vacancies in moles per unit LSCF volume, delta_G in J/mol, surface coverage of water molecules as a function of temperature.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>tuple of length 3</p>
@@ -140,14 +148,14 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>T_range</strong> (<em>numpy array</em>) – Temperature window in Kelvins</p></li>
-<li><p><strong>x</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in mols per unit LSCF volume. Defaults to standard LSCF composition of 0.4.</p></li>
+<li><p><strong>x</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in moles per unit LSCF volume. Defaults to standard LSCF composition of 0.4.</p></li>
 <li><p><strong>x_O2</strong> (<em>float</em><em>, </em><em>optional</em>) – Oxygen gas molar fraction. Defaults to ambient gas composition of 0.21.</p></li>
 <li><p><strong>x_H2O</strong> (<em>float</em><em>, </em><em>optional</em>) – Water vapour molar fracation. Defaults to 0.08, experimentally used value by Sassone et al.</p></li>
 <li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure. Defaults to 1, ambient gas total pressure.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Returns a tuple containing 3 numpy arrays: Sr vacacnies in mols per unit LSCF volume, delta_G in J/mol, surface coverage as a function of temperature given in T_range.</p>
+<dd class="field-even"><p>Returns a tuple containing 3 numpy arrays: Sr vacacnies in moles per unit LSCF volume, delta_G in J/mol, surface coverage as a function of temperature given in T_range.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>tuple of length 3</p>
@@ -164,13 +172,13 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x_H2_range</strong> (<em>numpy array</em>) – Range of hydrogen gas molar fractions.</p></li>
 <li><p><strong>T</strong> (<em>float</em><em>, </em><em>optional</em>) – Temperature in Kelvin. Defaults to 1000K</p></li>
-<li><p><strong>x0</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in mols per unit LSCF volume. Defaults to standard LSCF composition of 0.4.</p></li>
+<li><p><strong>x0</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in moles per unit LSCF volume. Defaults to standard LSCF composition of 0.4.</p></li>
 <li><p><strong>x_H2O</strong> (<em>float</em><em>, </em><em>optional</em>) – Water vapour molar fraction. Defaults to 0.08, experimental value used by Sassone et al.</p></li>
 <li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressures. Defaults to ambient gas total pressure of 1 atm/Bar.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Sr vacancies in mols per unit LSCF volume as a function of temperature provided in T_range.</p>
+<dd class="field-even"><p>Sr vacancies in moles per unit LSCF volume as a function of temperature provided in T_range.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>numpy array</p>

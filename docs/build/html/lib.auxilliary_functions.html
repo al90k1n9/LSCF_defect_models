@@ -19,7 +19,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="lib.chemical_potentials" href="lib.chemical_potentials.html" />
-    <link rel="prev" title="SrO_hydroxylated_cond_executable module" href="SrO_hydroxylated_cond_executable.html" /> 
+    <link rel="prev" title="H_vibration module" href="H_vibration.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -44,8 +44,10 @@
               <p class="caption" role="heading"><span class="caption-text">program files:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="SrO_dry_air_condition_executable.html">SrO_dry_air_condition_executable module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SrO_humid_air_condition_executable.html">SrO_humid_air_condition_executable module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SrO_humid_air_condition_executable.html">SrO_humid_air_condition_executable</a></li>
 <li class="toctree-l1"><a class="reference internal" href="SrO_hydroxylated_cond_executable.html">SrO_hydroxylated_cond_executable module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_coverage_hydroxylation.html">surface_coverage_hydroxylation module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="H_vibration.html">H_vibration module</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">library files:</span></p>
 <ul class="current">
@@ -260,6 +262,10 @@
 <dd class="field-odd"><p>tuple of length 2</p>
 </dd>
 </dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If using experimental chemical potential, instead of a model chemical potential that considers only the translational degrees of freedom of an ideal gas, make sure to include configurational entropy of water vapour in the Gibbs free energy term, by passing an argument to the pressure in the chemical potential term, instead of keeping it at the default value of 1 atm (reference state).</p>
+</div>
 </dd></dl>
 
 </section>
@@ -268,7 +274,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="SrO_hydroxylated_cond_executable.html" class="btn btn-neutral float-left" title="SrO_hydroxylated_cond_executable module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="H_vibration.html" class="btn btn-neutral float-left" title="H_vibration module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="lib.chemical_potentials.html" class="btn btn-neutral float-right" title="lib.chemical_potentials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

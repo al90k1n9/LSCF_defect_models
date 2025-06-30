@@ -16,6 +16,7 @@ Welcome to LSCF defect models's documentation!
    SrO_hydroxylated_cond_executable
    surface_coverage_hydroxylation
    H_vibration
+   SrOH2_volatile_executable
 
 
 .. toctree::
@@ -27,6 +28,7 @@ Welcome to LSCF defect models's documentation!
    lib.SrO_dry_air_models
    lib.SrO_humid_models
    lib.SrO_hydroxylated_models
+   lib.SrOH2_volatile_models
 
 Indices and tables
 ==================

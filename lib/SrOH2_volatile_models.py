@@ -1,3 +1,6 @@
+"""Cases for the formation of SrOH2 volatile
+"""
+
 import sys
 
 from lib.chemical_potentials import *
@@ -10,13 +13,41 @@ local_path += "/"
 
 
 
-def case1(T_range, x=0.4, p_H2O = 0.08, P = 1, volume_fraction_gas= 0.5, delta_oxygen_parameters = [0,0]):
+def case1(T_range, x=0.4, x_H2O = 0.08, P = 1, volume_fraction_gas= 0.5, delta_oxygen_parameters = [0,0]):
+    """Case where atmosphering water vapour is used for the formation of SrOH2 volatile species. LSCF interacts with the gas in the pores.
+
+    Parameters
+    ----------
+    T_range : numpy array
+        Temperature window in Kelvins
+    x : float, optional
+        Initial Sr content in LSCF, defaults to be standard LSCF composition of 0.4
+    x_H2O : float, optional
+        Water vapour molar fraction in the gas in pores, defaults to be 0.08 the experimental conditions in Sassone's article
+    P : float, optional
+        Total pressure, defaults to be ambient gas total pressure of 1 atm
+    volume_fraction_gas : float, optional
+        Volume fraction of pores in the material. Defaults to be 0.5
+    delta_oxygen_parameters : numpy array, optional
+        Parameters for linear fitting the oxygen understoichometry as a function of temperature. Array contains slope and offset
+
+    Returns
+    -------
+    tuple of length 4
+        Tuple containing 4 numpy arrays: # Sr vacancies per unit LSCF cell created due to SrOH2 formation, delta_G in J/mol, oxygen understoichimetry in numbers/unit LSCF cell, number of H2O molecules present initially in the pores; all function of temperature.
+    
+    Warnings
+    --------
+    Ni_H2O::number of H2O moelcules in pores is a function of temperature as we use ideal gas law.
+
+    """
+    p_H2O = x_H2O * P
     V_Sr = np.zeros(len(T_range))
     V_Sr1 = np.zeros(len(T_range))
     V_Sr2 = np.zeros(len(T_range))
     delta_G_list = np.zeros(len(T_range))
     delta_oxygen_list = []
-
+    Ni_H2O_list = []
     for index in range(len(T_range)):
         T = T_range[index]
         mu_H2O = chem_pot_H2O(T, E_DFT_H2O=E_DFT_H2O)
@@ -29,6 +60,7 @@ def case1(T_range, x=0.4, p_H2O = 0.08, P = 1, volume_fraction_gas= 0.5, delta_o
         delta_oxygen_list.append(delta_oxygen)
 
         Ni_H2O = volume_fraction_gas/(1-volume_fraction_gas) * (acell_LSCF_slab/2)**3/(kb*T) * p_H2O * 1e5
+        Ni_H2O_list.append(Ni_H2O)
 
         a = -1-np.exp(delta_G/(R*T))
         b = Ni_H2O + x + 3
@@ -39,8 +71,45 @@ def case1(T_range, x=0.4, p_H2O = 0.08, P = 1, volume_fraction_gas= 0.5, delta_o
         #solution = bisection(0,0.4)
 
         V_Sr[index] = solutions[0]
-    return(np.asarray(V_Sr), np.asarray(delta_G_list), np.asarray(delta_oxygen_list))
+    return(np.asarray(V_Sr), np.asarray(delta_G_list), np.asarray(delta_oxygen_list), np.asarray(Ni_H2O_list))
 
+
+def Ni_H2O_sensitivity(T=1000, x=0.4, volume_fraction_gas= 0.5, delta_oxygen_parameters = [0,0]):
+    """Determines the effect of number of water molecules present in the pores initially on the formation of SrOH2 volatile.
+
+    Parameters
+    ----------
+    T : float
+        Temperature in Kelvin
+    x : float, optional
+        Initial Sr content in LSCF, defaults to standard composition of 0.4
+    volume_fraction_gas : float, optional
+        Volume fraction of pores in LSCF, defaults to 0.5
+    delta_oxygen_parameters : numpy arry, optional
+        Linear interpolation parameteres: slopea and offset, to determine oxygen understoichiometry as a function of temperature
+
+    Returns
+    -------
+    tuple of length 3
+        Tuple containing 3 numpy arrays : #H2O molecules initiallyp resent in pores/LSCF cell, #Sr vacancies/LSCF unit cell, molar fraction of H2O in pores; all functions of temperature
+
+    """
+    mu_H2O = chem_pot_H2O(T, E_DFT_H2O=E_DFT_H2O)
+    mu_SrOH2 = chem_pot_SrOH2(T)
+    delta_G = float(0.5*(2*mu_SrOH2 + E_LSCF_slab_Sr_surf_O_sub_surf - 2*mu_H2O - E_LSCF_slab))
+    #reference_Ni_H2O = volume_fraction_gas/(1-volume_fraction_gas) * (acell_LSCF_slab/2)**3/(kb*T) * p_H2O * 1e5
+
+    Ni_H2O_list = np.logspace(-7, 0, num=30)
+    x_H2O_list = Ni_H2O_list/volume_fraction_gas/((1-volume_fraction_gas) * (acell_LSCF_slab/2)**3/(kb*T)*1e10)
+    print(Ni_H2O_list)
+    solution_list = []
+    for Ni_H2O in Ni_H2O_list:
+        a = -1-np.exp(delta_G/(R*T))
+        b = Ni_H2O + x + 3
+        c = -(x*Ni_H2O + 3*Ni_H2O + 3*x)
+        d = 3*x*Ni_H2O
+        solution_list.append(cubic_model(a,b,c,d)[0])
+    return (np.asarray(Ni_H2O_list), np.asarray(solution_list), np.asarray(x_H2O_list))
 
 
 if __name__ == "__main__":

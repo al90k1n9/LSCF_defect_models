@@ -28,10 +28,13 @@ default_colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
 
 fig,ax = plt.subplots(layout='constrained')
 
-axinset1 = ax.inset_axes([0.07,0.43,0.3,0.3])
-axinset2 = ax.inset_axes([0.65,0.43,0.3,0.3])
+axinset1 = ax.inset_axes([0.3,0.65,0.3,0.3])
+axinset2 = ax.inset_axes([0.07,0.25,0.3,0.3])
 axinset1.set_facecolor("none")
 axinset2.set_facecolor("none")
+
+axinset1.axvline(x=973, color="black", ls="dotted")
+axinset1.axhline(y=1.930234548586096e-09*0.4, color="black", ls="dotted")
 
 fig2, ax2 = plt.subplots(layout ="constrained")
 
@@ -205,8 +208,8 @@ secyax4.yaxis.set_minor_locator(AutoMinorLocator())
 
 plt.show()
 
-fig.savefig(local_path + "figs/dry_air_conditions.svg", dpi=300, transparent=True)
-fig2.savefig(local_path + "figs/dry_air_condition_deltaG.svg", dpi=300, transparent=True)
+fig.savefig(local_path + "figs/dry_air_conditions.png", dpi=300, transparent=True, format="png")
+fig2.savefig(local_path + "figs/dry_air_condition_deltaG.svg", dpi=300, transparent=True, format="png")
 #fig3.savefig(local_path + "figs/dry_air_cond_po2_dep.svg", dpi=300, transparent=True)
 #fig4.savefig(local_path + "figs/dry_air_cond_p_dep.svg", dpi=300, transparent=True)
 

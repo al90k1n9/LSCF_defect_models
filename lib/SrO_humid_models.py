@@ -36,7 +36,7 @@ def case1(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1, sensitivity_shift = 0
     p_H2O = x_H2O * P
     V_Sr= []
     delta_E = (E_LSCF_slab_Sr_vac_surf + 2*E_SrO_epitax + 2*E_DFT_H2- (E_LSCF_slab + 2*E_DFT_H2O))/2 + E_int + sensitivity_shift
-    print(delta_E/ev2J_p_mol, " delta_E of case 1")
+    #print(delta_E/ev2J_p_mol, " delta_E of case 1")
     delta_G_range = []
     p_H2_list = []
     for T in T_range:
@@ -45,7 +45,7 @@ def case1(T_range, x0=0.4, x_O2 = 0.21, x_H2O = 0.08, P=1, sensitivity_shift = 0
 
         delta_G = (E_LSCF_slab_Sr_vac_surf + 2*chem_pot_SrO(T) + 2*chem_pot_H2(T, E_DFT_H2, P=P)- (E_LSCF_slab + 2*chem_pot_H2O(T, E_DFT_H2O, P=P)))/2 + E_int + sensitivity_shift
         delta_G_range.append(delta_G)
-        if T == 1000: print("delta G at T = 1000", delta_G/ev2J_p_mol)
+        #if T == 1000: print("delta G at T = 1000", delta_G/ev2J_p_mol)
         K = np.exp(-delta_G/(R*T))
 
         #DEFINITION OF THIRD DEGREE POLYNOMIAL THAT IS REACTION MECHANISM SPECIFIC

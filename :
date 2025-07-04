@@ -28,16 +28,11 @@ Thermodynamic defect models to extrapolate amount of SrO formed at operating con
 
 ### Hydroxylated surfaces
 
-|  Case #      |  LSCF model  |  Origin of O                  |  Origin of Sr  | Kröger-Vink defect equation                                                                                                     |
-|:-----------: | :-----------:|:-----------:                  | :-----------:  |:-----------:                                                                                                                    |
+|  Case #      |  LSCF model  |  Origin of O                     |  Origin of Sr  | Kröger-Vink defect equation                                                                                                  |
+|:-----------: | : ----------:|:-----------:                     | :-----------:  |:-----------:                                                                                                                 |
 | 1            | Slab         | H<sub>2</sub>O<sub>(ads)</sub>   | Surf           | $` Sr^{'}_{La} + H_{2}O_{(ads)} + 2B^{X}_{B} = SrO_{(s)} + V^{'''}_{La} + H_{2(g)} + 1s+ 2B^{\bullet}_{B} `$                 |
 | 2            | Slab         | H<sub>2</sub>O<sub>(ads)</sub>   |Surf            | $` Sr^{'}_{La} + H_{2}O_{(ads)} = SrO_{(s)} + (2H^+)^{'}_{La} + 1s `$                                                        |
 | 3            | Slab         | H<sub>2</sub>O<sub>(ads)</sub>   | Surf           |  $` Sr^{'}_{La} + H_{2}O_{(ads)} + B^{X}_{B} = SrO_{(s)} + (H^+)^{''}_{La} +  \frac{1}{2} H_{2(g)} + 1s + B^{\bullet}_{B} `$ |
 
 
 ## Volatile Sr(OH)2 formation
-
-
-|  Case #      |  LSCF model  |  Origin of O            |  Origin of Sr  | Kröger-Vink defect equation                                                                                                     |
-|:-----------: | :-----------:|:-----------:            | :-----------:  |:-----------:                                                                                                                    |
-| 1            | Slab         | Slab and atmosphere     | Surf           | $` Sr^{'}_{La} + H_{2}O_{(ads)} + O^{X}_{O} = Sr(OH)_{2(g)} + V^{'''}_{La} +  V^{\bullet \bullet}_{O}  `$                 |

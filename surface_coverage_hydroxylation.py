@@ -82,7 +82,7 @@ energy_ax.axhline(y=0, color="black", linestyle="dashed")
 
 
 fig,ax = plt.subplots(layout="constrained")
-for x_H2O in [0.08, 0.2, 0.5]:
+for x_H2O in [0.007, 0.08, 0.2, 0.5]:
 	theta_list_def_model, chemical_potential = surface_coverage_H2O(T_range, x_H2O, E_ads, P=1)
 	Delta_G = E_ads - chem_pot_H2O(T_range,E_DFT_H2O = 0, P=x_H2O) - zpe_H2O
 	#energy_axes = ax.twinx()
@@ -144,7 +144,7 @@ ax2.yaxis.set_minor_locator(AutoMinorLocator())
 
 fig3, ax3 = plt.subplots(layout="constrained")
 
-ax3.plot(x_H2O_range, inversion_temp_list)
+ax3.plot(x_H2O_range, inversion_temp_list, color="black")
 
 ax3.set_xlabel("$x_{H_2O}$")
 ax3.set_ylabel("Inversion temperature [K]")
@@ -158,7 +158,7 @@ ax3.yaxis.set_minor_locator(AutoMinorLocator())
 
 ax3inset = ax3.inset_axes([0.45, 0.1, 0.5, 0.5])
 ax3inset.set_xlim(0,1)
-ax3inset.plot(x_H2O_range, inversion_temp_list)
+ax3inset.plot(x_H2O_range, inversion_temp_list, color="black")
 
 
 ax3inset.set_facecolor("none")
@@ -193,8 +193,8 @@ ax4twinax.set_ylim(0,)
 
 fig5, ax5 = plt.subplots(layout="constrained")
 
-ax5.plot(T_range, (E_ads-chemical_potential_H2O)/ev2J_p_mol, label="$\Delta_r^{C5}G^*(T, p=p_{H_2O})$")
-ax5.plot(T_range, (oxygen_adsorption - chemical_potential_O2)/ev2J_p_mol, label="$\Delta_r^{C4}G^*(T, p=p_{O_2})$")
+ax5.plot(T_range, (E_ads-chemical_potential_H2O)/ev2J_p_mol, label="$\\Delta_r^{R6}G^*(T, p)$")
+ax5.plot(T_range, (oxygen_adsorption - chemical_potential_O2)/ev2J_p_mol, label="$\\Delta_r^{R7}G^*(T, p)$")
 difference = ((oxygen_adsorption - chemical_potential_O2)-(E_ads-chemical_potential_H2O))/ev2J_p_mol
 
 #ax5.plot(T_range, np.abs(difference), color="black", label="|$\Delta_r^{C4}G^*(T, p=p_{O_2})-\Delta_r^{C5}G^*(T, p=p_{H_2O})$|")
@@ -240,9 +240,9 @@ item = 1
 #	item += 1
 #	plt.close()
 #fig0.savefig(local_path + "figs/surface_coverage.png", dpi=300, transparent=True, format="png")
-#fig.savefig(local_path + "figs/surface_coverage_xH2O.png", dpi=300, transparent=True, format="png")
+fig.savefig(local_path + "figs/surface_coverage_xH2O.svg", dpi=300, transparent=True, format="svg")
 #fig2.savefig(local_path + "figs/inversion_temp_half_coverage_temp.png", dpi=300, transparent=True, format="png")
-fig3.savefig(local_path + "figs/inverstion_temp_xH2O.svg", dpi=300, transparent=True, format="png")
+fig3.savefig(local_path + "figs/inverstion_temp_xH2O.svg", dpi=300, transparent=True, format="svg")
 #fig4.savefig(local_path + "figs/comp_adsorption.png", format="png", dpi=300, transparent=True)
-#fig5.savefig(local_path + "figs/comp_adsorption_delta_Gs.png", format="png", dpi=300, transparent=True)
+fig5.savefig(local_path + "figs/comp_adsorption_delta_Gs.svg", format="svg", dpi=300, transparent=True)
 plt.show()

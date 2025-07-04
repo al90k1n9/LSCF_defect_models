@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from lib.SrO_hydroxylated_models import case2 as hydrox
 from lib.SrO_humid_models import case2 as humid
+from lib.SrO_humid_models import case1 as humid_standard
 from lib.SrO_dry_air_models import *
 from matplotlib.ticker import  AutoMinorLocator
 import os
@@ -52,7 +53,8 @@ V_Sr, delta_G, theta_list =  hydrox([1000])
 hydrox_case = [V_Sr[0]]
 V_Sr, delta_G_range = humid([1000])
 humid_case = [V_Sr[0]]
-
+V_Sr, delta_G_range, ph2_list= humid_standard([1000])
+humid_standard_case = [V_Sr[0]]
 
 shift_step = 0.01
 shift_range = -np.arange(shift_step, 2,shift_step)
@@ -67,10 +69,16 @@ for shift in shift_range:
 
     V_Sr, delta_G_range = humid(fix_T, sensitivity_shift = shift_value)
     humid_case.append(V_Sr[0])
+
+    V_Sr, delta_G_range, ph2_list= humid_standard(fix_T, sensitivity_shift = shift_value)
+    humid_standard_case.append(V_Sr[0])
+
 shift_range = np.insert(shift_range, 0, 0)
 ax4.plot(shift_range, dry_case, label="C4")
+ax4.plot(shift_range, humid_standard_case, label="R3.1")
 ax4.plot(shift_range, hydrox_case, label="R3.2")
 ax4.plot(shift_range, humid_case, label="R3.3")
+
 
 
 Sp_LSCF_CGO_initial = 6659953.51689531 #1/m

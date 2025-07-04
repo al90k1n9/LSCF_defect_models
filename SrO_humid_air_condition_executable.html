@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SrO_humid_air_condition_executable &mdash; LSCF defect models  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=86f27845" />
+
+  
+  
+        <script src="_static/jquery.js?v=8dae8fb0"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="SrO_hydroxylated_cond_executable module" href="SrO_hydroxylated_cond_executable.html" />
+    <link rel="prev" title="SrO_dry_air_condition_executable module" href="SrO_dry_air_condition_executable.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            LSCF defect models
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">program files:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="SrO_dry_air_condition_executable.html">SrO_dry_air_condition_executable module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SrO_humid_air_condition_executable</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#SrO_humid_air_condition_executable.f"><code class="docutils literal notranslate"><span class="pre">f()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#SrO_humid_air_condition_executable.func_case5"><code class="docutils literal notranslate"><span class="pre">func_case5()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#SrO_humid_air_condition_executable.yaxconvert"><code class="docutils literal notranslate"><span class="pre">yaxconvert()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#SrO_humid_air_condition_executable.yaxinvert"><code class="docutils literal notranslate"><span class="pre">yaxinvert()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="SrO_hydroxylated_cond_executable.html">SrO_hydroxylated_cond_executable module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_coverage_hydroxylation.html">surface_coverage_hydroxylation module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="H_vibration.html">H_vibration module</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">library files:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lib.auxilliary_functions.html">lib.auxilliary_functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib.chemical_potentials.html">lib.chemical_potentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib.SrO_dry_air_models.html">lib.SrO_dry_air_models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib.SrO_humid_models.html">lib.SrO_humid_models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib.SrO_hydroxylated_models.html">lib.SrO_hydroxylated_models</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">LSCF defect models</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">SrO_humid_air_condition_executable</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/SrO_humid_air_condition_executable.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-SrO_humid_air_condition_executable">
+<span id="sro-humid-air-condition-executable"></span><h1>SrO_humid_air_condition_executable<a class="headerlink" href="#module-SrO_humid_air_condition_executable" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="SrO_humid_air_condition_executable.f">
+<span class="sig-prename descclassname"><span class="pre">SrO_humid_air_condition_executable.</span></span><span class="sig-name descname"><span class="pre">f</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SrO_humid_air_condition_executable.f" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SrO_humid_air_condition_executable.func_case5">
+<span class="sig-prename descclassname"><span class="pre">SrO_humid_air_condition_executable.</span></span><span class="sig-name descname"><span class="pre">func_case5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">volume_fraction_gas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SrO_humid_air_condition_executable.func_case5" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SrO_humid_air_condition_executable.yaxconvert">
+<span class="sig-prename descclassname"><span class="pre">SrO_humid_air_condition_executable.</span></span><span class="sig-name descname"><span class="pre">yaxconvert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SrO_humid_air_condition_executable.yaxconvert" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SrO_humid_air_condition_executable.yaxinvert">
+<span class="sig-prename descclassname"><span class="pre">SrO_humid_air_condition_executable.</span></span><span class="sig-name descname"><span class="pre">yaxinvert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SrO_humid_air_condition_executable.yaxinvert" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="SrO_dry_air_condition_executable.html" class="btn btn-neutral float-left" title="SrO_dry_air_condition_executable module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SrO_hydroxylated_cond_executable.html" class="btn btn-neutral float-right" title="SrO_hydroxylated_cond_executable module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Karthikeyan SARAVANABAVAN.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

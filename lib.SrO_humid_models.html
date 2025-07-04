@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lib.SrO_humid_models &mdash; LSCF defect models  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=86f27845" />
+
+  
+  
+        <script src="_static/jquery.js?v=8dae8fb0"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="lib.SrO_hydroxylated_models" href="lib.SrO_hydroxylated_models.html" />
+    <link rel="prev" title="lib.SrO_dry_air_models" href="lib.SrO_dry_air_models.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            LSCF defect models
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">program files:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="SrO_dry_air_condition_executable.html">SrO_dry_air_condition_executable module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SrO_humid_air_condition_executable.html">SrO_humid_air_condition_executable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SrO_hydroxylated_cond_executable.html">SrO_hydroxylated_cond_executable module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_coverage_hydroxylation.html">surface_coverage_hydroxylation module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="H_vibration.html">H_vibration module</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">library files:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="lib.auxilliary_functions.html">lib.auxilliary_functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib.chemical_potentials.html">lib.chemical_potentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib.SrO_dry_air_models.html">lib.SrO_dry_air_models</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">lib.SrO_humid_models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#lib.SrO_humid_models.case1"><code class="docutils literal notranslate"><span class="pre">case1()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lib.SrO_humid_models.case2"><code class="docutils literal notranslate"><span class="pre">case2()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lib.SrO_humid_models.case3"><code class="docutils literal notranslate"><span class="pre">case3()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lib.SrO_humid_models.case4"><code class="docutils literal notranslate"><span class="pre">case4()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lib.SrO_humid_models.case5"><code class="docutils literal notranslate"><span class="pre">case5()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lib.SrO_humid_models.ph2_sensitivity_case1"><code class="docutils literal notranslate"><span class="pre">ph2_sensitivity_case1()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="lib.SrO_hydroxylated_models.html">lib.SrO_hydroxylated_models</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">LSCF defect models</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">lib.SrO_humid_models</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/lib.SrO_humid_models.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-lib.SrO_humid_models">
+<span id="lib-sro-humid-models"></span><h1>lib.SrO_humid_models<a class="headerlink" href="#module-lib.SrO_humid_models" title="Link to this heading"></a></h1>
+<p>SrO formation models in humid air conditions, using hydrogen gas.
+All of the cases presented in this file correspond to Sr coming from the LSCF surface, unless mentioned otherwise.
+See lib.SrO_hydroxylated_models for cases used adsorbed water molecules.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.SrO_humid_models.case1">
+<span class="sig-prename descclassname"><span class="pre">lib.SrO_humid_models.</span></span><span class="sig-name descname"><span class="pre">case1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_O2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.21</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_H2O</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitivity_shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_humid_models.case1" title="Link to this definition"></a></dt>
+<dd><p>Case where the remanining hydrogen atoms are recombined to form hydrogen gas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T_range</strong> (<em>numpy array</em>) – Temperature window in Kelvins</p></li>
+<li><p><strong>x0</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in moles per unit LSCF volume. Defaults to standard LSCF composition 0.4.</p></li>
+<li><p><strong>x_O2</strong> (<em>float</em><em>, </em><em>optional</em>) – Molar fraction of oxygen gas. Defaults to ambient gas composition of 0.21.</p></li>
+<li><p><strong>x_H2O</strong> (<em>float</em><em>, </em><em>optional</em>) – Water vapour molar fraction. Defaults to 0.08, the experimental reference used by Sasson et al.</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure of the system. Defaults to ambient gas total pressure of 1 atm/Bar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple of three elements: all numpy arrays : Sr vancancies in moles per unit LSCF volume, delta_G in J/mol, hydrogen gas partial pressure in atm as a function of temperature.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>typle of length 3</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.SrO_humid_models.case2">
+<span class="sig-prename descclassname"><span class="pre">lib.SrO_humid_models.</span></span><span class="sig-name descname"><span class="pre">case2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_H2O</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitivity_shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_humid_models.case2" title="Link to this definition"></a></dt>
+<dd><p>Case where the remaining two hydrogen are stablised in the Sr vacancy created by SrO formation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T_range</strong> (<em>numpy array</em>) – Temperature window in Kelvins.</p></li>
+<li><p><strong>x0</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in mol per unit LSCF volume. Defaults to standard LSCF composition of 0.4.</p></li>
+<li><p><strong>x_H2O</strong> (<em>float</em><em>, </em><em>optional</em>) – Water vapour molar fraction. Defaults to 0.08, value used experimentally by Sassone et al.</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure in the gas. Defaults to ambient total pressure of 1 atm/Bar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns a tuple containing 2 numpy array: Sr vacancies in mol per unit LSCF volume, delta_G n J/mol as a function of temperature given in T_range.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of length 2</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.SrO_humid_models.case3">
+<span class="sig-prename descclassname"><span class="pre">lib.SrO_humid_models.</span></span><span class="sig-name descname"><span class="pre">case3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_O2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.21</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_H2O</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_humid_models.case3" title="Link to this definition"></a></dt>
+<dd><p>Case where one of the hydrogen in stabilised in the Sr vacancy left by Sr formation and other hydrogen atom forms hydrogen gas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T_range</strong> (<em>numpy array</em>) – Temperature window in Kelvins.</p></li>
+<li><p><strong>x0</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in moles per unit LSCF volume. Defaults to standard LSCF composition of 0.4.</p></li>
+<li><p><strong>x_O2</strong> (<em>float</em><em>, </em><em>optional</em>) – Oxygen  gas molar fraction. Defaults to ambient gas composition of 0.21.</p></li>
+<li><p><strong>x_H2O</strong> (<em>float</em><em>, </em><em>optional</em>) – Water vapour partial pressure. Defaults to 0.08, one used by Sassone et al.</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure. Defaults to 1 atm/Bar, ambient gas total pressure.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns a tuple containing 2 numpy arrays: Sr vacancies in moles per unit LSCF volume, delta_G in J/mol as a function of temperature.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple of length 2</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.SrO_humid_models.case4">
+<span class="sig-prename descclassname"><span class="pre">lib.SrO_humid_models.</span></span><span class="sig-name descname"><span class="pre">case4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_O2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.21</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_H2O</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_humid_models.case4" title="Link to this definition"></a></dt>
+<dd><p>Same as case 1 but with Sr coming from the bulk of LSCF.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T_range</strong> (<em>numpy array</em>) – Temperature window in Kelvins</p></li>
+<li><p><strong>x0</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in moles per unit LSCF volume. Defaults to standard LSCF composition 0.4.</p></li>
+<li><p><strong>x_O2</strong> (<em>float</em><em>, </em><em>optional</em>) – Molar fraction of oxygen gas. Defaults to ambient gas composition of 0.21.</p></li>
+<li><p><strong>x_H2O</strong> (<em>float</em><em>, </em><em>optional</em>) – Water vapour molar fraction. Defaults to 0.08, the experimental reference used by Sasson et al.</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure of the system. Defaults to ambient gas total pressure of 1 atm/Bar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple of three elements: all numpy arrays : Sr vancancies in moles per unit LSCF volume, delta_G in J/mol, hydrogen gas partial pressure in atm as a function of temperature.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>typle of length 3</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.SrO_humid_models.case5">
+<span class="sig-prename descclassname"><span class="pre">lib.SrO_humid_models.</span></span><span class="sig-name descname"><span class="pre">case5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_H2O</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_humid_models.case5" title="Link to this definition"></a></dt>
+<dd><p>Same as case 1 but here the hydrogen partial pressure is deduced by assuming a fixed volume of gas, that is the pores of LSCF.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T_range</strong> (<em>numpy array</em>) – Temperature window in Kelvins</p></li>
+<li><p><strong>x0</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in moles per unit LSCF volume. Defaults to 0.4, the standard LSCF composition</p></li>
+<li><p><strong>x_H2O</strong> (<em>float</em><em>, </em><em>optional</em>) – Water vapour molar fraction. Defaults to 0.08, value used experimentally in Sassone et al.</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressure. Defaults to ambient gas total pressure of 1 atm/bar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple containing 2 numpy arrays: Sr vacancies in moles per unit LSCF volume, delta_G in J/mol as a function of temperature.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of length 2</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.SrO_humid_models.ph2_sensitivity_case1">
+<span class="sig-prename descclassname"><span class="pre">lib.SrO_humid_models.</span></span><span class="sig-name descname"><span class="pre">ph2_sensitivity_case1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_H2_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_H2O</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.SrO_humid_models.ph2_sensitivity_case1" title="Link to this definition"></a></dt>
+<dd><p>Sensitivity analysis to see the effect of hydrogen partial pressure in case 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_H2_range</strong> (<em>numpy array</em>) – Hydrogen gas molar fraction array.</p></li>
+<li><p><strong>T</strong> (<em>float</em><em>, </em><em>optional</em>) – Temperature in Kelvin. Defaults to 1000K.</p></li>
+<li><p><strong>x0</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial amounts of Sr in mol per unit LSCF volume. Defaults to standard LSCF composition of 0.4.</p></li>
+<li><p><strong>x_H2O</strong> (<em>float</em><em>, </em><em>optional</em>) – Water vapour molar fraction. Defaults to 0.08, value used experimentally by Sassone et al.</p></li>
+<li><p><strong>P</strong> (<em>float</em><em>, </em><em>optional</em>) – Total pressures. Defaults to 1 atm/Bar as in ambient gas total pressure.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns Sr vacancies in moles per unit LSCF volume</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="lib.SrO_dry_air_models.html" class="btn btn-neutral float-left" title="lib.SrO_dry_air_models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lib.SrO_hydroxylated_models.html" class="btn btn-neutral float-right" title="lib.SrO_hydroxylated_models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Karthikeyan SARAVANABAVAN.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

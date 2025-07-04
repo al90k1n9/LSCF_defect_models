@@ -1,3 +1,6 @@
+The main plotting files are in root directory with appropriate names.
+The different defect models are in library folders with the suffix models in it.
+
 ## Defect models for LSCF decomposition
 Thermodynamic defect models to extrapolate amount of SrO formed at operating conditions, from SrO formation energies calculated at T=0K by DFT.
 

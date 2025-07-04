@@ -29,5 +29,6 @@ exclude_patterns = []
 
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
-html_baseurl = 'https://github.com/al90k1n9/LSCF_defect_models.git'
+html_baseurl = 'https://al90k1n9.github.io/LSCF_defect_models/'
+html_relative_permalinks = True
 

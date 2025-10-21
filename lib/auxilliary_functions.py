@@ -51,6 +51,7 @@ def delta_oxygen_interpolater(plot=1, pO2 = 0.21):
     
     popt, pcov = cf(linear_function, data873[:,0], data873[:,1], p0=[0,0])
     popt2, pcov2 = cf(linear_function, data973[:,0], data973[:,1], p0=[0,0])
+    print(popt2, " coeq(po2) linear interpolation parameters for T=700°C")
     popt3, pcov3 = cf(linear_function, data1073[:,0], data1073[:,1], p0=[0,0])
     popt4, pcov4 = cf(linear_function, data1173[:,0], data1173[:,1], p0=[0,0])
 
@@ -103,15 +104,16 @@ def delta_oxygen_interpolater(plot=1, pO2 = 0.21):
         ax2.plot(artTlist, linear_function(artTlist, interpolated_param[0], interpolated_param[1]), label="pO2 = " + str(pO2) + " Bouwmeester")
         ax2.plot(artTlist, linear_function(artTlist, federico_delta_param[0], federico_delta_param[1]),  label="pO2 = " + str(pO2) + " Monaco electrode")
         ax2.axvline(x=973, ls="dotted", color="black")
-        ax2.axhline(y=0.0227, ls="dotted", color = "black")
+        ax2.axhline(y=0.02227, ls="dotted", color = "black", label="Effori ref $\\delta$")
         
         ax2.set_xlim(artTlist[0], artTlist[-1])
-        ax2.legend()
+        ax2.legend(facecolor="none")
         ax2.set_xlabel("T [K]")
         ax2.set_ylabel("$\\delta$")
         ax2.xaxis.set_minor_locator(AutoMinorLocator())
         ax2.yaxis.set_minor_locator(AutoMinorLocator())
-
+        
+        fig2.savefig(local_path + "../figs/oxygen_understoichiometry.svg", format="svg", dpi=300, transparent=True)
 
         plt.show()
     return federico_delta_param

@@ -65,7 +65,7 @@ def comp_ads(T, x_H2O, x_O2, E_ads_H2O, E_ads_O2, P):
     theta_H2O = 1/(1+1/exp_term_H2O + exp_term_O2/exp_term_H2O)
     return (theta_O2, theta_H2O, chemical_potential_O2, chemical_potential_H2O)
 
-T_range = np.arange(400, 1301, 0.1)
+T_range = np.arange(400, 1301, 1)
 
 
 inversion_temp_list=[]
@@ -82,11 +82,25 @@ energy_ax.axhline(y=0, color="black", linestyle="dashed")
 
 
 fig,ax = plt.subplots(layout="constrained")
-for x_H2O in [0.007, 0.08, 0.2, 0.5]:
-	theta_list_def_model, chemical_potential = surface_coverage_H2O(T_range, x_H2O, E_ads, P=1)
-	Delta_G = E_ads - chem_pot_H2O(T_range,E_DFT_H2O = 0, P=x_H2O) - zpe_H2O
-	#energy_axes = ax.twinx()
-	ax.plot(T_range, theta_list_def_model, label="$x_{H_2O}=$"+str(x_H2O))
+ax.axvspan(973, 1073, color=(0.9, 0.9, 0.9), label="op. temp.")
+x_H2O_range = [7e-3, 0.08, 0.2, 0.5]
+for index in range(0, len(x_H2O_range)):
+    x_H2O = x_H2O_range[index]
+    theta_list_def_model, chemical_potential = surface_coverage_H2O(T_range, x_H2O, E_ads, P=1)
+    Delta_G = E_ads - chem_pot_H2O(T_range,E_DFT_H2O = 0, P=x_H2O) - zpe_H2O
+    ax.plot(T_range, theta_list_def_model*100, label="$x_{H_2O}=$"+str(x_H2O), color = default_colors[index])
+    if x_H2O == 7e-3:
+        T_index = np.where(T_range==923)[0][0]
+        ax.plot(T_range[T_index], theta_list_def_model[T_index]*100, marker="^", ls="",  markerfacecolor=default_colors[index], markersize=10)
+        print(theta_list_def_model[T_index])
+    if x_H2O == 0.08:
+        T_index = np.where(T_range==1000)[0][0]
+        ax.plot(T_range[T_index], theta_list_def_model[T_index]*100, marker="s", ls="",  markerfacecolor=default_colors[index], markersize=8)
+        print(theta_list_def_model[T_index])
+
+
+ax.axvline(x=1000, color="black", ls="dotted")
+ax.axvline(x=923, color="black", ls="dotted")
 
 
 x_H2O_range = np.linspace(0.01, 0.99, 200)
@@ -105,10 +119,10 @@ for x_H2O in x_H2O_range:
 #    ax.plot(T_range, theta_list_def_model, label="$x_{H_2O} = $" + str(x_H2O))
 
 ax.set_xlim(T_range[0], T_range[-1])
-ax.set_ylim(0,1.01)
+ax.set_ylim(0,101)
 
-ax.set_xlabel("T [K]")
-ax.set_ylabel("$\\theta_{H_2O}$")
+ax.set_xlabel("T [K]", fontsize=14)
+ax.set_ylabel("$\\theta_{H_2O}$ in %", fontsize = 14)
 
 ax.xaxis.set_minor_locator(AutoMinorLocator())
 ax.yaxis.set_minor_locator(AutoMinorLocator())
@@ -136,7 +150,7 @@ ax2.plot(inversion_temp_list, inversion_temp_list, linestyle="dashed", color="bl
 
 ax2.legend(facecolor="none")
 
-ax2.set_xlabel("Inversion temperature [K]")
+ax2.set_xlabel("T$_s$ [K]")
 ax2.set_ylabel("Half coverage temperature [K]")
 
 ax2.xaxis.set_minor_locator(AutoMinorLocator())
@@ -147,7 +161,7 @@ fig3, ax3 = plt.subplots(layout="constrained")
 ax3.plot(x_H2O_range, inversion_temp_list, color="black")
 
 ax3.set_xlabel("$x_{H_2O}$")
-ax3.set_ylabel("Inversion temperature [K]")
+ax3.set_ylabel("T$_s$ [K]")
 
 ax3.set_xlim(0.01, 0.1)
 ax3.set_ylim(1075, 1165)
@@ -240,7 +254,7 @@ item = 1
 #	item += 1
 #	plt.close()
 #fig0.savefig(local_path + "figs/surface_coverage.png", dpi=300, transparent=True, format="png")
-fig.savefig(local_path + "figs/surface_coverage_xH2O.svg", dpi=300, transparent=True, format="svg")
+fig.savefig(local_path + "figs/surface_coverage_xH2O.png", dpi=300, transparent=True, format="png")
 #fig2.savefig(local_path + "figs/inversion_temp_half_coverage_temp.png", dpi=300, transparent=True, format="png")
 fig3.savefig(local_path + "figs/inverstion_temp_xH2O.svg", dpi=300, transparent=True, format="svg")
 #fig4.savefig(local_path + "figs/comp_adsorption.png", format="png", dpi=300, transparent=True)

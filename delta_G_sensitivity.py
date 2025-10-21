@@ -20,6 +20,7 @@ fig, ax = plt.subplots(layout="constrained")
 fig2, ax2 = plt.subplots(layout="constrained")
 fig3, ax3 = plt.subplots(layout="constrained")
 fig4, ax4 = plt.subplots(layout="constrained")
+#ax4inset = ax4.inset_axes([0.45,0.175,0.5,0.5], facecolor="none")
 fig5, ax5 = plt.subplots(layout="constrained")
 
 
@@ -57,7 +58,7 @@ V_Sr, delta_G_range, ph2_list= humid_standard([1000])
 humid_standard_case = [V_Sr[0]]
 
 shift_step = 0.01
-shift_range = -np.arange(shift_step, 2,shift_step)
+shift_range = -np.arange(shift_step, 1, shift_step)
 for shift in shift_range:
     shift_value = shift *ev2J_p_mol
 
@@ -74,10 +75,18 @@ for shift in shift_range:
     humid_standard_case.append(V_Sr[0])
 
 shift_range = np.insert(shift_range, 0, 0)
-ax4.plot(shift_range, dry_case, label="C4")
-ax4.plot(shift_range, humid_standard_case, label="R3.1")
-ax4.plot(shift_range, hydrox_case, label="R3.2")
-ax4.plot(shift_range, humid_case, label="R3.3")
+
+ax4.plot(shift_range, dry_case, label="Dry-air C4")
+#ax4.plot(shift_range, humid_standard_case, label="Humid R3.1")
+ax4.plot(shift_range, hydrox_case, label="Humid R3.2")
+ax4.plot(shift_range, humid_case, label="Humid R3.3")
+
+
+#ax4inset.plot(shift_range, dry_case, label="Dry-air C4")
+#ax4inset.plot(shift_range, humid_standard_case, label="Humid R3.1")
+#ax4inset.plot(shift_range, hydrox_case, label="Humid R3.2")
+#ax4inset.plot(shift_range, humid_case, label="Humid R3.3")
+
 
 
 

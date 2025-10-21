@@ -21,19 +21,50 @@ T_upper_bound = 1100
 T_range = np.arange(T_lower_bound, T_upper_bound)
 
 
+fig, ax = plt.subplots(layout="constrained")
+
+fig2, ax2 = plt.subplots(layout="constrained")
+
+fig3, ax3 = plt.subplots(layout="constrained")
+
+fig4, ax4 = plt.subplots(layout="constrained") #for sensitivity analysis
+
+fig5, ax5 = plt.subplots(layout="constrained") #for sensitivity analysis
 
 delta_oxygen_parameters = delta_oxygen_interpolater(plot=0)
 V_Sr, delta_G, delta_oxygen_list, Ni_H2O_list = case1(T_range, delta_oxygen_parameters=delta_oxygen_parameters)
 
-fig, ax = plt.subplots(layout="constrained")
+
 
 ax.plot(T_range, V_Sr)
+ax5.plot(T_range, V_Sr, label="x=0.4")
+ax2.plot(T_range, delta_G/ev2J_p_mol)
+ax3.plot(T_range, Ni_H2O_list)
+
+
+Ni_H2O, solutions, x_H2O_list = Ni_H2O_sensitivity()
+ax4.plot(x_H2O_list, solutions)
+
+
+V_Sr, delta_G, delta_oxygen_list, Ni_H2O_list = case1(T_range, x=0.6, delta_oxygen_parameters=delta_oxygen_parameters)
+ax5.plot(T_range, V_Sr, label="x=0.6")
+V_Sr, delta_G, delta_oxygen_list, Ni_H2O_list = case1(T_range, x=0.8, delta_oxygen_parameters=delta_oxygen_parameters)
+ax5.plot(T_range, V_Sr, label="x=0.8")
+#==========end_plot====================================
+
 
 ax.set_xlabel("T [K]")
 ax.set_ylabel("$[V_{La}\'\'\']_{eq} = x_{eq}$")
 ax.set_xlim(T_range[0], T_range[-1])
 ax.xaxis.set_minor_locator(AutoMinorLocator())
 ax.yaxis.set_minor_locator(AutoMinorLocator())
+
+ax5.set_xlabel("T [K]")
+ax5.set_ylabel("$[V_{La}\'\'\']_{eq} = x_{eq}$")
+ax5.set_xlim(T_range[0], T_range[-1])
+ax5.xaxis.set_minor_locator(AutoMinorLocator())
+ax5.yaxis.set_minor_locator(AutoMinorLocator())
+ax5.legend(facecolor="none", loc="upper left")
 
 def yaxconvert(x):
     return x * 100/0.4
@@ -46,9 +77,6 @@ secyax.set_ylabel("% of initial Sr content $\\frac{100 \cdot x_{eq}}{x_0}$")
 secyax.yaxis.set_minor_locator(AutoMinorLocator())
 
 
-fig2, ax2 = plt.subplots(layout="constrained")
-ax2.plot(T_range, delta_G/ev2J_p_mol)
-
 ax2.set_xlabel("T [K]")
 ax2.set_ylabel("$\Delta_r$G$^*(T,p)$ [eV]")
 
@@ -57,8 +85,7 @@ ax2.set_xlim(T_range[0], T_range[-1])
 ax2.xaxis.set_minor_locator(AutoMinorLocator())
 ax2.yaxis.set_minor_locator(AutoMinorLocator())
 
-fig3, ax3 = plt.subplots(layout="constrained")
-ax3.plot(T_range, Ni_H2O_list)
+
 
 ax3.set_xlabel("T [K]")
 ax3.set_ylabel("initial # H_2O molecules/LSCF unit cell")
@@ -67,9 +94,7 @@ ax3.xaxis.set_minor_locator(AutoMinorLocator())
 ax3.yaxis.set_minor_locator(AutoMinorLocator())
 
 
-fig4, ax4 = plt.subplots(layout="constrained") #for sensitivity analysis
-Ni_H2O, solutions, x_H2O_list = Ni_H2O_sensitivity()
-ax4.plot(x_H2O_list, solutions)
+
 
 ax4.set_xlabel("$x_{H_2O}$")
 ax4.set_ylabel("$[V_{La}\'\'\']_{eq} = x_{eq}$")

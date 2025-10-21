@@ -20,13 +20,30 @@ fig,ax = plt.subplots(layout='constrained')
 axinset = ax.inset_axes([0.45,0.1,0.5,0.5], facecolor="none")
 fig2, ax2 = plt.subplots(layout="constrained")
 
+fig3, ax3 = plt.subplots(layout = "constrained")
+
+fig4, ax4 = plt.subplots(layout="constrained")
+
+fig5, ax5 = plt.subplots(layout="constrained")
+
+fig6, ax6 = plt.subplots(layout="constrained")
+ax6.axvspan(973, 1073, color=(0.9, 0.9, 0.9), label="op. temp.")
+
+fig7, ax7 = plt.subplots(layout="constrained")
 
 V_Sr, delta_G_range, pH2 = case1(T_range, x0, x_O2, x_H2O, P=1)
 #keep in mind that the pH2 is determined inside the case1 function by pO2 and pH2O by considering the equilibrium between these three gases.
 ax.plot(T_range, V_Sr, label="H$_{2(g)}$")
+ax6.plot(T_range, V_Sr/0.4*100, label="H$_{2(g)}$")
+ax7.plot(T_range, V_Sr, label="x=0.4")
 axinset.plot(T_range, V_Sr, label="H$_{2(g)}$")
 #axinset.plot(T_range, V_Sr, label="H$_{2(g)}$")
 ax2.plot(T_range, np.asarray(delta_G_range)/ev2J_p_mol, label="H$_{2(g)}$")
+
+V_Sr, delta_G_range, pH2 = case1(T_range, 0.6, x_O2, x_H2O, P=1)
+ax7.plot(T_range, V_Sr, label="x=0.6")
+V_Sr, delta_G_range, pH2 = case1(T_range, 0.8, x_O2, x_H2O, P=1)
+ax7.plot(T_range, V_Sr, label="x=0.8")
 
 V_Sr, delta_G_range = case2(T_range, x0, x_H2O, P=1)
 ax.plot(T_range, V_Sr, label="(2H)$_{La}^{'}$")
@@ -44,7 +61,7 @@ ax2.plot(T_range, np.asarray(delta_G_range)/ev2J_p_mol, label="(2H)$_{La}^{'}$")
 
 V_Sr, delta_G = case5(T_range)
 
-fig3, ax3 = plt.subplots(layout = "constrained")
+
 
 
 def func_case5(x, T, delta_G, volume_fraction_gas = 0.5):
@@ -65,6 +82,7 @@ ax3.axhline(y=0, color="black", ls="dashed")
 
 #===================================================
 #PLOTTING OPTIONS
+
 ax.set_xlabel("T[K]")
 ax.set_ylabel("$x_{eq} = [V\'\'\'_{La}$]")
 ax.set_xlim(left=T_lower_bound,right=T_upper_bound+1)
@@ -73,6 +91,23 @@ ax.legend(loc="upper right", facecolor="none")
 ax.xaxis.set_minor_locator(AutoMinorLocator())
 ax.yaxis.set_minor_locator(AutoMinorLocator())
 
+ax7.set_xlabel("T[K]")
+ax7.set_ylabel("$x_{eq} = [V\'\'\'_{La}$]")
+ax7.set_xlim(left=T_lower_bound,right=T_upper_bound+1)
+ax7.set_ylim(0,)
+ax7.legend(loc="upper right", facecolor="none")
+ax7.xaxis.set_minor_locator(AutoMinorLocator())
+ax7.yaxis.set_minor_locator(AutoMinorLocator())
+
+
+
+ax6.set_xlabel("T[K]", fontsize=14)
+ax6.set_ylabel("Sr release in %", fontsize = 14)
+ax6.set_title("p$_{H_2O}$=0.08 atm")
+ax6.set_xlim(left=T_lower_bound,right=T_upper_bound+1)
+ax6.set_ylim(0,)
+ax6.xaxis.set_minor_locator(AutoMinorLocator())
+ax6.yaxis.set_minor_locator(AutoMinorLocator())
 
 axinset.xaxis.set_minor_locator(AutoMinorLocator())
 axinset.yaxis.set_minor_locator(AutoMinorLocator())
@@ -116,10 +151,11 @@ secyax.set_ylabel("% of initial Sr content $\\frac{100 \cdot x_{eq}}{x_0}$")
 secyax.yaxis.set_minor_locator(AutoMinorLocator())
 
 fig.savefig(local_path + "figs/humid_conditions_VSr.svg", format="svg", dpi=300, transparent=True)
+fig6.savefig(local_path + "figs/humid_conditions_VSr_presentation.png", format="png", dpi=300, transparent=True)
 fig2.savefig(local_path + "figs/humid_conditions_delta_G.svg", format="svg", dpi=300, transparent=True)
 
 
-fig4, ax4 = plt.subplots(layout="constrained")
+
 #ax4.plot(T_range, pH2)
 
 ax4.set_xlabel("T [K]")
@@ -134,7 +170,7 @@ ax4.set_xlim(T_lower_bound, T_upper_bound+1)
 
 x_H2_range = np.logspace(-30, -8, 300)
 V_Sr = ph2_sensitivity_case1(x_H2_range)
-fig5, ax5 = plt.subplots(layout="constrained")
+
 ax5.plot(x_H2_range, V_Sr)
 ax5.set_xlabel("x$_{H_2}$")
 ax5.set_ylabel("$x_{eq} = [V_{La}''']_{eq}$")

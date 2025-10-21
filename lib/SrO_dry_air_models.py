@@ -45,7 +45,7 @@ def case1(T_range, x=0.4, x_O2 = 0.21, P=1, sensitivity_shift = 0):
         #SHOULD BE VERIFIED EVERY TIME THE REACTION MECHANISM IS CHANGED
         N = K * np.sqrt(p_O2/P)
         a = 4+4*N
-        b= 4*(x-1*N)
+        b= 4*(x+1*N)
         c= x**2 + (1-x)*N * (1+3*x)
         d = -N * x * (1-x)**2
         solution= cubic_model(a,b,c,d)
@@ -96,7 +96,7 @@ def case2(T_range, x=0.4, x_O2 = 0.21, P=1, sensitivity_shift = 0):
         #SHOULD BE VERIFIED EVERY TIME THE REACTION MECHANISM IS CHANGED
         N = K * np.sqrt(p_O2/P)
         a = 4+4*N
-        b= 4*(x-1*N)
+        b= 4*(x+1*N)
         c= x**2 + (1-x)*N * (1+3*x)
         d = -N * x * (1-x)**2
         solution= cubic_model(a,b,c,d)

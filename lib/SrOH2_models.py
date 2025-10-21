@@ -25,7 +25,7 @@ def case1(T_range, x=0.4,  p_O2 = 0.21, p_H2O = 0.08, P=1):
         N = K * (p_H2O/P)**2 * (P/p_H2)
 
         a = 4+4*N
-        b= 4*(x-1*N)
+        b= 4*(x+1*N)
         c= x**2 + (1-x)*N * (1+3*x)
         d = -N * x * (1-x)**2
         solution= cubic_model(a,b,c,d)
@@ -49,7 +49,7 @@ def case2(T_range, x=0.4, p_O2 = 0.21, p_H2O = 0.08, P=1):
         N = K * p_H2O/P * np.sqrt(p_O2/P)
 
         a = 4+4*N
-        b= 4*(x-1*N)
+        b= 4*(x+1*N)
         c= x**2 + (1-x)*N * (1+3*x)
         d = -N * x * (1-x)**2
         solution= cubic_model(a,b,c,d)

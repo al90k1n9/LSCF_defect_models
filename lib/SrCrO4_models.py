@@ -13,7 +13,7 @@ def case1(T_range, x0=0.4, x_O2=0.21, x_CrO3 = 1e-3, P=1):
 		N = x_CrO3 * np.sqrt(x_O2)  * np.exp(-delta_G/(R*T))
 
 		a = -4*N-4
-		b = 4*N - 4*x0
+		b = 4*N + 4*x0
 		c = - (N * (1-x0)**2 + 4*x0* (1-x0)* N + x0**2) 
 		d = N*x0*(1-x0)**2
 		solution = cubic_model(a,b,c,d)
@@ -53,7 +53,7 @@ def case3(T_range, x0= 0.4, x_chr_hyd = 1e-3, x_O2 = 0.21, x_H2O = 0.08, P=1):
         delta_G_list.append(delta_G)
         N = x_chr_hyd / (p_H2/P) * np.exp(-delta_G/(R*T))
         a = -4*N-4
-        b = 4*N - 4*x0
+        b = 4*N + 4*x0
         c = - (N * (1-x0)**2 + 4*x0* (1-x0)* N + x0**2) 
         d = N*x0*(1-x0)**2
         solution = cubic_model(a,b,c,d)

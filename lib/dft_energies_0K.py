@@ -39,12 +39,14 @@ E_DFT_O2 = E_DFT_O2 * ev2J_p_mol #J/mol
 E_DFT_H2O = -4.71505500161390E+02 #eV
 E_DFT_H2O *= ev2J_p_mol #J/mol
 
+E_DFT_CO2 = -1.03501564519724E+03 #eV
+E_DFT_CO2 *= ev2J_p_mol #J/mol
+
 E_DFT_SrCrO4 = -1.99412155436326E+04/4
 E_DFT_SrCrO4 *= ev2J_p_mol
 
 E_DFT_CrO3 = -3.69256819208978E+03
 E_DFT_CrO3 *= ev2J_p_mol
-
 
 E_DFT_CrO2OH2 = -4.16229857029462E+03
 E_DFT_CrO2OH2 *= ev2J_p_mol
@@ -53,6 +55,8 @@ E_DFT_H2 = -3.17817399567036E+01  #in ev without zero point energy corrention at
 E_DFT_H2 = E_DFT_H2 * ev2J_p_mol #in J/mol
 
 E_SrOH2_bulk = -7.04103776E+03 * ev2J_p_mol/4 #the system has four molecules and therefore the factor 1/4
+
+E_LSCF_slab_O_vac_sub_surf = -9.45261275811574E+04 * ev2J_p_mol #J/mol 2 vacancies symmetrically placed
 
 E_LSCF_slab_Sr_vac_surf = -9.37015381643914E+04 #in eV
 E_LSCF_slab_Sr_vac_surf = E_LSCF_slab_Sr_vac_surf * ev2J_p_mol #in J/mol
@@ -81,6 +85,8 @@ adhesion_work = (E_LSCF_slab + 20 * E_SrO_epitax + 2* gamma_SrO_epitax * acell_L
 
 E_int = (acell_LSCF_slab/2)**2/2 * (2*gamma_SrO_epitax - adhesion_work) #J/mol
 E_int_expanded_substrate = (acell_LSCF_slab/2)**2/2 * (2*gamma_SrO_expanded_substrate - adhesion_work) #J/mol
+
+print("E_int ", E_int/ev2J_p_mol)
 
 
 E_LSCF_slab_Sr_vac_bulk = -94551.83065 #eV
@@ -134,12 +140,19 @@ zpe_O2 = 0.098 * ev2J_p_mol
 zpe_CrO3 = 0.25 * ev2J_p_mol
 
 E_ads = (E_LSCF_hydroxilated - (E_LSCF_slab + 2* E_DFT_H2O))/2  #J/mol
+print("adsorption energy ", E_ads/ev2J_p_mol)
 
 double_hydrogenation_energy = (E_LSCF_double_hydrogenated - (E_LSCF_slab_Sr_vac_surf + 2 * E_DFT_H2))/2
 
 single_hydrogenation_energy = (E_LSCF_single_hydrogenated-(E_LSCF_slab_Sr_vac_surf + E_DFT_H2))/2
 
 second_hydrogenation_energy = (E_LSCF_double_hydrogenated - (E_LSCF_single_hydrogenated + E_DFT_H2))/2
+
+energetics_w_understoichiometry =(E_LSCF_slab_Sr_surf_O_sub_surf +2*E_SrO_epitax -(E_LSCF_slab_O_vac_sub_surf + E_DFT_O2))/2 
+energetics_wo_understoichiometry = (E_LSCF_slab_Sr_vac_surf +2*E_SrO_epitax -(E_LSCF_slab + E_DFT_O2))/2
+print("intial oxygen vacancy: ", energetics_w_understoichiometry/ev2J_p_mol)
+print("without initial oxygen vacancy", energetics_wo_understoichiometry/ev2J_p_mol)
+print("difference in energetics w and wo understoichiometry ", (energetics_w_understoichiometry - energetics_wo_understoichiometry)/ev2J_p_mol)
 
 
 if __name__ == "__main__":
